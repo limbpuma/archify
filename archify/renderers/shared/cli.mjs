@@ -75,6 +75,7 @@ const SEMANTIC_COLLECTIONS = {
   sequence: 'participants',
   dataflow: 'nodes',
   lifecycle: 'states',
+  flowchart: 'nodes',
 };
 
 const RELATIONSHIP_COLLECTIONS = {
@@ -83,6 +84,7 @@ const RELATIONSHIP_COLLECTIONS = {
   sequence: 'messages',
   dataflow: 'flows',
   lifecycle: 'transitions',
+  flowchart: 'edges',
 };
 
 // Relationship IDs are optional for backwards compatibility, but once an
