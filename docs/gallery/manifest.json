@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "generator": "scripts/build-gallery.mjs",
   "archifyVersion": "2.17.0-dev.1",
-  "entryCount": 13,
-  "checkCount": 117,
+  "entryCount": 15,
+  "checkCount": 135,
   "entries": [
     {
       "id": "agent-tool-call",
@@ -1231,6 +1231,206 @@
       "artifactSha256": "3b99b52aa2b2819492b1fe3ec334db2c804440bd8736cbb202da8a97c599fd39",
       "sourceBytes": 5586,
       "sourceSha256": "82e5673fa65a990d2d949a644ed07c01bc237fa3d608463e0041eff9fa6e6bd6",
+      "checks": [
+        {
+          "name": "single_svg",
+          "ok": true
+        },
+        {
+          "name": "finite_svg",
+          "ok": true
+        },
+        {
+          "name": "orthogonal_arrows",
+          "ok": true
+        },
+        {
+          "name": "label_route_clearance",
+          "ok": true
+        },
+        {
+          "name": "relationship_crossings",
+          "ok": true
+        },
+        {
+          "name": "relationship_corridors",
+          "ok": true
+        },
+        {
+          "name": "container_border_runs",
+          "ok": true
+        },
+        {
+          "name": "route_rhythm",
+          "ok": true
+        },
+        {
+          "name": "legend_clearance",
+          "ok": true
+        }
+      ],
+      "composition": {
+        "schemaVersion": 1,
+        "profile": "showcase",
+        "status": "pass",
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "metrics": {
+          "properCrossings": 0,
+          "ambiguousCorridors": 0,
+          "containerBorderRuns": 0,
+          "labelRouteClearanceIssues": 0,
+          "minLabelRouteClearance": null,
+          "desktopReadabilityIssues": 0,
+          "minProjectedNodeTextPx": null,
+          "maxBends": 0,
+          "routesOverSuggestedBends": 0,
+          "maxStretch": null,
+          "routesOverSuggestedStretch": 0,
+          "minSegmentPx": null,
+          "minInteriorSegmentPx": null,
+          "shortSegmentCount": 0,
+          "shortEndpointSegmentCount": 0,
+          "shortInteriorSegmentCount": 0,
+          "microSegmentCount": 0
+        },
+        "suggestedLimits": {
+          "bendsPerRelationship": 2,
+          "stretch": 1.35,
+          "segmentPx": 16,
+          "microSegmentPx": 8
+        },
+        "issues": []
+      }
+    },
+    {
+      "id": "order-chen",
+      "type": "erd",
+      "title": "Phone Order ER Model (Chen)",
+      "subtitle": "Entity-relationship model of the ordering domain in Chen notation with (min,max) cardinalities",
+      "input": "gallery/sources/order-chen.erd.json",
+      "artifact": "gallery/artifacts/erd-order-chen.html",
+      "focus": "customer",
+      "view": "customers",
+      "viewCount": 3,
+      "viewIds": [
+        "customers",
+        "lines",
+        "attributes"
+      ],
+      "guidedPlayback": true,
+      "schemaVersion": 1,
+      "visualPreset": "classic",
+      "animation": "trace",
+      "engineeringProfile": null,
+      "nodeCount": 19,
+      "edgeCount": 18,
+      "artifactBytes": 812527,
+      "artifactSha256": "b1517d7d3e89405edfabe602f70e0d8c8f25c3871fc92029d653f95f84221c41",
+      "sourceBytes": 5890,
+      "sourceSha256": "0bd6dcd2e9f0c1fafa3a52c2c9550852a006d9b2fc30807b25024b422c5f23ee",
+      "checks": [
+        {
+          "name": "single_svg",
+          "ok": true
+        },
+        {
+          "name": "finite_svg",
+          "ok": true
+        },
+        {
+          "name": "orthogonal_arrows",
+          "ok": true
+        },
+        {
+          "name": "label_route_clearance",
+          "ok": true
+        },
+        {
+          "name": "relationship_crossings",
+          "ok": true
+        },
+        {
+          "name": "relationship_corridors",
+          "ok": true
+        },
+        {
+          "name": "container_border_runs",
+          "ok": true
+        },
+        {
+          "name": "route_rhythm",
+          "ok": true
+        },
+        {
+          "name": "legend_clearance",
+          "ok": true
+        }
+      ],
+      "composition": {
+        "schemaVersion": 1,
+        "profile": "showcase",
+        "status": "pass",
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "metrics": {
+          "properCrossings": 0,
+          "ambiguousCorridors": 0,
+          "containerBorderRuns": 0,
+          "labelRouteClearanceIssues": 0,
+          "minLabelRouteClearance": null,
+          "desktopReadabilityIssues": 0,
+          "minProjectedNodeTextPx": null,
+          "maxBends": 0,
+          "routesOverSuggestedBends": 0,
+          "maxStretch": null,
+          "routesOverSuggestedStretch": 0,
+          "minSegmentPx": null,
+          "minInteriorSegmentPx": null,
+          "shortSegmentCount": 0,
+          "shortEndpointSegmentCount": 0,
+          "shortInteriorSegmentCount": 0,
+          "microSegmentCount": 0
+        },
+        "suggestedLimits": {
+          "bendsPerRelationship": 2,
+          "stretch": 1.35,
+          "segmentPx": 16,
+          "microSegmentPx": 8
+        },
+        "issues": []
+      }
+    },
+    {
+      "id": "order-crowsfoot",
+      "type": "erd",
+      "title": "Phone Order Data Model (Crow's Foot)",
+      "subtitle": "Relational data model of the ordering domain in IE crow's-foot notation",
+      "input": "gallery/sources/order-crowsfoot.erd.json",
+      "artifact": "gallery/artifacts/erd-order-crowsfoot.html",
+      "focus": "customer",
+      "view": "orders",
+      "viewCount": 3,
+      "viewIds": [
+        "orders",
+        "catalog",
+        "keys"
+      ],
+      "guidedPlayback": true,
+      "schemaVersion": 1,
+      "visualPreset": "classic",
+      "animation": "trace",
+      "engineeringProfile": null,
+      "nodeCount": 5,
+      "edgeCount": 4,
+      "artifactBytes": 803397,
+      "artifactSha256": "17e8c703efe1100f3563cf1305d6d5c08bdc5bafa156268c4f34da5c0ebd26fb",
+      "sourceBytes": 4602,
+      "sourceSha256": "20446312da521161501db56ee88c4faaa3aca4c1cf91a49432ec771705cdfd15",
       "checks": [
         {
           "name": "single_svg",

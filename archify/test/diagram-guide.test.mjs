@@ -18,6 +18,7 @@ const CASES = {
   lifecycle: 'agent-run.lifecycle.json',
   flowchart: 'order-call.flowchart.json',
   struktogramm: 'order-call.struktogramm.json',
+  erd: 'order-chen.erd.json',
 };
 
 function render(mode, example) {

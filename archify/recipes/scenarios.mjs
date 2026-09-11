@@ -300,6 +300,58 @@ const RAW_RECIPES = [
       prompt: '用 Archify 结构图模式把这段算法画成 Nassi-Shneiderman 图。使用 statement、io、call、if、case、while、until、for、exit 搭建嵌套块树，为需要不同宽度的分支设置 split 与 weight，让渲染器负责盒子计算。保留一条明显的主路径，给每个循环清晰的退出条件，并在 10px 字号下保证文本能放下。未知值要标明，不要编造。',
     },
   },
+  {
+    id: 'er-model', type: 'erd', proof: 'order-chen',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify ER diagram (erd) mode to describe this data model in Chen or IE crow\'s-foot notation: [list the entities, attributes (keys, derived, multivalued), relationships, and cardinalities]. In Chen, use entity rectangles, relationship diamonds, attribute ellipses, and (min,max) cardinalities; in IE crow\'s foot, use entity boxes with attribute lists and cardinality glyphs on both ends. Keep one obvious primary path, use "key: true" for primary keys, and use "identifying: false" only when the relationship is non-identifying. Mark unknown values rather than inventing them.' },
+      zh: { descriptionPrompt: '用 Archify 实体关系图模式（erd）把这段数据模型画成 Chen 或 IE Krähenfuß 记法：[列出实体、属性（主键、派生、多值）、联系和基数]。Chen 记法使用实体矩形、联系菱形、属性椭圆和 (min,max) 基数；IE Krähenfuß 记法使用带属性列表的实体框和两端的基数符号。保留一条明显的主路径，主键用 "key: true"，只在非标识联系时使用 "identifying: false"。未知值要标明，不要编造。' },
+    },
+    signals: [['ER diagram', 16], ['ERM', 16], ['entity relationship', 16], ['Chen', 12], ["crow's foot", 12], ['Krähenfuß', 12], ['cardinality', 10], ['(min,max)', 10], ['data model', 8], ['database schema', 8], ['实体关系', 16], ['ER 图', 14], ['联系', 10], ['基数', 10], ['数据模型', 8], ['数据库模式', 8], ['erDiagram', 14]],
+    en: {
+      title: 'ER data model', question: 'Which entities exist, what attributes belong to each, and how do they relate with what cardinalities?',
+      summary: 'An entity-relationship diagram in Chen notation (entities, relationship diamonds, attribute ellipses, (min,max) cardinalities) or IE crow\'s foot (entity boxes with attribute lists and cardinality glyphs on both ends).',
+      useWhen: 'Designing a relational database, modelling IHK Fachinformatiker-style entity-relationship questions, or documenting an existing schema in DACH-standard notation.',
+      avoidWhen: 'The audience needs component ownership, runtime call order, or an algorithm — use architecture, sequence, flowchart, or struktogramm instead.',
+      include: ['entities and their attributes', 'relationship diamonds or lines', '(min,max) or crow\'s-foot cardinalities on every entity–relationship link', 'keys, derived, and multivalued attributes when relevant'],
+      prompt: 'Use Archify erd mode to draw this entity-relationship model. Pick "chen" for Chen notation (rectangles for entities, diamonds for relationships, ellipses for attributes with "key: true" / "derived: true" / "multivalued: true", (min,max) cardinalities at the entity end) or "crowsfoot" for IE crow\'s foot (entity boxes with attribute[] entries carrying "pk" / "fk" / "optional", cardinality glyphs on both line ends, dashed when identifying is false). Place every node on an explicit (col, row) grid, use "key: true" only for primary-key attributes, and keep viewBox[0] ≤ 1380 so the 1440px desktop projection leaves the 9px member text ≥ 6px. If a value is unknown, mark it instead of inventing one.',
+    },
+    zh: {
+      title: 'ER 数据模型', question: '有哪些实体，每个实体有哪些属性，它们如何以何种基数相互联系？',
+      summary: '实体关系图，支持 Chen 记法（实体矩形、联系菱形、属性椭圆、(min,max) 基数）和 IE Krähenfuß 记法（带属性列表的实体框、两端基数符号）。',
+      useWhen: '适合设计关系型数据库、IHK Fachinformatiker 风格的实体关系建模，或用 DACH 标准记法记录现有数据库模式。',
+      avoidWhen: '如果重点是组件归属、运行时调用顺序或算法，请改用架构图、时序图、流程图或结构图。',
+      include: ['实体及其属性', '联系菱形或连线', '每个实体—联系连线上的 (min,max) 或 Krähenfuß 基数', '主键、派生和多值属性（按需）'],
+      prompt: '用 Archify erd 模式绘制这张实体关系图。Chen 记法使用矩形表示实体、菱形表示联系、椭圆表示属性（"key: true" / "derived: true" / "multivalued: true"），并在实体端写 (min,max) 基数；Krähenfuß 记法使用带 attribute[] 的实体框（"pk" / "fk" / "optional"），两端画基数符号，identifying 为 false 时画虚线。所有节点都放在显式的 (col, row) 网格上，主键属性使用 "key: true"，并保持 viewBox[0] ≤ 1380，让 1440px 桌面投影下 9px 的成员文字仍 ≥ 6px。未知值要标明，不要编造。',
+    },
+  },
+  {
+    id: 'crow-foot-model', type: 'erd', proof: 'order-crowsfoot',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify ER diagram (erd) mode in IE crow\'s-foot notation for this relational data model: [list the tables, their columns with PK/FK types, and the relationships with one / zero-one / one-many / zero-many cardinalities]. Use "notation": "crowsfoot", put every column on one entity inside attributes[] with name/type/pk/fk/optional, attach cardinality glyphs to both ends of every line, and set "identifying": false on non-identifying relationships so the line renders dashed. Keep one obvious primary path and mark unknown values rather than inventing them.' },
+      zh: { descriptionPrompt: '用 Archify 实体关系图（erd）IE Krähenfuß 记法绘制以下关系型数据模型：[列出表、它们的列（带 PK/FK 类型）以及关系（带 one / zero-one / one-many / zero-many 基数）]。设置 "notation": "crowsfoot"，把每列放进对应实体的 attributes[] 中（name/type/pk/fk/optional），在连线两端画基数符号，对非标识关系设置 "identifying": false 让连线显示为虚线。保留一条明显的主路径，未知值要标明，不要编造。' },
+    },
+    signals: [["crow's foot", 16], ['crowsfoot', 14], ['IE notation', 12], ['Krähenfuß', 14], ['relational schema', 10], ['cardinality glyph', 10], ['primary key', 8], ['foreign key', 8], ['Krähenfußnotation', 14], ['关系模式', 10], ['主键外键', 8], ['基数符号', 10]],
+    en: {
+      title: 'Crow\'s-foot data model',
+      question: 'Which tables hold which columns, and which foreign keys link them with what cardinality?',
+      summary: 'An IE crow\'s-foot entity-relationship diagram: entity boxes with inline attribute lists (PK / FK / optional), cardinality glyphs on both line ends, dashed lines for non-identifying relationships.',
+      useWhen: 'Modelling or reviewing a relational schema with foreign keys, JOIN paths, identifying vs non-identifying relationships, or row-level lineage.',
+      avoidWhen: 'The model is conceptual and you want attribute ellipses with (min,max) cardinalities — use the Chen ER data model scenario instead.',
+      include: ['tables with attribute[] including PK/FK types', 'one / zero-one / one-many / zero-many cardinalities on both ends', 'identifying relationships (solid) and non-identifying ones (dashed)', 'PK / FK badges that match a real foreign-key relationship'],
+      prompt: 'Use Archify erd mode with "notation": "crowsfoot" to draw this relational data model. Author each entity as a 200 px box with attribute[] entries carrying name / type / pk / fk / optional, attach cardinality glyphs to both line ends ("one", "zero-one", "one-many", "zero-many", "many"), and set "identifying": false on non-identifying relationships so the line renders dashed. Every entity must list at least one primary key, every line must declare both cardinalities, and the rendered line between two boxes must be ≥ 56 px so both glyphs stay readable. Keep viewBox[0] ≤ 1380 so the 1440 px desktop projection keeps the 9 px member text ≥ 6 px. Mark unknown columns or cardinalities instead of inventing them.',
+    },
+    zh: {
+      title: 'Krähenfuß 数据模型',
+      question: '哪些表存放哪些列，哪些外键以何种基数把它们连接起来？',
+      summary: 'IE Krähenfuß 实体关系图：带属性列表（PK / FK / optional）的实体框，两端基数符号，非标识联系画虚线。',
+      useWhen: '适合建模或评审带外键、JOIN路径、标识 / 非标识关系，或字段级血缘的关系型模式。',
+      avoidWhen: '如果模型是概念层并希望属性椭圆配 (min,max) 基数，请改用 Chen ER 数据模型场景。',
+      include: ['带 attribute[] 的表（含 PK/FK 类型）', '两端的 one / zero-one / one-many / zero-many 基数', '标识关系（实线）与非标识关系（虚线）', '与真实外键一致的 PK / FK 标记'],
+      prompt: '用 Archify erd 模式并设置 "notation": "crowsfoot" 绘制这张关系型数据模型。把每个实体写成 200px 的方框，attribute[] 列出 name / type / pk / fk / optional；在连线两端放基数符号（"one"、"zero-one"、"one-many"、"zero-many"、"many"）；对非标识关系设置 "identifying": false，让连线显示为虚线。每个实体必须列出至少一个主键，每条连线必须同时给出两端基数，两个方框之间的线段必须 ≥ 56px，保证两端基数符号都清晰可读。viewBox[0] 保持在 ≤ 1380，让 1440px 桌面投影下 9px 的成员文字仍 ≥ 6px。未知列或基数要标明，不要编造。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

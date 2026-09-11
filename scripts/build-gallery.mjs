@@ -188,6 +188,32 @@ const CASES = [
     descriptionEn: 'A Nassi-Shneiderman diagram (DIN 66261) of the same AI phone agent algorithm: nested boxes, branched if/case, looped until, and explicit exits without arrows.',
     descriptionZh: '同一段 AI 电话代理算法的 Nassi-Shneiderman 结构图（DIN 66261）：嵌套方框、if 与 case 分支、until 循环和显式退出，全程没有箭头。',
   },
+  {
+    id: 'order-chen',
+    type: 'erd',
+    input: 'order-chen.erd.json',
+    output: 'erd-order-chen.html',
+    focus: 'customer',
+    view: 'customers',
+    accent: '#0ea5e9',
+    titleEn: 'Phone Order ER Model (Chen)',
+    titleZh: '电话下单 ER 模型（Chen 记法）',
+    descriptionEn: 'A Chen entity-relationship diagram: rectangles for Customer and Order, diamonds for places/contains/refers-to, attribute ellipses with key / derived / multivalued variants, and (min,max) cardinalities at the entity ends.',
+    descriptionZh: 'Chen 实体关系图：Customer 与 Order 用矩形，places / contains / refers-to 用菱形，属性椭圆标注 key / derived / multivalued，实体端写出 (min,max) 基数。',
+  },
+  {
+    id: 'order-crowsfoot',
+    type: 'erd',
+    input: 'order-crowsfoot.erd.json',
+    output: 'erd-order-crowsfoot.html',
+    focus: 'customer',
+    view: 'orders',
+    accent: '#0284c7',
+    titleEn: 'Phone Order Data Model (Crow\'s Foot)',
+    titleZh: '电话下单数据模型（Krähenfuß 记法）',
+    descriptionEn: 'An IE crow\'s-foot entity-relationship diagram: Customer, Order, OrderLine, Product and Category boxes list their attributes inline with PK / FK badges; lines carry one / zero-many cardinality glyphs and turn dashed when the relationship is non-identifying.',
+    descriptionZh: 'IE Krähenfuß 实体关系图：Customer / Order / OrderLine / Product / Category 用方框列出属性并标注 PK / FK，连线两端带 one / zero-many 基数符号，非标识联系画虚线。',
+  },
 ];
 
 const SHAPES = {
@@ -198,6 +224,7 @@ const SHAPES = {
   lifecycle: ['states', 'transitions'],
   flowchart: ['nodes', 'edges'],
   struktogramm: ['blocks', null],
+  erd: ['nodes', 'relations'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -209,6 +236,7 @@ const TYPE_ACCENTS = {
   lifecycle: '#be123c',
   flowchart: '#0d9488',
   struktogramm: '#0f766e',
+  erd: '#0ea5e9',
 };
 
 function digest(buffer) {
