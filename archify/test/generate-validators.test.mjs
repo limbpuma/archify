@@ -37,6 +37,10 @@ test('validator freshness check accepts CRLF checkouts', () => {
       path.join(skillRoot, 'scripts', 'generate-validators.mjs'),
       path.join(scratch, 'scripts', 'generate-validators.mjs'),
     );
+    fs.copyFileSync(
+      path.join(skillRoot, 'renderers', 'shared', 'validator-names.mjs'),
+      path.join(scratch, 'renderers', 'shared', 'validator-names.mjs'),
+    );
 
     const validator = fs.readFileSync(
       path.join(skillRoot, 'renderers', 'shared', 'generated-validators.mjs'),

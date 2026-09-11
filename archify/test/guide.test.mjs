@@ -8,9 +8,9 @@ import {
   recommendScenario,
 } from '../recipes/scenarios.mjs';
 
-test('guide: exposes 13 unique recipes across every diagram type', () => {
-  assert.equal(SCENARIO_RECIPES.length, 13);
-  assert.equal(new Set(SCENARIO_RECIPES.map((recipe) => recipe.id)).size, 13);
+test('guide: exposes 14 unique recipes across every diagram type', () => {
+  assert.equal(SCENARIO_RECIPES.length, 14);
+  assert.equal(new Set(SCENARIO_RECIPES.map((recipe) => recipe.id)).size, 14);
   assert.deepEqual(
     Object.fromEntries(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm'].map((type) => [
       type,
@@ -71,7 +71,7 @@ test('guide: exact ids win and unknown questions fall back honestly', () => {
 
 test('guide: public data includes both languages and weighted signals', () => {
   const data = publicGuideData();
-  assert.equal(data.length, 13);
+  assert.equal(data.length, 14);
   for (const recipe of data) {
     assert.ok(recipe.en.title);
     assert.ok(recipe.zh.title);

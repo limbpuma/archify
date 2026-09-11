@@ -14,6 +14,7 @@ against one of the schemas in this folder before any layout work happens.
 | `architecture.schema.json` | `diagram_type: "architecture"` | `components`, `boundaries`, `connections` |
 | `flowchart.schema.json` | `diagram_type: "flowchart"` | `groups`, `nodes`, `edges` |
 | `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
+| `uml-class.schema.json` | `diagram_type: "uml-class"` | `groups`, `classes`, `relations` |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -105,6 +106,7 @@ Supported keys are renderer-owned:
 | Lifecycle | `start`, `active`, `waiting`, `decision`, `success`, `failure`, `neutral`, `external` |
 | Flowchart | `terminator`, `process`, `decision`, `io`, `subroutine`, `connector` |
 | Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
+| UML Class | `class`, `abstract`, `interface`, `enum`, `association`, `aggregation`, `composition`, `inheritance`, `realization`, `dependency` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and

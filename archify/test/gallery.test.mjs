@@ -27,15 +27,15 @@ test('generated proof gallery matches its sources, receipts, and checked-in arti
     path.join(repoRoot, 'scripts', 'build-gallery.mjs'),
     generatedRoot,
   ], { encoding: 'utf8' });
-  assert.match(output, /gallery 13 artifacts \/ \d+ checks/);
+  assert.match(output, /gallery 14 artifacts \/ \d+ checks/);
 
   const manifestPath = path.join(generatedRoot, 'gallery', 'manifest.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   assert.equal(manifest.schemaVersion, 1);
   assert.equal(manifest.archifyVersion, JSON.parse(fs.readFileSync(path.join(skillRoot, 'package.json'))).version);
-  assert.equal(manifest.entryCount, 13);
+  assert.equal(manifest.entryCount, 14);
   assert.deepEqual(new Set(manifest.entries.map((entry) => entry.type)), new Set([
-    'architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm',
+    'architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class',
   ]));
   assert.deepEqual(
     Object.fromEntries(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm'].map((type) => [
@@ -82,7 +82,7 @@ test('generated proof gallery matches its sources, receipts, and checked-in arti
   }
 
   const html = fs.readFileSync(path.join(generatedRoot, 'gallery.html'), 'utf8');
-  assert.equal((html.match(/class="showcase-card/g) || []).length, 13);
+  assert.equal((html.match(/class="showcase-card/g) || []).length, 14);
   assert.match(html, /id="gallery-manifest" type="application\/json"/);
   assert.match(html, /data-src-base="gallery\/artifacts\/agent-tool-call\.workflow\.html"/);
   assert.match(html, /agent-tool-call\.workflow\.html\?present=1&amp;play=1#view=happy-path/);
@@ -102,8 +102,8 @@ test('generated proof gallery matches its sources, receipts, and checked-in arti
   );
   assert.match(html, /\.filter-button \{\s+min-height: 44px;/);
   assert.match(html, /\.card-link \{ min-height: 44px;/);
-  assert.equal((html.match(/class="card-link create-link"/g) || []).length, 13);
-  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm']) {
+  assert.equal((html.match(/class="card-link create-link"/g) || []).length, 14);
+  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class']) {
     assert.match(html, new RegExp(`start\\.html\\?type=${type}&amp;source=gallery`), `${type}: gallery-to-start link missing`);
   }
   assert.match(html, /class="community-callout"/);

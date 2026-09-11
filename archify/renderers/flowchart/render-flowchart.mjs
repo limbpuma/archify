@@ -1,41 +1,19 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { esc, renderDefinitions, textUnits } from '../shared/utils.mjs';
-import { animateAttr, focusEdgeAttrs, focusNodeAttrs, focusNodeTitle, loadDiagramWithBrandMarks, writeDiagram, svgAccessibleText, svgRootAttrs } from '../shared/cli.mjs';
+import { animateAttr, focusNodeAttrs, focusNodeTitle, loadDiagramWithBrandMarks, writeDiagram, svgAccessibleText, svgRootAttrs } from '../shared/cli.mjs';
 import { throwDiagnosticProblems } from '../shared/diagnostics.mjs';
-import { resolveLegend, renderLegend as renderResolvedLegend } from '../shared/legend.mjs';
 import { availableNodeTextWidth, fittedNodeFontSize, minimumNodeTextWidth } from '../shared/text-fit.mjs';
 import { brandMarkFor, brandMetadataFor, renderBrandMark } from '../shared/brand-marks.mjs';
 import { translateMessage as i18nText } from '../shared/i18n.mjs';
-import {
-  asArray,
-  isFinitePoint,
-  rectsOverlap,
-  cleanEndpointSideProblems,
-  cleanFlowProblems,
-  cleanCrossingProblems,
-  cleanAmbiguousCorridorProblems,
-  cleanBorderRunProblems,
-  cleanRouteRhythmProblems,
-  cleanLabelRouteClearanceProblems,
-  suggestLabelObstacleFix,
-  suggestLabelPairFix,
-  anchor,
-  automaticPortSpread,
-  defaultFromSide,
-  defaultToSide,
-  chosenSide,
-  roundedPath,
-  routePointsValue,
-  labelPoint,
-  arrowClassMap,
-  variantAccent
-} from '../shared/geometry.mjs';
+import { asArray } from '../shared/geometry.mjs';
+import { createGridGraph } from '../shared/grid-graph.mjs';
 
 // DIN 66001 / ISO 5807 program flowchart. Nodes sit on an explicit (col, row)
 // grid chosen by the author — no auto-layout, in line with the archify thesis
 // that placement judgment is the product. The renderer measures, validates and
-// draws; it never moves a symbol.
+// draws; it never moves a symbol. Grid measurement, routing, the shared
+// composition checks and the edge/group/legend markup come from grid-graph.mjs.
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const { diagram: flowchart, template, outPath } = await loadDiagramWithBrandMarks({
@@ -85,141 +63,35 @@ const symbolText = {
 const nodeTextFit = { sublabelPreferred: 10, sublabelMinimum: 10, tagPreferred: 10, tagMinimum: 10 };
 const primaryMinimumFontSize = 10;
 
-function legendY() {
-  return viewBox[1] - 36;
-}
-
-function diagramAreaBottom() {
-  return viewBox[1] - 96;
-}
-
-function measureNode(node) {
-  const [defaultW, defaultH] = SYMBOL_SIZE[node.symbol] || SYMBOL_SIZE.process;
-  const width = node.width || defaultW;
-  const height = node.height || defaultH;
-  const cx = grid.originX + node.col * grid.colWidth + (node.dx || 0);
-  const cy = grid.originY + node.row * grid.rowHeight + (node.dy || 0);
-  return { ...node, width, height, x: cx - width / 2, y: cy - height / 2, cx, cy };
-}
-
-const nodes = new Map(asArray(flowchart.nodes).map((node) => [node.id, measureNode(node)]));
-const groups = asArray(flowchart.groups);
-const edgeSteps = new Map();
-for (const [index, edge] of asArray(flowchart.edges).entries()) {
-  if (!edgeSteps.has(edge.from)) edgeSteps.set(edge.from, index);
-  if (!edgeSteps.has(edge.to)) edgeSteps.set(edge.to, index + 1);
-}
-
-function groupFrame(group) {
-  const members = group.nodes.map((id) => nodes.get(id)).filter(Boolean);
-  if (!members.length) return null;
-  const pad = group.padding ?? 22;
-  const x = Math.min(...members.map((m) => m.x)) - pad;
-  const y = Math.min(...members.map((m) => m.y)) - pad - 14;
-  const right = Math.max(...members.map((m) => m.x + m.width)) + pad;
-  const bottom = Math.max(...members.map((m) => m.y + m.height)) + pad;
-  return { id: group.id, label: group.label, x, y, width: right - x, height: bottom - y };
-}
-
-const frames = groups.map(groupFrame).filter(Boolean);
-
-// ---------------------------------------------------------------------------
-// Routing (shared contract with lifecycle: auto / straight / drop / channels / via)
-// ---------------------------------------------------------------------------
-
-function routeVia(edge, from, to, start, end, fromSide, toSide) {
-  if (edge.via) return edge.via;
-  switch (edge.route || 'auto') {
-    case 'straight':
-      return [];
-    case 'drop': {
-      const y = edge.channelY ?? (start[1] + end[1]) / 2;
-      return [[start[0], y], [end[0], y]];
-    }
-    case 'bottom-channel': {
-      const y = edge.channelY ?? Math.max(from.y + from.height, to.y + to.height) + 30;
-      return [[start[0], y], [end[0], y]];
-    }
-    case 'top-channel': {
-      const y = edge.channelY ?? Math.min(from.y, to.y) - 26;
-      return [[start[0], y], [end[0], y]];
-    }
-    case 'right-channel': {
-      const x = edge.channelX ?? Math.max(from.x + from.width, to.x + to.width) + 34;
-      return [[x, start[1]], [x, end[1]]];
-    }
-    case 'left-channel': {
-      const x = edge.channelX ?? Math.min(from.x, to.x) - 34;
-      return [[x, start[1]], [x, end[1]]];
-    }
-    case 'auto':
-    default: {
-      if (start[0] === end[0] || start[1] === end[1]) return [];
-      const fromVertical = fromSide === 'top' || fromSide === 'bottom';
-      const toVertical = toSide === 'top' || toSide === 'bottom';
-      if (fromVertical !== toVertical) {
-        return [fromVertical ? [start[0], end[1]] : [end[0], start[1]]];
-      }
-      if (fromVertical) {
-        const y = edge.channelY ?? (start[1] + end[1]) / 2;
-        return [[start[0], y], [end[0], y]];
-      }
-      const x = edge.channelX ?? (start[0] + end[0]) / 2;
-      return [[x, start[1]], [x, end[1]]];
-    }
-  }
-}
-
 // Decision convention (DIN 66001 practice): the main "yes" continuation leaves
 // the bottom vertex; a "no" branch leaves a side vertex toward its target.
 function decisionDefaultSide(from, to) {
+  if (from.symbol !== 'decision') return null;
   if (to.cy > from.cy + from.height / 2 && Math.abs(to.cx - from.cx) < grid.colWidth / 2) return 'bottom';
   if (to.cx > from.cx) return 'right';
   if (to.cx < from.cx) return 'left';
   return 'bottom';
 }
 
-function edgeSides(edge) {
-  const from = nodes.get(edge.from);
-  const to = nodes.get(edge.to);
-  const fromDefault = from.symbol === 'decision' ? decisionDefaultSide(from, to) : defaultFromSide(from, to);
-  return {
-    fromSide: chosenSide(edge.fromSide, fromDefault),
-    toSide: chosenSide(edge.toSide, defaultToSide(from, to)),
-  };
-}
-
-const automaticPorts = automaticPortSpread(flowchart.edges, nodes, {
-  sideFor: (edge, endpoint) => edgeSides(edge)[endpoint === 'source' ? 'fromSide' : 'toSide'],
+const graph = createGridGraph({
+  diagram: flowchart,
+  diagramType: 'flowchart',
+  viewBox,
+  grid,
+  symbolSize: SYMBOL_SIZE,
+  defaultSymbol: 'process',
+  fromSideFor: decisionDefaultSide,
 });
+const { nodes, edgeSteps, edgeName } = graph;
 
-const pathCache = new Map();
-
-function pathFor(edge) {
-  if (pathCache.has(edge)) return pathCache.get(edge);
-  const from = nodes.get(edge.from);
-  const to = nodes.get(edge.to);
-  const ports = automaticPorts.get(edge);
-  const { fromSide, toSide } = edgeSides(edge);
-  const start = ports?.from || anchor(from, fromSide);
-  const end = ports?.to || anchor(to, toSide);
-  let via = routeVia(edge, from, to, start, end, fromSide, toSide);
-  if (ports && !via.length && Math.abs(start[0] - end[0]) >= 4 && Math.abs(start[1] - end[1]) >= 4) {
-    const midX = (start[0] + end[0]) / 2;
-    via = [[midX, start[1]], [midX, end[1]]];
-  }
-  const points = [start, ...via, end];
-  const routed = { d: roundedPath(points, edge.cornerRadius ?? 8), points };
-  pathCache.set(edge, routed);
-  return routed;
-}
-
-function edgeName(edge) {
-  return edge.label || `${edge.from}->${edge.to}`;
+// Symbols with sloped or pointed sides lose inner text width: diamonds keep
+// roughly half, parallelograms lose the skew on both sides.
+function validationInnerFactor(node) {
+  return node.symbol === 'decision' ? 0.52 : node.symbol === 'io' ? 0.78 : node.symbol === 'subroutine' ? 0.82 : 0.9;
 }
 
 // ---------------------------------------------------------------------------
-// Validation: structure (DIN semantics) + geometry (shared composition checks)
+// Validation: structure (DIN semantics) + text fit + shared geometry checks
 // ---------------------------------------------------------------------------
 
 function validateFlowchart() {
@@ -260,19 +132,7 @@ function validateFlowchart() {
     if (node.symbol !== 'terminator' && !inn && !(node.symbol === 'connector' && out)) {
       problems.push(`Node "${node.id}" is unreachable — every non-start symbol needs an incoming edge.`);
     }
-    if (!isFinitePoint(node.x, node.y, node.cx, node.cy)) {
-      problems.push(`Node "${node.id}" produced non-finite coordinates — check col, row, dx, dy, width and height are numbers.`);
-      continue;
-    }
-    if (node.x < 24 || node.x + node.width > viewBox[0] - 24) {
-      problems.push(`Node "${node.id}" exceeds the horizontal bounds — reduce col/width, or increase meta.viewBox[0] (grid.colWidth ${grid.colWidth}).`);
-    }
-    if (node.y < 40 || node.y + node.height > diagramAreaBottom()) {
-      problems.push(`Node "${node.id}" exceeds the vertical diagram area — keep y between 40 and ${diagramAreaBottom()} (reduce row or increase meta.viewBox[1]).`);
-    }
-    // Symbols with sloped or pointed sides lose inner text width: diamonds keep
-    // roughly half, parallelograms lose the skew on both sides.
-    const innerFactor = node.symbol === 'decision' ? 0.52 : node.symbol === 'io' ? 0.78 : node.symbol === 'subroutine' ? 0.82 : 0.9;
+    const innerFactor = validationInnerFactor(node);
     const estLabelW = textUnits(node.label) * 6.2;
     if (node.symbol !== 'connector' && estLabelW > node.width * innerFactor + 6) {
       problems.push(`Label "${node.label}" (~${Math.round(estLabelW)}px) is wider than the text area of ${node.symbol} "${node.id}" (${Math.round(node.width * innerFactor)}px) — shorten the label or increase node.width.`);
@@ -290,73 +150,7 @@ function validateFlowchart() {
     }
   }
 
-  const all = [...nodes.values()];
-  for (let i = 0; i < all.length; i += 1) {
-    for (let j = i + 1; j < all.length; j += 1) {
-      if (rectsOverlap(all[i], all[j], 12)) {
-        problems.push(`Nodes "${all[i].id}" and "${all[j].id}" are less than 12px apart — give them different col/row or adjust dx/dy.`);
-      }
-    }
-  }
-
-  for (const group of groups) {
-    for (const id of group.nodes) {
-      if (!nodes.has(id)) problems.push(`Group "${group.id}" references unknown node "${id}".`);
-    }
-  }
-
-  for (const edge of asArray(flowchart.edges)) {
-    if (!nodes.has(edge.from) || !nodes.has(edge.to)) continue;
-    const routed = pathFor(edge);
-    const [start, end] = [routed.points[0], routed.points[routed.points.length - 1]];
-    const distance = Math.hypot(end[0] - start[0], end[1] - start[1]);
-    if (distance < 24) problems.push(`Edge "${edgeName(edge)}" is too short (${Math.round(distance)}px; minimum 24px) — move a node or choose other sides.`);
-  }
-
-  const endpointIds = new Set(nodes.keys());
-  const common = { relations: flowchart.edges, endpointIds, pathFor, diagramType: 'flowchart', relationCollection: 'edges', profile: flowchart.meta?.quality_profile };
-  problems.push(...cleanEndpointSideProblems({
-    ...common,
-    fromSideFor: (edge) => edgeSides(edge).fromSide,
-    toSideFor: (edge) => edgeSides(edge).toSide,
-    shouldCheckRelation: (edge) => !Array.isArray(edge.via),
-    routeHint: 'keep automatic routing, or choose fromSide/toSide and via points whose first and final segments cross symbol borders perpendicularly',
-  }));
-  problems.push(...cleanFlowProblems({
-    ...common,
-    obstacles: nodes.values(),
-    obstacleKind: 'node',
-    routeHint: 'adjust fromSide/toSide, set route/via or channelX/channelY, or move the node with col/row/dx/dy'
-  }));
-  problems.push(...cleanCrossingProblems({ ...common, routeHint: 'adjust route/via or channelX/channelY so the edges use separate corridors' }));
-  problems.push(...cleanAmbiguousCorridorProblems({ ...common, routeHint: 'adjust route/via or channelX/channelY so unrelated edges do not visually merge' }));
-  problems.push(...cleanBorderRunProblems({ ...common, frames }));
-  problems.push(...cleanRouteRhythmProblems({ ...common, routeHint: 'move route/via or channel coordinates so each turn has a readable run-up' }));
-
-  const labelRects = [];
-  for (const [edgeIndex, edge] of asArray(flowchart.edges).entries()) {
-    if (!edge.label || !nodes.has(edge.from) || !nodes.has(edge.to)) continue;
-    const [lx, ly] = labelPoint(edge, pathFor(edge).points);
-    const longestLine = Math.max(textUnits(edge.label), textUnits(edge.note || ''));
-    const width = Math.max(28, longestLine * 4.9 + 12);
-    const height = edge.note ? 27 : 16;
-    labelRects.push({ relation: edge, relationIndex: edgeIndex, label: edge.label, x: lx - width / 2, y: ly - 11, width, height, lx, ly });
-  }
-  for (const rect of labelRects) {
-    for (const node of nodes.values()) {
-      if (rectsOverlap(rect, node, -2)) {
-        problems.push(`Label "${rect.label}" overlaps node "${node.id}" — adjust labelDx/labelDy/labelSegment or set labelAt.\n${suggestLabelObstacleFix(rect, rect.lx, rect.ly, node, 'node')}`);
-      }
-    }
-  }
-  for (let i = 0; i < labelRects.length; i += 1) {
-    for (let j = i + 1; j < labelRects.length; j += 1) {
-      if (rectsOverlap(labelRects[i], labelRects[j], -2)) {
-        problems.push(`Labels "${labelRects[i].label}" and "${labelRects[j].label}" overlap — adjust labelDx/labelDy.\n${suggestLabelPairFix(labelRects[i], labelRects[j])}`);
-      }
-    }
-  }
-  problems.push(...cleanLabelRouteClearanceProblems({ ...common, labels: labelRects }));
+  problems.push(...graph.geometryProblems({ minGap: 12, minEdge: 24, obstacleKind: 'node' }));
 
   if (problems.length) {
     throwDiagnosticProblems('Flowchart layout validation failed', problems, {
@@ -426,36 +220,6 @@ function renderNode(node) {
         </g>`;
 }
 
-function renderEdgePath(edge, index) {
-  const [cls, marker] = arrowClassMap[edge.variant || 'default'] || arrowClassMap.default;
-  const routed = pathFor(edge);
-  const strokeWidth = edge.width || (edge.variant === 'emphasis' ? 2 : 1.2);
-  return `        <path ${focusEdgeAttrs(edge.from, edge.to, edge.label, index, edge.id)} data-composition-points="${routePointsValue(routed.points)}" d="${routed.d}" class="${cls}" fill="none" stroke-width="${strokeWidth}" marker-end="url(#${marker})"${animateAttr(flowchart.meta, 'edge', index)}/>`;
-}
-
-function renderEdgeLabel(edge, index) {
-  if (!edge.label) return '';
-  const routed = pathFor(edge);
-  const [lx, ly] = labelPoint(edge, routed.points);
-  const longestLine = Math.max(textUnits(edge.label), textUnits(edge.note || ''));
-  const labelW = Math.max(28, longestLine * 4.9 + 12);
-  const labelH = edge.note ? 27 : 16;
-  const note = edge.note
-    ? `\n          <text data-detail="fine" x="${lx}" y="${ly + 11}" class="t-dim" font-size="7" text-anchor="middle">${esc(edge.note)}</text>`
-    : '';
-  return `        <g data-detail="context" ${focusEdgeAttrs(edge.from, edge.to, edge.label, index, edge.id)}>
-          <rect x="${lx - labelW / 2}" y="${ly - 11}" width="${labelW}" height="${labelH}" rx="4" class="c-mask"/>
-          <text x="${lx}" y="${ly}" class="${variantAccent(edge.variant)}" font-size="8" font-weight="600" text-anchor="middle">${esc(edge.label)}</text>${note}
-        </g>`;
-}
-
-function renderGroups() {
-  return frames.map((frame) => `        <g data-detail="context">
-          <rect x="${frame.x}" y="${frame.y}" width="${frame.width}" height="${frame.height}" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
-          <text x="${frame.x + 12}" y="${frame.y + 15}" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">${esc(frame.label)}</text>
-        </g>`).join('\n');
-}
-
 const LEGEND_CATALOG = ['terminator', 'process', 'decision', 'io', 'subroutine', 'connector']
   .map((kind) => ({ kind, label: i18nText(flowchart.meta.locale, `legend.flowchart.${kind}`) }));
 
@@ -473,25 +237,8 @@ function legendSwatch(entry) {
   }
 }
 
-function renderLegend() {
-  const presentKinds = new Set([...nodes.values()].map((node) => node.symbol));
-  const entries = resolveLegend(flowchart.meta?.legend, LEGEND_CATALOG, presentKinds);
-  return renderResolvedLegend({
-    entries,
-    locale: flowchart.meta.locale,
-    layout: {
-      x: 40,
-      baselineY: legendY(),
-      width: viewBox[0] - 80,
-      minTitleY: diagramAreaBottom() + 8,
-      unfit: flowchart.meta?.legend === undefined ? 'hide' : 'error',
-      diagramType: 'flowchart',
-    },
-    renderSwatch: legendSwatch,
-  });
-}
-
 function renderSvg() {
+  const presentKinds = new Set([...nodes.values()].map((node) => node.symbol));
   return `      <svg viewBox="0 0 ${viewBox[0]} ${viewBox[1]}" ${svgRootAttrs(flowchart.meta)}>
 ${svgAccessibleText(flowchart.meta, 'flowchart')}
 ${renderDefinitions()}
@@ -500,19 +247,19 @@ ${renderDefinitions()}
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Groups (phases) -->
-${renderGroups()}
+${graph.renderGroups()}
 
         <!-- Edges -->
-${asArray(flowchart.edges).map(renderEdgePath).join('\n')}
+${asArray(flowchart.edges).map((edge, index) => graph.renderEdgePath(edge, index)).join('\n')}
 
         <!-- Symbols -->
 ${[...nodes.values()].map(renderNode).join('\n\n')}
 
         <!-- Edge labels -->
-${asArray(flowchart.edges).map(renderEdgeLabel).join('\n')}
+${asArray(flowchart.edges).map((edge, index) => graph.renderEdgeLabel(edge, index)).join('\n')}
 
         <!-- Legend -->
-${renderLegend()}
+${graph.renderLegend({ catalog: LEGEND_CATALOG, presentKinds, renderSwatch: legendSwatch })}
       </svg>`;
 }
 

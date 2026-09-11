@@ -17,6 +17,7 @@ const TARGETS = [
   ['architecture', 'web-app.architecture.json', 'web-app-rendered.html'],
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
   ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
+  ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
 ];
 
 for (const [mode, input, output] of TARGETS) {

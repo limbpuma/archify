@@ -1,4 +1,5 @@
 import * as validators from './generated-validators.mjs';
+import { validatorExportName } from './validator-names.mjs';
 import { throwDiagnosticError } from './diagnostics.mjs';
 
 // "/nodes/3/label" reads much better as "/nodes/3 (id: "router") /label" for the
@@ -36,7 +37,7 @@ function formatErrors(errors, data) {
 }
 
 export function validateSchema(diagramType, data) {
-  const validate = validators[diagramType];
+  const validate = validators[validatorExportName(diagramType)];
   if (!validate) {
     throw new Error(`validateSchema: unknown diagram type "${diagramType}"`);
   }
