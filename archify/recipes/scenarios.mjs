@@ -276,7 +276,7 @@ const RAW_RECIPES = [
     },
   },
   {
-    id: 'structured-program', type: 'struktogramm', proof: 'order-call',
+    id: 'structured-program', type: 'struktogramm', proof: 'order-call-struktogramm',
     presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
     start: {
       en: { descriptionPrompt: 'Use Archify struktogramm mode to describe this algorithm as a Nassi-Shneiderman diagram: [paste the steps, decisions, cases, while/until/for loops, subroutine calls, and exits]. Author a block tree with statement, io, call, if, case, while, until, for, and exit kinds, set split and weight for branches that need unequal widths, and never invent unknown values.' },
