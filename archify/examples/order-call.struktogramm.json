@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "diagram_type": "struktogramm",
+  "meta": {
+    "title": "Phone Order Struktogramm",
+    "subtitle": "Nassi-Shneiderman diagram (DIN 66261) of the AI phone agent's call script",
+    "output": "examples/struktogramm-order-call.html",
+    "viewBox": [
+      980,
+      720
+    ],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "advise",
+        "label": "Advise",
+        "focus": [
+          "announce",
+          "get_menu",
+          "take_wish",
+          "check_open"
+        ],
+        "note": "Announce the machine, load the catalog once, take the wish, check the opening state."
+      },
+      {
+        "id": "quote-loop",
+        "label": "Quote loop",
+        "focus": [
+          "quote_loop",
+          "quote",
+          "read_blockers"
+        ],
+        "note": "Every change is a new quote; blockers are the only source of questions."
+      },
+      {
+        "id": "order-and-exits",
+        "label": "Order and exits",
+        "focus": [
+          "confirm",
+          "post_order",
+          "retry_loop",
+          "status"
+        ],
+        "note": "Idempotent order with retry on timeout; 409 alerts the owner, 422 re-quotes."
+      }
+    ],
+    "layout": {
+      "rowHeight": 26,
+      "indent": 24,
+      "margin": 40
+    }
+  },
+  "blocks": [
+    {
+      "id": "announce",
+      "kind": "statement",
+      "text": "Announce: a machine speaks (AI Act Art. 50)"
+    },
+    {
+      "id": "get_menu",
+      "kind": "call",
+      "text": "GET /api/v1/menu (If-None-Match)"
+    },
+    {
+      "id": "take_wish",
+      "kind": "io",
+      "text": "Take wish: items, quantity, mode, ZIP"
+    },
+    {
+      "id": "check_open",
+      "kind": "call",
+      "text": "GET /api/v1/opening-state"
+    },
+    {
+      "id": "open_branch",
+      "kind": "if",
+      "text": "open?",
+      "thenLabel": "yes",
+      "elseLabel": "no",
+      "split": 0.62,
+      "then": [
+        {
+          "id": "mode_branch",
+          "kind": "if",
+          "text": "delivery?",
+          "thenLabel": "yes",
+          "elseLabel": "no",
+          "then": [
+            {
+              "id": "serviceability",
+              "kind": "call",
+              "text": "GET /serviceability?plz="
+            },
+            {
+              "id": "zone_branch",
+              "kind": "if",
+              "text": "ZIP in zone?",
+              "thenLabel": "yes",
+              "elseLabel": "no",
+              "then": [
+                {
+                  "kind": "statement",
+                  "text": "keep delivery"
+                }
+              ],
+              "else": [
+                {
+                  "kind": "io",
+                  "text": "offer pickup instead"
+                }
+              ]
+            }
+          ],
+          "else": [
+            {
+              "kind": "statement",
+              "text": "mode = pickup"
+            }
+          ]
+        },
+        {
+          "id": "quote_loop",
+          "kind": "until",
+          "text": "until blockers are empty or caller stops",
+          "body": [
+            {
+              "id": "quote",
+              "kind": "call",
+              "text": "POST /api/v1/orders/quote"
+            },
+            {
+              "id": "read_blockers",
+              "kind": "io",
+              "text": "read blockers back, take the change"
+            }
+          ]
+        },
+        {
+          "kind": "io",
+          "text": "read total, delivery time and terms"
+        },
+        {
+          "id": "confirm",
+          "kind": "if",
+          "text": "confirmed?",
+          "thenLabel": "yes",
+          "elseLabel": "no",
+          "split": 0.68,
+          "then": [
+            {
+              "kind": "statement",
+              "text": "idempotencyKey = new, termsAcceptedAt = now"
+            },
+            {
+              "id": "retry_loop",
+              "kind": "until",
+              "text": "until an answer arrives (same key on timeout)",
+              "body": [
+                {
+                  "id": "post_order",
+                  "kind": "call",
+                  "text": "POST /api/v1/orders"
+                }
+              ]
+            },
+            {
+              "id": "status",
+              "kind": "case",
+              "text": "status",
+              "cases": [
+                {
+                  "label": "201 / 200",
+                  "body": [
+                    {
+                      "kind": "io",
+                      "text": "read order number",
+                      "tone": "success"
+                    }
+                  ]
+                },
+                {
+                  "label": "409",
+                  "body": [
+                    {
+                      "kind": "statement",
+                      "text": "alert the owner",
+                      "tone": "failure"
+                    }
+                  ]
+                },
+                {
+                  "label": "422",
+                  "body": [
+                    {
+                      "kind": "exit",
+                      "text": "back to quote"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "else": [
+            {
+              "kind": "exit",
+              "text": "end without order"
+            }
+          ]
+        }
+      ],
+      "else": [
+        {
+          "kind": "io",
+          "text": "read next opening time"
+        },
+        {
+          "kind": "exit",
+          "text": "end without order"
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "One rule",
+      "items": [
+        "The agent proposes, the domain decides: every number comes from /api/v1.",
+        "No branch reads anything the previous call did not return."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Two loops",
+      "items": [
+        "Quote loop: repeat POST /orders/quote until blockers are empty.",
+        "Retry loop: resend the same idempotency key until an answer arrives."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Exits",
+      "items": [
+        "Closed, unconfirmed or 409 conflict end without order.",
+        "422 item gone leaves the case and re-enters the quote loop."
+      ]
+    }
+  ]
+}

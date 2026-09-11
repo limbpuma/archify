@@ -47,7 +47,7 @@ export async function loadDiagramWithBrandMarks(options) {
   return loaded;
 }
 
-const START_TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart']);
+const START_TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm']);
 
 // Common CLI tail: fill the template and write the standalone HTML file.
 export function writeDiagram({ outPath, template, diagramType, meta, svg, cards, sourceEvidence = null }) {
@@ -76,6 +76,7 @@ const SEMANTIC_COLLECTIONS = {
   dataflow: 'nodes',
   lifecycle: 'states',
   flowchart: 'nodes',
+  struktogramm: 'blocks',
 };
 
 const RELATIONSHIP_COLLECTIONS = {
@@ -120,7 +121,9 @@ export function validateGuidedViews(diagramType, diagram) {
   const views = diagram.meta?.views;
   if (!Array.isArray(views) || views.length === 0) return;
   const collection = SEMANTIC_COLLECTIONS[diagramType];
-  const semanticIds = new Set((diagram[collection] || []).map((item) => item.id));
+  // Nested trees (struktogramm blocks) expose ids at every depth, not only the top level.
+  const flatten = (items) => items.flatMap((item) => [item, ...flatten([...(item.then || []), ...(item.else || []), ...(item.body || []), ...(item.cases || []).flatMap((c) => c.body || [])])]);
+  const semanticIds = new Set(flatten(diagram[collection] || []).map((item) => item.id).filter((id) => id !== undefined));
   const seen = new Set();
   const problems = [];
 

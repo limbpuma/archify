@@ -10,7 +10,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(__dirname, '..');
 
-const TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart']);
+const TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm']);
 
 function usage() {
   return `Usage:
@@ -31,7 +31,7 @@ function usage() {
   archify demo [output-directory]
 
 Types:
-  architecture, workflow, sequence, dataflow, lifecycle, flowchart
+  architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm
 `;
 }
 
@@ -1390,6 +1390,7 @@ async function commandDoctor() {
     dataflow: 'product-analytics.dataflow.json',
     lifecycle: 'agent-run.lifecycle.json',
     flowchart: 'order-call.flowchart.json',
+    struktogramm: 'order-call.struktogramm.json',
   };
 
   for (const type of TYPES) {

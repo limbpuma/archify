@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tt-a1i/archify/schemas/struktogramm.schema.json",
+  "title": "Archify Struktogramm (Nassi-Shneiderman diagram, DIN 66261)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "diagram_type",
+    "meta",
+    "blocks"
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96
+    },
+    "blockList": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 24,
+      "items": {
+        "$ref": "#/$defs/block"
+      }
+    },
+    "block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "statement",
+            "io",
+            "call",
+            "if",
+            "case",
+            "while",
+            "until",
+            "for",
+            "exit"
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 96
+        },
+        "then": {
+          "$ref": "#/$defs/blockList"
+        },
+        "else": {
+          "$ref": "#/$defs/blockList"
+        },
+        "thenLabel": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "elseLabel": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "split": {
+          "type": "number",
+          "minimum": 0.2,
+          "maximum": 0.8
+        },
+        "cases": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "body"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 24
+              },
+              "body": {
+                "$ref": "#/$defs/blockList"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 3
+              }
+            }
+          }
+        },
+        "body": {
+          "$ref": "#/$defs/blockList"
+        },
+        "tone": {
+          "type": "string",
+          "enum": [
+            "neutral",
+            "accent",
+            "success",
+            "failure"
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "diagram_type": {
+      "const": "struktogramm"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locale": {
+          "$ref": "common.schema.json#/$defs/locale"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "output": {
+          "type": "string"
+        },
+        "animation": {
+          "$ref": "common.schema.json#/$defs/animation"
+        },
+        "visual_preset": {
+          "$ref": "common.schema.json#/$defs/visualPreset"
+        },
+        "quality_profile": {
+          "$ref": "common.schema.json#/$defs/qualityProfile"
+        },
+        "views": {
+          "$ref": "common.schema.json#/$defs/guidedViews"
+        },
+        "legend": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": { "$ref": "common.schema.json#/$defs/legendMode" },
+            "entries": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "statement": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "io": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "call": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "branch": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "loop": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "exit": { "$ref": "common.schema.json#/$defs/legendEntry" }
+              }
+            }
+          }
+        },
+        "layout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "rowHeight": { "type": "number", "minimum": 24, "maximum": 64 },
+            "indent": { "type": "number", "minimum": 12, "maximum": 60 },
+            "margin": { "type": "number", "minimum": 16, "maximum": 120 }
+          }
+        },
+        "viewBox": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": 420
+            },
+            {
+              "type": "number",
+              "minimum": 320
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "blocks": {
+      "$ref": "#/$defs/blockList"
+    },
+    "cards": {
+      "$ref": "common.schema.json#/$defs/cards"
+    }
+  }
+}
