@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "diagram_type": "uml-class",
+  "meta": {
+    "title": "Phone Order Domain Model",
+    "subtitle": "UML class diagram of the AI phone agent's ordering domain",
+    "output": "examples/uml-class-order-domain.html",
+    "viewBox": [
+      1380,
+      740
+    ],
+    "grid": {
+      "colWidth": 228,
+      "rowHeight": 160,
+      "originX": 116,
+      "originY": 100
+    },
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "ordering",
+        "label": "Ordering core",
+        "focus": [
+          "customer",
+          "order",
+          "order_line",
+          "product"
+        ],
+        "note": "A customer places orders; every order line refers to one catalog product."
+      },
+      {
+        "id": "fulfillment",
+        "label": "Fulfillment",
+        "focus": [
+          "order",
+          "fulfillment",
+          "delivery",
+          "pickup"
+        ],
+        "note": "Delivery and pickup specialise the abstract fulfillment; the order owns exactly one."
+      },
+      {
+        "id": "payment",
+        "label": "Payment",
+        "focus": [
+          "order",
+          "payment",
+          "payable"
+        ],
+        "note": "The order composes its payment, which realises the Payable interface."
+      }
+    ]
+  },
+  "classes": [
+    {
+      "id": "customer",
+      "name": "Customer",
+      "col": 0,
+      "row": 0,
+      "attributes": [
+        "- id: UUID",
+        "- name: String",
+        "- phone: String"
+      ],
+      "methods": [
+        "+ placeOrder(): Order"
+      ]
+    },
+    {
+      "id": "order",
+      "name": "Order",
+      "col": 2,
+      "row": 0,
+      "attributes": [
+        "- number: String",
+        "- placedAt: DateTime",
+        "- status: OrderStatus"
+      ],
+      "methods": [
+        "+ addLine(p: Product, qty: int)",
+        "+ total(): Money",
+        "+ confirm(): void"
+      ]
+    },
+    {
+      "id": "order_status",
+      "name": "OrderStatus",
+      "kind": "enum",
+      "col": 3,
+      "row": 0,
+      "attributes": [
+        "NEW",
+        "CONFIRMED",
+        "IN_PREPARATION",
+        "DELIVERED",
+        "CANCELLED"
+      ]
+    },
+    {
+      "id": "restaurant",
+      "name": "Restaurant",
+      "col": 4,
+      "row": 2,
+      "attributes": [
+        "- name: String",
+        "- openingHours: Hours"
+      ],
+      "methods": [
+        "+ isOpen(at: Time): boolean"
+      ]
+    },
+    {
+      "id": "address",
+      "name": "Address",
+      "col": 0,
+      "row": 1,
+      "attributes": [
+        "- street: String",
+        "- zip: String",
+        "- city: String"
+      ]
+    },
+    {
+      "id": "order_line",
+      "name": "OrderLine",
+      "col": 2,
+      "row": 1,
+      "attributes": [
+        "- quantity: int",
+        "- unitPrice: Money"
+      ],
+      "methods": [
+        "+ subtotal(): Money"
+      ]
+    },
+    {
+      "id": "product",
+      "name": "Product",
+      "col": 4,
+      "row": 1,
+      "attributes": [
+        "- name: String",
+        "- price: Money",
+        "- active: boolean"
+      ],
+      "methods": [
+        "+ deactivate(): void"
+      ]
+    },
+    {
+      "id": "category",
+      "name": "Category",
+      "kind": "enum",
+      "col": 5,
+      "row": 1,
+      "dx": 12,
+      "width": 160,
+      "attributes": [
+        "PIZZA",
+        "PASTA",
+        "SALAD",
+        "DRINK"
+      ]
+    },
+    {
+      "id": "fulfillment",
+      "name": "Fulfillment",
+      "kind": "abstract",
+      "col": 1,
+      "row": 2,
+      "attributes": [
+        "- requestedAt: DateTime"
+      ],
+      "methods": [
+        "+ eta(): Duration"
+      ]
+    },
+    {
+      "id": "payment",
+      "name": "Payment",
+      "col": 4,
+      "row": 0,
+      "attributes": [
+        "- amount: Money",
+        "- method: PaymentMethod"
+      ],
+      "methods": [
+        "+ capture(): boolean"
+      ]
+    },
+    {
+      "id": "payable",
+      "name": "Payable",
+      "kind": "interface",
+      "col": 5,
+      "row": 0,
+      "methods": [
+        "+ pay(amount: Money): boolean"
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "col": 0,
+      "row": 3,
+      "attributes": [
+        "- fee: Money",
+        "- address: Address"
+      ],
+      "methods": [
+        "+ eta(): Duration"
+      ]
+    },
+    {
+      "id": "pickup",
+      "name": "Pickup",
+      "col": 2,
+      "row": 3,
+      "attributes": [
+        "- pickupAt: DateTime"
+      ],
+      "methods": [
+        "+ eta(): Duration"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "places",
+      "from": "customer",
+      "to": "order",
+      "kind": "association",
+      "label": "places",
+      "navigable": true,
+      "fromMultiplicity": "1",
+      "toMultiplicity": "0..*"
+    },
+    {
+      "id": "lives_at",
+      "from": "customer",
+      "to": "address",
+      "kind": "association",
+      "label": "lives at",
+      "fromMultiplicity": "1",
+      "toMultiplicity": "1",
+      "labelDy": 36
+    },
+    {
+      "id": "order_lines",
+      "from": "order_line",
+      "to": "order",
+      "kind": "composition",
+      "fromMultiplicity": "1..*",
+      "toMultiplicity": "1"
+    },
+    {
+      "id": "refers_to",
+      "from": "order_line",
+      "to": "product",
+      "kind": "association",
+      "label": "refers to",
+      "navigable": true,
+      "fromMultiplicity": "*",
+      "toMultiplicity": "1"
+    },
+    {
+      "id": "fulfilled_by",
+      "from": "fulfillment",
+      "to": "order",
+      "kind": "composition",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "channelY": 182,
+      "fromMultiplicity": "1",
+      "toMultiplicity": "1"
+    },
+    {
+      "id": "paid_by",
+      "from": "payment",
+      "to": "order",
+      "kind": "composition",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "channelY": 198,
+      "fromMultiplicity": "0..1",
+      "toMultiplicity": "1"
+    },
+    {
+      "id": "uses_status",
+      "from": "order",
+      "to": "order_status",
+      "kind": "dependency",
+      "label": "«use»"
+    },
+    {
+      "id": "offers",
+      "from": "product",
+      "to": "restaurant",
+      "kind": "aggregation",
+      "label": "offers",
+      "fromMultiplicity": "1..*",
+      "toMultiplicity": "1",
+      "labelDy": 50
+    },
+    {
+      "id": "in_category",
+      "from": "product",
+      "to": "category",
+      "kind": "association",
+      "fromMultiplicity": "1..*",
+      "toMultiplicity": "1"
+    },
+    {
+      "id": "delivery_is_a",
+      "from": "delivery",
+      "to": "fulfillment",
+      "kind": "inheritance",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "pickup_is_a",
+      "from": "pickup",
+      "to": "fulfillment",
+      "kind": "inheritance",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "payable_impl",
+      "from": "payment",
+      "to": "payable",
+      "kind": "realization"
+    }
+  ],
+  "cards": []
+}

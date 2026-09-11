@@ -300,6 +300,31 @@ const RAW_RECIPES = [
       prompt: '用 Archify 结构图模式把这段算法画成 Nassi-Shneiderman 图。使用 statement、io、call、if、case、while、until、for、exit 搭建嵌套块树，为需要不同宽度的分支设置 split 与 weight，让渲染器负责盒子计算。保留一条明显的主路径，给每个循环清晰的退出条件，并在 10px 字号下保证文本能放下。未知值要标明，不要编造。',
     },
   },
+  {
+    id: 'class-diagram', type: 'uml-class', proof: 'order-domain',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify uml-class mode to turn this domain description into a UML class diagram: [paste the classes, attributes, operations, generalizations, interfaces, association/composition multiplicities, and package groupings]. Place every classifier on an explicit (col, row) grid, name every attribute and operation with UML member syntax (visibility, name, type, signature), and mark unknown relationships instead of inventing them.' },
+      zh: { descriptionPrompt: '用 Archify UML 类图模式把下面这段领域描述画成 UML 类图：[粘贴类、属性、操作、继承、实现、关联/组合的多重性以及包分组]。把每个分类器放在显式的 (col, row) 网格上，使用 UML 成员语法（可见性、名称、类型、签名）命名属性与操作，未知关系要标明而不是编造。' },
+    },
+    signals: [['class diagram', 16], ['klassendiagramm', 14], ['uml', 10], ['domain model', 12], ['inheritance', 9], ['interface', 8], ['composition', 8], ['multiplicity', 11], ['uml 2.5', 10], ['类图', 16], ['领域模型', 12], ['继承', 9], ['接口', 8], ['组合', 8], ['多重性', 11], ['泛化', 8], ['聚合', 8]],
+    en: {
+      title: 'Class diagram (Klassendiagramm)', question: 'What are the classes, how do they relate, and what multiplies?',
+      summary: 'A UML 2.5 class diagram of three-compartment classifiers (name, attributes, operations) joined by inheritance, realization, association, aggregation and composition lines with multiplicities and roles.',
+      useWhen: 'Modelling a domain, documenting inheritance and interfaces, or hand-off to engineering when multiplicities and ownership must be explicit.',
+      avoidWhen: 'The audience needs runtime call order, state transitions, or request timing — use sequence or lifecycle instead.',
+      include: ['classes, interfaces, and enumerations', 'attributes and operations in UML member syntax', 'inheritance, realization, association, aggregation, composition', 'multiplicities and roles on the right relation kinds'],
+      prompt: 'Use Archify uml-class mode to draw this domain as a UML 2.5 class diagram. Place every classifier on an explicit (col, row) grid with width 160–180 px, write attributes and operations in UML member syntax (e.g. "- id: UUID", "+ total(): Money"), and connect them with inheritance (solid + hollow triangle), realization (dashed + hollow triangle, points at an interface), association, aggregation (hollow diamond), composition (filled diamond), and dependency (dashed + open arrow). Add multiplicities and roles to association, aggregation and composition only; keep `meta.viewBox[0]` ≤ 1380 so the 1440 px desktop projection still leaves the 9 px member text above the 6 px floor.',
+    },
+    zh: {
+      title: '类图（Klassendiagramm）', question: '有哪些类、彼此如何关系、什么会成倍出现？',
+      summary: 'UML 2.5 类图：分类器由名称、属性、操作三段组成，使用继承、实现、关联、聚合与组合连线，并附上多重性与角色。',
+      useWhen: '适合领域建模、记录继承与接口，或在多重性和归属必须明确时把模型交给工程团队。',
+      avoidWhen: '如果重点是运行时调用顺序、状态流转或请求时序，请改用时序图或生命周期图。',
+      include: ['类、接口与枚举', '使用 UML 成员语法的属性与操作', '继承、实现、关联、聚合与组合', '仅在合适关系上标注多重性与角色'],
+      prompt: '用 Archify UML 类图模式把这段领域画成 UML 2.5 类图。把每个分类器放在显式的 (col, row) 网格上，宽度 160–180 px，使用 UML 成员语法（如 "- id: UUID"、"+ total(): Money"）书写属性与操作；用继承（实线 + 空心三角）、实现（虚线 + 空心三角，指向接口）、关联、聚合（空心菱形）、组合（实心菱形）和依赖（虚线 + 空箭头）连接它们。仅在关联、聚合与组合上添加多重性与角色；保持 `meta.viewBox[0]` ≤ 1380，使 1440 px 桌面投影下 9 px 成员文本仍高于 6 px 下限。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

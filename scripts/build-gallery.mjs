@@ -188,6 +188,19 @@ const CASES = [
     descriptionEn: 'A Nassi-Shneiderman diagram (DIN 66261) of the same AI phone agent algorithm: nested boxes, branched if/case, looped until, and explicit exits without arrows.',
     descriptionZh: '同一段 AI 电话代理算法的 Nassi-Shneiderman 结构图（DIN 66261）：嵌套方框、if 与 case 分支、until 循环和显式退出，全程没有箭头。',
   },
+  {
+    id: 'order-domain',
+    type: 'uml-class',
+    input: 'order-domain.uml-class.json',
+    output: 'order-domain.uml-class.html',
+    focus: 'order',
+    view: 'ordering',
+    accent: '#7c3aed',
+    titleEn: 'Phone Order Domain Model',
+    titleZh: '电话下单领域模型',
+    descriptionEn: 'A UML 2.5 class diagram of the AI phone agent ordering domain: customers, orders, line items, products, categories, fulfillment, delivery, pickup, payment, and the Payable interface.',
+    descriptionZh: 'AI 电话代理下单领域的 UML 2.5 类图：客户、订单、订单行、商品、品类、履约、配送、自提、支付，以及 Payable 接口。',
+  },
 ];
 
 const SHAPES = {
@@ -198,6 +211,7 @@ const SHAPES = {
   lifecycle: ['states', 'transitions'],
   flowchart: ['nodes', 'edges'],
   struktogramm: ['blocks', null],
+  'uml-class': ['classes', 'relations'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -209,6 +223,7 @@ const TYPE_ACCENTS = {
   lifecycle: '#be123c',
   flowchart: '#0d9488',
   struktogramm: '#0f766e',
+  'uml-class': '#7c3aed',
 };
 
 function digest(buffer) {

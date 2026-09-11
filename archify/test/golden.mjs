@@ -81,6 +81,7 @@ const GOLDEN = [
   ['architecture', 'web-app.architecture.json', 'web-app-rendered.html'],
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
   ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
+  ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -161,6 +162,29 @@ expectFailure('struktogramm text wider than its column', 'struktogramm',
     inner.kind = 'statement';
     inner.text = 'X'.repeat(96);
   }, 'does not fit');
+expectFailure('uml-class realization must point at an interface', 'uml-class',
+  (d) => {
+    d.relations.push({
+      from: 'order',
+      to: 'order_line',
+      kind: 'realization',
+    });
+  }, 'must point at an interface');
+expectFailure('uml-class inheritance cycle is rejected', 'uml-class',
+  (d) => {
+    // Two new inheritance edges closing the loop delivery → phantom_parent → delivery.
+    d.classes.push({
+      id: 'phantom_parent',
+      name: 'PhantomParent',
+      col: 3,
+      row: 2,
+      attributes: ['- marker: String'],
+    });
+    d.relations.push(
+      { from: 'delivery', to: 'phantom_parent', kind: 'inheritance' },
+      { from: 'phantom_parent', to: 'delivery', kind: 'inheritance' },
+    );
+  }, 'Generalization cycle');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

@@ -18,6 +18,7 @@ const CASES = {
   lifecycle: 'agent-run.lifecycle.json',
   flowchart: 'order-call.flowchart.json',
   struktogramm: 'order-call.struktogramm.json',
+  'uml-class': 'order-domain.uml-class.json',
 };
 
 function render(mode, example) {

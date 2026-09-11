@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "generator": "scripts/build-gallery.mjs",
   "archifyVersion": "2.17.0-dev.1",
-  "entryCount": 13,
-  "checkCount": 117,
+  "entryCount": 14,
+  "checkCount": 126,
   "entries": [
     {
       "id": "agent-tool-call",
@@ -1291,6 +1291,106 @@
           "routesOverSuggestedStretch": 0,
           "minSegmentPx": null,
           "minInteriorSegmentPx": null,
+          "shortSegmentCount": 0,
+          "shortEndpointSegmentCount": 0,
+          "shortInteriorSegmentCount": 0,
+          "microSegmentCount": 0
+        },
+        "suggestedLimits": {
+          "bendsPerRelationship": 2,
+          "stretch": 1.35,
+          "segmentPx": 16,
+          "microSegmentPx": 8
+        },
+        "issues": []
+      }
+    },
+    {
+      "id": "order-domain",
+      "type": "uml-class",
+      "title": "Phone Order Domain Model",
+      "subtitle": "UML class diagram of the AI phone agent's ordering domain",
+      "input": "gallery/sources/order-domain.uml-class.json",
+      "artifact": "gallery/artifacts/order-domain.uml-class.html",
+      "focus": "order",
+      "view": "ordering",
+      "viewCount": 3,
+      "viewIds": [
+        "ordering",
+        "fulfillment",
+        "payment"
+      ],
+      "guidedPlayback": true,
+      "schemaVersion": 1,
+      "visualPreset": "classic",
+      "animation": "trace",
+      "engineeringProfile": null,
+      "nodeCount": 13,
+      "edgeCount": 12,
+      "artifactBytes": 819772,
+      "artifactSha256": "4131364a72cc751aa38a49dedde4e46cbff976339a03c65b5de583af32bb1066",
+      "sourceBytes": 6914,
+      "sourceSha256": "057aa927d86b72b6f4894a74357713f2923a064609305d21113e744439ed477e",
+      "checks": [
+        {
+          "name": "single_svg",
+          "ok": true
+        },
+        {
+          "name": "finite_svg",
+          "ok": true
+        },
+        {
+          "name": "orthogonal_arrows",
+          "ok": true
+        },
+        {
+          "name": "label_route_clearance",
+          "ok": true
+        },
+        {
+          "name": "relationship_crossings",
+          "ok": true
+        },
+        {
+          "name": "relationship_corridors",
+          "ok": true
+        },
+        {
+          "name": "container_border_runs",
+          "ok": true
+        },
+        {
+          "name": "route_rhythm",
+          "ok": true
+        },
+        {
+          "name": "legend_clearance",
+          "ok": true
+        }
+      ],
+      "composition": {
+        "schemaVersion": 1,
+        "profile": "showcase",
+        "status": "pass",
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "metrics": {
+          "properCrossings": 0,
+          "ambiguousCorridors": 0,
+          "containerBorderRuns": 0,
+          "labelRouteClearanceIssues": 0,
+          "minLabelRouteClearance": 41,
+          "desktopReadabilityIssues": 0,
+          "minProjectedNodeTextPx": null,
+          "maxBends": 2,
+          "routesOverSuggestedBends": 0,
+          "maxStretch": 1.165,
+          "routesOverSuggestedStretch": 0,
+          "minSegmentPx": 23,
+          "minInteriorSegmentPx": 221,
           "shortSegmentCount": 0,
           "shortEndpointSegmentCount": 0,
           "shortInteriorSegmentCount": 0,
