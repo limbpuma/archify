@@ -19,6 +19,7 @@ const CASES = {
   flowchart: 'order-call.flowchart.json',
   struktogramm: 'order-call.struktogramm.json',
   'uml-class': 'order-domain.uml-class.json',
+  erd: 'order-chen.erd.json',
 };
 
 function render(mode, example) {

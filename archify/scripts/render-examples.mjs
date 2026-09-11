@@ -18,6 +18,8 @@ const TARGETS = [
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
   ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
   ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
+  ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
+  ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
 ];
 
 for (const [mode, input, output] of TARGETS) {

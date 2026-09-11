@@ -42,6 +42,7 @@ export function createGridGraph({
   defaultSymbol = 'process',
   measureNode = null,
   fromSideFor = null,
+  toSideFor = null,
   cornerRadius = 8,
   legendBand = 96,
 }) {
@@ -131,10 +132,11 @@ export function createGridGraph({
   function edgeSides(edge) {
     const from = nodes.get(edge.from);
     const to = nodes.get(edge.to);
-    const hooked = fromSideFor ? fromSideFor(from, to, edge) : null;
+    const hookedFrom = fromSideFor ? fromSideFor(from, to, edge) : null;
+    const hookedTo = toSideFor ? toSideFor(from, to, edge) : null;
     return {
-      fromSide: chosenSide(edge.fromSide, hooked || defaultFromSide(from, to)),
-      toSide: chosenSide(edge.toSide, defaultToSide(from, to)),
+      fromSide: chosenSide(edge.fromSide, hookedFrom || defaultFromSide(from, to)),
+      toSide: chosenSide(edge.toSide, hookedTo || defaultToSide(from, to)),
     };
   }
 

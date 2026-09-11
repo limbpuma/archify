@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Phone Order ER Model (Chen)",
+    "subtitle": "Entity-relationship model of the ordering domain in Chen notation with (min,max) cardinalities",
+    "notation": "chen",
+    "output": "examples/erd-order-chen.html",
+    "viewBox": [
+      1380,
+      420
+    ],
+    "grid": {
+      "colWidth": 185,
+      "rowHeight": 84,
+      "originX": 132,
+      "originY": 100
+    },
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "customers",
+        "label": "Customers and orders",
+        "focus": [
+          "customer",
+          "places",
+          "order"
+        ],
+        "note": "A customer places zero or more orders; every order belongs to exactly one customer."
+      },
+      {
+        "id": "lines",
+        "label": "Order lines and products",
+        "focus": [
+          "order",
+          "contains",
+          "order_line",
+          "refers_to",
+          "product"
+        ],
+        "note": "An order contains at least one line; each line refers to exactly one product, and a product may appear in many lines."
+      },
+      {
+        "id": "attributes",
+        "label": "Keys, derived, and multivalued attributes",
+        "focus": [
+          "customer_no",
+          "order_no",
+          "order_total",
+          "line_no",
+          "product_no",
+          "product_tags"
+        ],
+        "note": "Primary keys are underlined (customerNo, orderNo, lineNo, productNo); total is a derived attribute; allergens is multivalued."
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "customer",
+      "name": "Customer",
+      "kind": "entity",
+      "col": 0,
+      "row": 1,
+      "width": 130
+    },
+    {
+      "id": "customer_no",
+      "name": "customerNo",
+      "kind": "attribute",
+      "key": true,
+      "col": 0,
+      "row": 0,
+      "dx": -58
+    },
+    {
+      "id": "customer_name",
+      "name": "name",
+      "kind": "attribute",
+      "col": 0,
+      "row": 0,
+      "dx": 58
+    },
+    {
+      "id": "customer_phone",
+      "name": "phone",
+      "kind": "attribute",
+      "col": 0,
+      "row": 2
+    },
+    {
+      "id": "places",
+      "name": "places",
+      "kind": "relationship",
+      "col": 1,
+      "row": 1,
+      "width": 136
+    },
+    {
+      "id": "order",
+      "name": "Order",
+      "kind": "entity",
+      "col": 2,
+      "row": 1,
+      "width": 130
+    },
+    {
+      "id": "order_no",
+      "name": "orderNo",
+      "kind": "attribute",
+      "key": true,
+      "col": 2,
+      "row": 0,
+      "dx": -58
+    },
+    {
+      "id": "order_date",
+      "name": "placedAt",
+      "kind": "attribute",
+      "col": 2,
+      "row": 0,
+      "dx": 58
+    },
+    {
+      "id": "order_total",
+      "name": "total",
+      "kind": "attribute",
+      "derived": true,
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "contains",
+      "name": "contains",
+      "kind": "relationship",
+      "identifying": true,
+      "col": 3,
+      "row": 1,
+      "width": 136
+    },
+    {
+      "id": "order_line",
+      "name": "OrderLine",
+      "kind": "weak-entity",
+      "col": 4,
+      "row": 1,
+      "width": 130
+    },
+    {
+      "id": "line_no",
+      "name": "lineNo",
+      "kind": "attribute",
+      "key": true,
+      "col": 4,
+      "row": 0,
+      "dx": -58
+    },
+    {
+      "id": "line_qty",
+      "name": "quantity",
+      "kind": "attribute",
+      "col": 4,
+      "row": 0,
+      "dx": 58
+    },
+    {
+      "id": "line_price",
+      "name": "unitPrice",
+      "kind": "attribute",
+      "col": 4,
+      "row": 2
+    },
+    {
+      "id": "refers_to",
+      "name": "refers to",
+      "kind": "relationship",
+      "col": 5,
+      "row": 1,
+      "width": 136
+    },
+    {
+      "id": "product",
+      "name": "Product",
+      "kind": "entity",
+      "col": 6,
+      "row": 1,
+      "width": 130
+    },
+    {
+      "id": "product_no",
+      "name": "productNo",
+      "kind": "attribute",
+      "key": true,
+      "col": 6,
+      "row": 0,
+      "dx": -58
+    },
+    {
+      "id": "product_name",
+      "name": "name",
+      "kind": "attribute",
+      "col": 6,
+      "row": 0,
+      "dx": 58
+    },
+    {
+      "id": "product_tags",
+      "name": "allergens",
+      "kind": "attribute",
+      "multivalued": true,
+      "col": 6,
+      "row": 2
+    }
+  ],
+  "relations": [
+    {
+      "id": "customer_places",
+      "from": "customer",
+      "to": "places",
+      "fromCardinality": "(0,n)"
+    },
+    {
+      "id": "places_order",
+      "from": "places",
+      "to": "order",
+      "toCardinality": "(1,1)"
+    },
+    {
+      "id": "order_contains",
+      "from": "order",
+      "to": "contains",
+      "fromCardinality": "(1,n)"
+    },
+    {
+      "id": "contains_line",
+      "from": "contains",
+      "to": "order_line",
+      "toCardinality": "(1,1)"
+    },
+    {
+      "id": "line_refers",
+      "from": "order_line",
+      "to": "refers_to",
+      "fromCardinality": "(1,1)"
+    },
+    {
+      "id": "refers_product",
+      "from": "refers_to",
+      "to": "product",
+      "toCardinality": "(0,n)"
+    },
+    {
+      "from": "customer_no",
+      "to": "customer"
+    },
+    {
+      "from": "customer_name",
+      "to": "customer"
+    },
+    {
+      "from": "customer_phone",
+      "to": "customer"
+    },
+    {
+      "from": "order_no",
+      "to": "order"
+    },
+    {
+      "from": "order_date",
+      "to": "order"
+    },
+    {
+      "from": "order_total",
+      "to": "order"
+    },
+    {
+      "from": "line_no",
+      "to": "order_line"
+    },
+    {
+      "from": "line_qty",
+      "to": "order_line"
+    },
+    {
+      "from": "line_price",
+      "to": "order_line"
+    },
+    {
+      "from": "product_no",
+      "to": "product"
+    },
+    {
+      "from": "product_name",
+      "to": "product"
+    },
+    {
+      "from": "product_tags",
+      "to": "product"
+    }
+  ],
+  "cards": []
+}

@@ -82,6 +82,8 @@ const GOLDEN = [
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
   ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
   ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
+  ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
+  ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -103,9 +105,9 @@ for (const [mode, input, golden] of GOLDEN) {
 // ---------------------------------------------------------------------------
 console.log('schema enforcement (invalid JSON must fail with a path-prefixed message)');
 
-function expectFailure(name, mode, mutate, expectInMessage) {
+function expectFailure(name, mode, mutate, expectInMessage, sourceName) {
   const base = JSON.parse(fs.readFileSync(
-    path.join(skillRoot, 'examples', GOLDEN.find(([m]) => m === mode)[1]), 'utf8'));
+    path.join(skillRoot, 'examples', GOLDEN.find(([m, input]) => m === mode && (!sourceName || input === sourceName))[1]), 'utf8'));
   mutate(base);
   const input = path.join(tmp, `neg-${name.replace(/[^a-z0-9]+/gi, '-')}.json`);
   fs.writeFileSync(input, JSON.stringify(base));
@@ -185,6 +187,20 @@ expectFailure('uml-class inheritance cycle is rejected', 'uml-class',
       { from: 'phantom_parent', to: 'delivery', kind: 'inheritance' },
     );
   }, 'Generalization cycle');
+expectFailure('chen entity linked directly to an entity', 'erd',
+  (d) => {
+    d.relations.push({
+      from: 'customer',
+      to: 'order',
+      fromCardinality: '(1,1)',
+      toCardinality: '(0,n)',
+    });
+  }, 'Chen notation entities connect only through a relationship diamond');
+expectFailure("crows-foot relation without toCardinality", 'erd',
+  (d) => {
+    const rel = d.relations.find((r) => r.to === 'order');
+    delete rel.toCardinality;
+  }, 'needs toCardinality', 'order-crowsfoot.erd.json');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

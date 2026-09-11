@@ -15,6 +15,7 @@ against one of the schemas in this folder before any layout work happens.
 | `flowchart.schema.json` | `diagram_type: "flowchart"` | `groups`, `nodes`, `edges` |
 | `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
 | `uml-class.schema.json` | `diagram_type: "uml-class"` | `groups`, `classes`, `relations` |
+| `erd.schema.json` | `diagram_type: "erd"` | `nodes`, `relations` (Chen entities/relationships/attributes or IE crow's-foot entities with attribute lists) |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -59,6 +60,25 @@ arithmetic. There are no edges and no routing vocabulary. Nested `blocks`
 id. Nesting depth is bounded to `6` and total rows to `40`. Text must
 fit its column at the 10px source size; shrink-to-fit is allowed down to
 8px only for `note`.
+
+ERD `meta` additionally accepts `notation` (`"chen"` for Chen entities /
+relationship diamonds / attribute ellipses with `(min,max)` cardinalities,
+or `"crowsfoot"` for IE crow's-foot entity boxes with attribute lists and
+cardinality glyphs on both line ends) and a `grid` object with the same
+`colWidth` / `rowHeight` / `originX` / `originY` keys as Flowchart
+(defaults: `185×84` at `132, 100` for Chen, `320×170` at `124, 100` for
+crow's foot). The author owns placement; the renderer never moves a
+node. `viewBox[0]` must stay ≤ 1380 so the 1440 px desktop projection
+keeps the 9 px member text ≥ 6 px. Chen `nodes` may carry `kind:
+"entity" | "weak-entity" | "relationship" | "attribute"` plus `key`,
+`derived`, `multivalued`, and `identifying` flags; crow's-foot `nodes`
+declare their attributes inline as `attributes[]` entries with `name`,
+`type`, `pk`, `fk`, and `optional`. Both notations set `col` to
+`0..15` and `row` to `0..15`. Chen `relations` may carry
+`fromCardinality` / `toCardinality` as free `(min,max)` or `1/n/m` text;
+crow's-foot `relations` require both cardinalities as one of `one`,
+`zero-one`, `one-many`, `zero-many`, or `many`, and may set
+`identifying: false` to draw the line dashed.
 
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
@@ -107,6 +127,7 @@ Supported keys are renderer-owned:
 | Flowchart | `terminator`, `process`, `decision`, `io`, `subroutine`, `connector` |
 | Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
 | UML Class | `class`, `abstract`, `interface`, `enum`, `association`, `aggregation`, `composition`, `inheritance`, `realization`, `dependency` |
+| ERD | `entity`, `weak-entity`, `relationship`, `attribute`, `key-attribute`, `derived-attribute`, `multivalued-attribute`, `one`, `zero-one`, `one-many`, `zero-many`, `many` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
@@ -157,7 +178,7 @@ version; additive, backwards-compatible fields do not.
 
 ## Shared definitions (common.schema.json)
 
-The seven diagram schemas reference `common.schema.json#/$defs/...`:
+The eight diagram schemas reference `common.schema.json#/$defs/...`:
 
 - `id` — element identifiers, pattern `^[a-zA-Z][a-zA-Z0-9_-]*$`
 - `point` — an `[x, y]` pair of numbers (used by `via` and `labelAt`)
@@ -177,7 +198,7 @@ stays in `lifecycle.schema.json`.
 
 ## Runtime validation
 
-At development time, `scripts/generate-validators.mjs` compiles all seven
+At development time, `scripts/generate-validators.mjs` compiles all eight
 schemas with ajv's draft 2020-12 standalone generator using `strict: true` and
 `allErrors: true`. The generated `renderers/shared/generated-validators.mjs`
 is committed and shipped with the skill, so runtime validation has no npm or
@@ -200,7 +221,7 @@ exports carry no repository evidence.
 ## Visual quality and engineering truth
 
 `meta.quality_profile` and `meta.engineering_profile` answer different
-questions. `quality_profile` is available in all seven modes and controls how
+questions. `quality_profile` is available in all eight modes and controls how
 strictly Archify judges composition. `engineering_profile` is an optional
 Architecture-only semantic contract; omitting it preserves the ordinary v1
 behavior.
