@@ -134,16 +134,16 @@ Continue with focused requests such as `add Redis`, `move auth to the left`, or 
 
 | Type | Best for | Include in your prompt |
 |---|---|---|
-| **Architecture** | Components, services, storage, boundaries | Scope, core components, primary path |
+| **Architecture** | Components, services, storage, boundaries | Scope, components, primary path |
 | **Workflow** | CI/CD, approvals, tool calls, runbooks | Participants, order, branches, exceptions |
-| **Sequence** | API calls, cache fallback, auth, async traces | Callers, callees, returns, timing |
-| **Data Flow** | Pipelines, lineage, PII, consumers | Sources, transforms, stores, boundaries |
-| **Lifecycle** | States, retries, waits, terminal outcomes | States, events, retry and cancellation paths |
-| **Flowchart** | Algorithms and decision logic (DIN 66001 / ISO 5807 symbols) | Start/end, process, decision diamonds with labelled answers, I/O, subroutine calls, loops |
-| **Struktogramm** | Structured programs (Nassi-Shneiderman, DIN 66261) | Nested boxes for sequence, if/case, while/until/for loops, and exits — no arrows |
-| **UML Class** | Domain models (Klassendiagramm) | Classes, interfaces, enumerations, multiplicities, inheritance, realization, aggregation, composition |
-| **ER** | Entity-relationship schemas | Entities, relationships, Chen (min, max) or IE crow's-foot cardinalities |
-| **Use Case** | Requirements (Anwendungsfalldiagramm) | Primary and secondary actors, system boundary, verb-object use cases, «include» / «extend», generalization |
+| **Sequence** | API calls, cache fallback, auth, async traces | Callers, callees, returns |
+| **Data Flow** | Pipelines, lineage, PII, consumers | Sources, transforms, stores |
+| **Lifecycle** | States, retries, waits, terminal outcomes | States, events, retry and cancellation |
+| **Flowchart** | Algorithms (DIN 66001 / ISO 5807) | Start/end, process, decision diamonds, I/O, loops |
+| **Struktogramm** | Structured programs (DIN 66261) | Nested boxes for sequence, if/case, while/until/for, exits |
+| **UML Class** | Domain models (Klassendiagramm) | Classes, interfaces, enumerations, inheritance, realization |
+| **ER** | Entity-relationship schemas | Entities, relationships, Chen or IE crow's-foot |
+| **Use Case** | Requirements (Anwendungsfalldiagramm) | Actors, system boundary, use cases, include / extend |
 
 Architecture's optional `deployment-ownership` profile fails closed when authored owners, region placement, private database scope, or named crossings are missing; it is never implicit and does not inspect live infrastructure. See the [checked deployment proof](https://tt-a1i.github.io/archify/gallery.html#proof-deployment-ownership).
 
