@@ -82,7 +82,7 @@ test('cli: help lists commands and diagram types', () => {
   assert.match(result.stdout, /archify guide \[scenario or question\]/);
   assert.match(result.stdout, /archify doctor/);
   assert.match(result.stdout, /archify demo \[output-directory\]/);
-  assert.match(result.stdout, /architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm/);
+  assert.match(result.stdout, /architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm.*activity/);
 });
 
 test('cli: doctor reports a complete installation is ready', () => {
@@ -98,6 +98,7 @@ test('cli: doctor reports a complete installation is ready', () => {
   assert.match(result.stdout, /\[ok\] Standalone schema validators/);
   assert.match(result.stdout, /\[ok\] architecture renderer, schema, and example/);
   assert.match(result.stdout, /\[ok\] lifecycle renderer, schema, and example/);
+  assert.match(result.stdout, /\[ok\] activity renderer, schema, and example/);
   assert.match(result.stdout, /Archify is ready\./);
 });
 
@@ -159,8 +160,8 @@ test('cli: guide lists all scenario recipes by diagram type', () => {
   const result = run(['guide']);
 
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /Archify scenario recipes \(13\)/);
-  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm']) {
+  assert.match(result.stdout, /Archify scenario recipes \(14\)/);
+  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'activity']) {
     assert.match(result.stdout, new RegExp(`\\[${type}\\]`));
   }
 });

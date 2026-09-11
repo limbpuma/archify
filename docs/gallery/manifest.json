@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "generator": "scripts/build-gallery.mjs",
   "archifyVersion": "2.17.0-dev.1",
-  "entryCount": 13,
-  "checkCount": 117,
+  "entryCount": 14,
+  "checkCount": 126,
   "entries": [
     {
       "id": "agent-tool-call",
@@ -1291,6 +1291,106 @@
           "routesOverSuggestedStretch": 0,
           "minSegmentPx": null,
           "minInteriorSegmentPx": null,
+          "shortSegmentCount": 0,
+          "shortEndpointSegmentCount": 0,
+          "shortInteriorSegmentCount": 0,
+          "microSegmentCount": 0
+        },
+        "suggestedLimits": {
+          "bendsPerRelationship": 2,
+          "stretch": 1.35,
+          "segmentPx": 16,
+          "microSegmentPx": 8
+        },
+        "issues": []
+      }
+    },
+    {
+      "id": "phone-order",
+      "type": "activity",
+      "title": "Phone Order Activity",
+      "subtitle": "UML activity diagram of one phone order with customer, AI agent and kitchen swimlanes",
+      "input": "gallery/sources/phone-order.activity.json",
+      "artifact": "gallery/artifacts/phone-order.activity.html",
+      "focus": "is_open",
+      "view": "advise",
+      "viewCount": 3,
+      "viewIds": [
+        "advise",
+        "quote-loop",
+        "fulfil"
+      ],
+      "guidedPlayback": true,
+      "schemaVersion": 1,
+      "visualPreset": "classic",
+      "animation": "trace",
+      "engineeringProfile": null,
+      "nodeCount": 15,
+      "edgeCount": 16,
+      "artifactBytes": 809526,
+      "artifactSha256": "88240e54b95cf33bd2a57a8015f6f23bd49a4d1f3c28878f6f6b8d770770b6d0",
+      "sourceBytes": 4892,
+      "sourceSha256": "2c92fcf4b215a28a615c65d48f16eb5fe44594207b47c73e7573c062fc49bd03",
+      "checks": [
+        {
+          "name": "single_svg",
+          "ok": true
+        },
+        {
+          "name": "finite_svg",
+          "ok": true
+        },
+        {
+          "name": "orthogonal_arrows",
+          "ok": true
+        },
+        {
+          "name": "label_route_clearance",
+          "ok": true
+        },
+        {
+          "name": "relationship_crossings",
+          "ok": true
+        },
+        {
+          "name": "relationship_corridors",
+          "ok": true
+        },
+        {
+          "name": "container_border_runs",
+          "ok": true
+        },
+        {
+          "name": "route_rhythm",
+          "ok": true
+        },
+        {
+          "name": "legend_clearance",
+          "ok": true
+        }
+      ],
+      "composition": {
+        "schemaVersion": 1,
+        "profile": "showcase",
+        "status": "pass",
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "metrics": {
+          "properCrossings": 0,
+          "ambiguousCorridors": 0,
+          "containerBorderRuns": 0,
+          "labelRouteClearanceIssues": 0,
+          "minLabelRouteClearance": 25.3,
+          "desktopReadabilityIssues": 0,
+          "minProjectedNodeTextPx": null,
+          "maxBends": 2,
+          "routesOverSuggestedBends": 0,
+          "maxStretch": 1,
+          "routesOverSuggestedStretch": 0,
+          "minSegmentPx": 23,
+          "minInteriorSegmentPx": 65,
           "shortSegmentCount": 0,
           "shortEndpointSegmentCount": 0,
           "shortInteriorSegmentCount": 0,

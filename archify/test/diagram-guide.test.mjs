@@ -18,6 +18,7 @@ const CASES = {
   lifecycle: 'agent-run.lifecycle.json',
   flowchart: 'order-call.flowchart.json',
   struktogramm: 'order-call.struktogramm.json',
+  activity: 'phone-order.activity.json',
 };
 
 function render(mode, example) {

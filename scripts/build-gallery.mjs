@@ -188,6 +188,19 @@ const CASES = [
     descriptionEn: 'A Nassi-Shneiderman diagram (DIN 66261) of the same AI phone agent algorithm: nested boxes, branched if/case, looped until, and explicit exits without arrows.',
     descriptionZh: '同一段 AI 电话代理算法的 Nassi-Shneiderman 结构图（DIN 66261）：嵌套方框、if 与 case 分支、until 循环和显式退出，全程没有箭头。',
   },
+  {
+    id: 'phone-order',
+    type: 'activity',
+    input: 'phone-order.activity.json',
+    output: 'phone-order.activity.html',
+    focus: 'is_open',
+    view: 'advise',
+    accent: '#0e7490',
+    titleEn: 'Phone Order Activity',
+    titleZh: '电话下单活动图',
+    descriptionEn: 'A UML activity diagram of one phone order with vertical swimlanes for customer, AI agent and kitchen: opening check, quote loop, parallel confirmation and kitchen work, and two explicit terminal states.',
+    descriptionZh: '一段电话下单的 UML 活动图：用垂直泳道区分顾客、AI 代理和厨房，包含营业检查、报价循环、确认短信与厨房并行工作，以及两个明确的终态。',
+  },
 ];
 
 const SHAPES = {
@@ -198,6 +211,7 @@ const SHAPES = {
   lifecycle: ['states', 'transitions'],
   flowchart: ['nodes', 'edges'],
   struktogramm: ['blocks', null],
+  activity: ['nodes', 'edges'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -209,6 +223,7 @@ const TYPE_ACCENTS = {
   lifecycle: '#be123c',
   flowchart: '#0d9488',
   struktogramm: '#0f766e',
+  activity: '#0e7490',
 };
 
 function digest(buffer) {

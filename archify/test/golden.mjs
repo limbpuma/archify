@@ -81,6 +81,7 @@ const GOLDEN = [
   ['architecture', 'web-app.architecture.json', 'web-app-rendered.html'],
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
   ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
+  ['activity', 'phone-order.activity.json', 'activity-phone-order.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -161,6 +162,16 @@ expectFailure('struktogramm text wider than its column', 'struktogramm',
     inner.kind = 'statement';
     inner.text = 'X'.repeat(96);
   }, 'does not fit');
+expectFailure('decision branch without a guard label', 'activity',
+  (d) => {
+    const edge = d.edges.find((e) => e.from === 'has_blockers' && e.to === 'ask');
+    delete edge.label;
+  }, 'needs a guard label');
+expectFailure('two initial nodes in one activity', 'activity',
+  (d) => {
+    d.nodes.push({ id: 'start_b', kind: 'initial', col: 0, row: 6 });
+    d.edges.push({ from: 'end_done', to: 'start_b' });
+  }, 'exactly one initial node');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

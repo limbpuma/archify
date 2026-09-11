@@ -46,10 +46,11 @@ test('guide page: ships bilingual recipes and syntactically valid interaction co
   const dataMatch = html.match(/<script id="guide-data" type="application\/json">([\s\S]*?)<\/script>/);
   assert.ok(dataMatch);
   const data = JSON.parse(dataMatch[1]);
-  assert.equal(data.length, 13);
+  assert.equal(data.length, 14);
   assert.equal(data.filter((recipe) => recipe.type === 'workflow').length, 3);
   assert.equal(data.filter((recipe) => recipe.type === 'flowchart').length, 1);
   assert.equal(data.filter((recipe) => recipe.type === 'struktogramm').length, 1);
+  assert.equal(data.filter((recipe) => recipe.type === 'activity').length, 1);
   assert.ok(data.every((recipe) => recipe.en.prompt && recipe.zh.prompt && recipe.proof));
   assert.match(html, /gallery\.html#proof-/);
   assert.match(html, /Open verified example/);

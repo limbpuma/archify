@@ -14,6 +14,7 @@ against one of the schemas in this folder before any layout work happens.
 | `architecture.schema.json` | `diagram_type: "architecture"` | `components`, `boundaries`, `connections` |
 | `flowchart.schema.json` | `diagram_type: "flowchart"` | `groups`, `nodes`, `edges` |
 | `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
+| `activity.schema.json` | `diagram_type: "activity"` | `nodes` (initial, final, action, decision, merge, fork, join, object), `edges`, `lanes` |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -58,6 +59,25 @@ arithmetic. There are no edges and no routing vocabulary. Nested `blocks`
 id. Nesting depth is bounded to `6` and total rows to `40`. Text must
 fit its column at the 10px source size; shrink-to-fit is allowed down to
 8px only for `note`.
+
+Activity `meta` additionally accepts `grid` (default `colWidth: 230`,
+`rowHeight: 72`, `originX: 140`, `originY: 100`) and `lanes[]` with
+`cols: [start, end]` (inclusive column ranges that define vertical
+swimlanes from the column lattice). A node's centre is
+`originX + col * colWidth + dx` and `originY + row * rowHeight + dy`;
+the author owns placement and the renderer never moves a symbol. Each
+node must lie inside exactly one lane and below the lane header
+(`y ≥ 70`). Usable canvas is `x ∈ [24, viewBox[0] − 24]` and
+`y ∈ [40, viewBox[1] − 96]` (legend band). Keep `viewBox[0] ≤ 1380`
+so the 9px member text stays ≥ 6px at the 1440px desktop projection.
+`initial` has no incoming edge and exactly one outgoing edge;
+`final` has incoming edges only; `decision` needs ≥ 2 outgoing edges
+each carrying a guard label (the renderer auto-bracketed);
+`merge` joins ≥ 2 incoming edges into one outgoing edge;
+`fork`/`join` are bars with `orientation: "vertical"` (default
+horizontal); `action` carries `label` and optional `sublabel`.
+Guards on flows leaving a decision are written as `label` and rendered
+as `[label]` (brackets added when missing).
 
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
@@ -105,6 +125,7 @@ Supported keys are renderer-owned:
 | Lifecycle | `start`, `active`, `waiting`, `decision`, `success`, `failure`, `neutral`, `external` |
 | Flowchart | `terminator`, `process`, `decision`, `io`, `subroutine`, `connector` |
 | Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
+| Activity | `initial`, `final`, `action`, `decision`, `merge`, `fork`, `join`, `object`, `lane` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
