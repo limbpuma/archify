@@ -84,6 +84,7 @@ const GOLDEN = [
   ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
   ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
+  ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -201,6 +202,15 @@ expectFailure("crows-foot relation without toCardinality", 'erd',
     const rel = d.relations.find((r) => r.to === 'order');
     delete rel.toCardinality;
   }, 'needs toCardinality', 'order-crowsfoot.erd.json');
+expectFailure('usecase association between two use cases', 'usecase',
+  (d) => {
+    d.relations.push({ from: 'place_order', to: 'pay_order', kind: 'association' });
+  }, 'links two');
+expectFailure('usecase actor placed inside the system boundary', 'usecase',
+  (d) => {
+    d.nodes.find((n) => n.kind === 'actor').col = 4;
+    d.groups[0].nodes.push('customer');
+  }, 'is inside system boundary');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

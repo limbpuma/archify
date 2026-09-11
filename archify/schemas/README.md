@@ -16,6 +16,7 @@ against one of the schemas in this folder before any layout work happens.
 | `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
 | `uml-class.schema.json` | `diagram_type: "uml-class"` | `groups`, `classes`, `relations` |
 | `erd.schema.json` | `diagram_type: "erd"` | `nodes`, `relations` (Chen entities/relationships/attributes or IE crow's-foot entities with attribute lists) |
+| `usecase.schema.json` | `diagram_type: "usecase"` | `groups` (system boundary), `nodes` (actor, usecase), `relations` (association, include, extend, generalization) |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -128,6 +129,7 @@ Supported keys are renderer-owned:
 | Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
 | UML Class | `class`, `abstract`, `interface`, `enum`, `association`, `aggregation`, `composition`, `inheritance`, `realization`, `dependency` |
 | ERD | `entity`, `weak-entity`, `relationship`, `attribute`, `key-attribute`, `derived-attribute`, `multivalued-attribute`, `one`, `zero-one`, `one-many`, `zero-many`, `many` |
+| Usecase | `actor`, `usecase`, `system`, `association`, `include`, `extend`, `generalization` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and

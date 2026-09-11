@@ -20,6 +20,7 @@ const CASES = {
   struktogramm: 'order-call.struktogramm.json',
   'uml-class': 'order-domain.uml-class.json',
   erd: 'order-chen.erd.json',
+  usecase: 'phone-ordering.usecase.json',
 };
 
 function render(mode, example) {

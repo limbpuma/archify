@@ -227,6 +227,19 @@ const CASES = [
     descriptionEn: 'An IE crow\'s-foot entity-relationship diagram: Customer, Order, OrderLine, Product and Category boxes list their attributes inline with PK / FK badges; lines carry one / zero-many cardinality glyphs and turn dashed when the relationship is non-identifying.',
     descriptionZh: 'IE Krähenfuß 实体关系图：Customer / Order / OrderLine / Product / Category 用方框列出属性并标注 PK / FK，连线两端带 one / zero-many 基数符号，非标识联系画虚线。',
   },
+  {
+    id: 'phone-ordering-usecase',
+    type: 'usecase',
+    input: 'phone-ordering.usecase.json',
+    output: 'phone-ordering.usecase.html',
+    focus: 'place_order',
+    view: 'customer',
+    accent: '#6366f1',
+    titleEn: 'Phone Ordering Use Cases',
+    titleZh: '电话下单用例图',
+    descriptionEn: 'A UML use case diagram (Anwendungsfalldiagramm): primary customer and staff actors, secondary payment provider, three include flows, an optional voucher extension, and a repeat-order generalization.',
+    descriptionZh: 'UML 用例图（Anwendungsfalldiagramm）：主要参与者客户与店员，次要参与者支付服务，三个 include 子流程，可选的 voucher extend，以及 repeat-order 的泛化关系。',
+  },
 ];
 
 const SHAPES = {
@@ -239,6 +252,7 @@ const SHAPES = {
   struktogramm: ['blocks', null],
   'uml-class': ['classes', 'relations'],
   erd: ['nodes', 'relations'],
+  usecase: ['nodes', 'relations'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -252,6 +266,7 @@ const TYPE_ACCENTS = {
   struktogramm: '#0f766e',
   'uml-class': '#7c3aed',
   erd: '#0ea5e9',
+  usecase: '#4f46e5',
 };
 
 function digest(buffer) {

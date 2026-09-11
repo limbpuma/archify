@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tt-a1i/archify/schemas/usecase.schema.json",
+  "title": "Archify UML Use Case Diagram (Anwendungsfalldiagramm)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "diagram_type",
+    "meta",
+    "nodes",
+    "relations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "diagram_type": {
+      "const": "usecase"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locale": {
+          "$ref": "common.schema.json#/$defs/locale"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "output": {
+          "type": "string"
+        },
+        "animation": {
+          "$ref": "common.schema.json#/$defs/animation"
+        },
+        "visual_preset": {
+          "$ref": "common.schema.json#/$defs/visualPreset"
+        },
+        "quality_profile": {
+          "$ref": "common.schema.json#/$defs/qualityProfile"
+        },
+        "views": {
+          "$ref": "common.schema.json#/$defs/guidedViews"
+        },
+        "legend": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": { "$ref": "common.schema.json#/$defs/legendMode" },
+            "entries": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "actor": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "usecase": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "system": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "association": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "include": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "extend": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "generalization": { "$ref": "common.schema.json#/$defs/legendEntry" }
+              }
+            }
+          }
+        },
+        "grid": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "colWidth": { "type": "number", "minimum": 96, "maximum": 400 },
+            "rowHeight": { "type": "number", "minimum": 64, "maximum": 320 },
+            "originX": { "type": "number", "minimum": 32 },
+            "originY": { "type": "number", "minimum": 48 }
+          }
+        },
+        "viewBox": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": 420
+            },
+            {
+              "type": "number",
+              "minimum": 420
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "nodes"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "nodes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "common.schema.json#/$defs/id"
+            }
+          },
+          "padding": {
+            "type": "number",
+            "minimum": 8,
+            "maximum": 48
+          }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 48,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "label",
+          "col",
+          "row"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "actor",
+              "usecase"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sublabel": {
+            "type": "string"
+          },
+          "secondary": {
+            "type": "boolean"
+          },
+          "col": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 15
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 15
+          },
+          "dx": {
+            "type": "number"
+          },
+          "dy": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number",
+            "minimum": 36
+          },
+          "height": {
+            "type": "number",
+            "minimum": 28
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "from",
+          "to",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "from": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "to": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "association",
+              "include",
+              "extend",
+              "generalization"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "variant": {
+            "$ref": "common.schema.json#/$defs/variant"
+          },
+          "route": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "straight",
+              "drop",
+              "bottom-channel",
+              "top-channel",
+              "right-channel",
+              "left-channel"
+            ]
+          },
+          "fromSide": {
+            "$ref": "common.schema.json#/$defs/side"
+          },
+          "toSide": {
+            "$ref": "common.schema.json#/$defs/side"
+          },
+          "channelX": {
+            "type": "number"
+          },
+          "channelY": {
+            "type": "number"
+          },
+          "cornerRadius": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 24
+          },
+          "labelAt": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "labelDx": {
+            "type": "number"
+          },
+          "labelDy": {
+            "type": "number"
+          },
+          "labelSegment": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "via": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/point"
+            }
+          },
+          "width": {
+            "$ref": "common.schema.json#/$defs/relationshipWidth"
+          }
+        }
+      }
+    },
+    "cards": {
+      "$ref": "common.schema.json#/$defs/cards"
+    }
+  }
+}
