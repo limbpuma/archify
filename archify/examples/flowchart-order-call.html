@@ -5086,7 +5086,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <p class="subtitle">DIN 66001 program flowchart — an AI phone agent ordering through /api/v1</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"happy-path","label":"Happy path","focus":["start","announce","get_menu","take_wish","opening","is_open","delivery","quote","blockers","read_total","confirmed","make_key","post_order","answered","status","read_number","end_ok"],"note":"Follow the call from the first announcement to an order on the board."},{"id":"quote-loop","label":"Quote loop","focus":["quote","blockers","read_blockers","take_change"],"note":"Every change in the conversation is a new quote; blockers drive the questions."},{"id":"retry-and-exits","label":"Retry and exits","focus":["post_order","answered","retry","status","alert_owner","end_none"],"note":"The same idempotency key is resent after a timeout; 409 alerts the owner, 422 re-quotes."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"happy-path","label":"Happy path","focus":["start","announce","get_menu","take_wish","opening","is_open","delivery","serviceability","in_zone","quote","blockers","read_total","confirmed","make_key","post_order","answered","status","read_number","end_ok"],"note":"Follow the call from the first announcement to an order on the board."},{"id":"quote-loop","label":"Quote loop","focus":["quote","blockers","read_blockers","take_change"],"note":"Every change in the conversation is a new quote; blockers drive the questions."},{"id":"retry-and-exits","label":"Retry and exits","focus":["post_order","answered","retry","status","alert_owner","end_none"],"note":"The same idempotency key is resent after a timeout; 409 alerts the owner, 422 re-quotes."}]</script>
 
     <script id="archify-i18n-data" type="application/json">{"locale":"en","messages":{"viewer.kind.frontend":"Frontend","viewer.kind.backend":"Backend","viewer.kind.database":"Database","viewer.kind.cloud":"Cloud","viewer.kind.security":"Security","viewer.kind.messagebus":"Message bus","viewer.kind.external":"External","viewer.kind.neutral":"Neutral","viewer.kind.node":"Node","viewer.kind.start":"Start","viewer.kind.active":"Active","viewer.kind.waiting":"Waiting","viewer.kind.decision":"Decision","viewer.kind.success":"Success","viewer.kind.failure":"Failure","viewer.toolbar.actions":"Diagram actions","viewer.theme.toggle.title":"Toggle theme (T)","viewer.theme.toggle":"Toggle color theme","viewer.theme.dark":"Dark","viewer.theme.light":"Light","viewer.preset.choose.title":"Choose visual style (S cycles)","viewer.preset.choose":"Choose visual style","viewer.preset.style":"Style","viewer.preset.menu":"Visual style","viewer.preset.identity":"Visual identity","viewer.preset.cycles":"S cycles","viewer.preset.classic":"Classic","viewer.preset.classic.short":"Classic","viewer.preset.classic.hint":"Stable technical default","viewer.preset.flow":"Signal Flow","viewer.preset.flow.short":"Flow","viewer.preset.flow.hint":"Motion-forward presentation","viewer.preset.blueprint":"Blueprint","viewer.preset.blueprint.hint":"Engineering review","viewer.preset.editorial":"Editorial","viewer.preset.editorial.hint":"Publication and launch notes","viewer.preset.badge.signalFlow":"SIGNAL FLOW","viewer.preset.badge.blueprint":"BLUEPRINT / REV 01","viewer.preset.badge.editorial":"EDITORIAL / FIELD NOTE","viewer.preset.badge.editorialPlate":"ARCHIFY / PLATE 04","viewer.preset.current":"Visual style: {style}. Choose visual style","viewer.motion.live":"Live","viewer.motion.still":"Still","viewer.motion.pause":"Pause motion","viewer.motion.resume":"Resume motion","viewer.motion.reduced":"Motion paused by reduced-motion preference","viewer.motion.hidden":"Motion paused while this page is hidden","viewer.motion.yielding":"Pause motion; currently yielding to {owner}","viewer.motion.yielding.title":"Live preview enabled · yielding to {owner}","viewer.owner.story":"the guided story","viewer.owner.chapter":"the active chapter","viewer.owner.chapterPreview":"the chapter delta preview","viewer.owner.handoff":"the chapter handoff","viewer.owner.route":"Route Probe","viewer.owner.lens":"Semantic Lens","viewer.owner.relationship":"Relationship Preview","viewer.owner.intent":"Intent Trace","viewer.owner.focus":"semantic focus","viewer.owner.legend":"legend preview","viewer.owner.reader":"reader interaction","viewer.present.enter":"Enter presentation stage","viewer.present.enter.title":"Presentation stage (F)","viewer.present.exit":"Exit presentation stage","viewer.present.exit.title":"Exit presentation stage (F or Escape)","viewer.present.present":"Present","viewer.present.exit.label":"Exit","viewer.export.button":"Export","viewer.export.button.title":"Export diagram (E)","viewer.export.diagram":"Export diagram","viewer.export.menu":"Export","viewer.export.subtitle":"Portable, clean outputs","viewer.export.share":"Share","viewer.export.shareCard":"Share Card","viewer.export.routeShareCard":"Route Share Card","viewer.export.reachShareCard":"Reach Share Card","viewer.export.copyShareCard":"Copy Share Card","viewer.export.copyDiagram":"Copy diagram","viewer.export.clipboardPng":"PNG to clipboard","viewer.export.raster":"Raster images","viewer.export.image":"Image","viewer.export.lossless":"Lossless image","viewer.export.compact":"Compact image","viewer.export.modern":"Modern image","viewer.export.vectorMotion":"Vector and motion","viewer.export.vectorMotion.heading":"Vector \u0026 motion","viewer.export.editable":"Editable vector","viewer.export.motion6s":"6s motion","viewer.export.unsupported":"Not supported by this browser","viewer.export.clipboardUnsupported":"Clipboard image write not supported by this browser","viewer.export.clipboardUnsupported.period":"Clipboard image write not supported by this browser.","viewer.export.clipboardUnsupported.short":"Clipboard image write not supported in this browser.","viewer.export.motionUnavailable":"Motion capture unavailable in this browser","viewer.export.webmUnavailable":"WebM unavailable in this browser","viewer.export.failed":"Export failed: {message}","viewer.export.unknownVariant":"Unknown Share Card variant: {variant}","viewer.export.routeRequired":"Trace a route before exporting a Route Share Card","viewer.export.reachRequired":"Trace authored reach before exporting a Reach Share Card","viewer.export.unknown":"unknown","viewer.export.routeFailed":"Route Share Card export failed: {message}","viewer.export.reachFailed":"Reach Share Card export failed: {message}","viewer.export.copyFailed":"Copy failed: {message}","viewer.export.copiedPng":"Copied PNG to clipboard","viewer.export.copiedShare":"Copied Share Card","viewer.export.downloadedShare":"Downloaded Share Card","viewer.export.downloadedRoute":"Downloaded Route Share Card","viewer.export.downloadedReach":"Downloaded Reach Share Card","viewer.export.downloadedWebm":"Downloaded WebM","viewer.export.recording":"Recording 6 seconds of motion…","viewer.export.card.routeSummary.one":"Route: {source} → {target} · {count} directed hop","viewer.export.card.routeSummary.other":"Route: {source} → {target} · {count} directed hops","viewer.export.card.reachSummary":"Authored {direction} from {origin} · {nodes} · {links} · max {hops}","viewer.export.card.node.one":"{count} node","viewer.export.card.node.other":"{count} nodes","viewer.export.card.link.one":"{count} link","viewer.export.card.link.other":"{count} links","viewer.export.card.hop.one":"{count} hop","viewer.export.card.hop.other":"{count} hops","viewer.export.card.routeBadge":"ARCHIFY · ROUTE · {hops}","viewer.export.card.reachBadge":"ARCHIFY · {direction} REACH","viewer.export.card.defaultBadge":"ARCHIFY · {preset} · {theme}","viewer.export.direction.upstream":"Upstream","viewer.export.direction.downstream":"Downstream","viewer.export.error.canvasUnavailable":"Canvas unavailable for {label}","viewer.export.error.contextUnavailable":"2D canvas context unavailable for {label}","viewer.export.error.toBlobUnavailable":"canvas.toBlob unavailable for {label}","viewer.export.error.toBlobNull":"canvas.toBlob returned no data for {label}","viewer.export.error.variantsCombined":"Share Card variants cannot be combined","viewer.export.error.viewerState":"Share Card export could not remove temporary viewer state","viewer.export.error.routeState":"Route Card export could not preserve the resolved route safely","viewer.export.error.reachState":"Reach Card export could not preserve authored reach safely","viewer.export.error.webmRequirements":"WebM motion export requires a trace animation and browser MediaRecorder support","viewer.export.error.mediaRecorder":"MediaRecorder failed","viewer.export.error.emptyWebm":"MediaRecorder produced an empty WebM","viewer.export.error.webmBackground":"SVG background could not be loaded for WebM export","viewer.guided.region":"Guided diagram views","viewer.guided.previous":"Previous guided view","viewer.guided.previous.title":"Previous guided view ([)","viewer.guided.next":"Next guided view","viewer.guided.next.title":"Next guided view (])","viewer.guided.views":"Guided views","viewer.guided.explore":"Explore this system","viewer.guided.intro":"Step through curated paths without changing the source diagram.","viewer.guided.trail":"Story trail","viewer.guided.beat":"Beat","viewer.guided.nextBeat":"Next","viewer.guided.play":"Play guided story","viewer.guided.play.title":"Play guided story (P)","viewer.guided.pause":"Pause guided story","viewer.guided.pause.title":"Pause guided story (P)","viewer.guided.replay":"Replay guided story","viewer.guided.replay.title":"Replay guided story (P)","viewer.guided.playStory":"Play story","viewer.guided.pauseStory":"Pause","viewer.guided.replayStory":"Replay story","viewer.guided.motionUnavailable":"Story playback unavailable while motion is Still","viewer.guided.enableMotion":"Switch motion to Live to play the guided story","viewer.guided.selectBeatLink":"Select a Story Beat to copy its exact link","viewer.guided.copyMoment":"Copy moment","viewer.guided.momentCopied":"Moment link copied","viewer.guided.momentCopyFailed":"Could not copy story moment link","viewer.guided.copied":"Copied","viewer.guided.copyFailed":"Copy failed","viewer.guided.showAll":"Show all","viewer.guided.showAll.aria":"Show entire diagram","viewer.guided.chapters":"Story chapters","viewer.guided.storyTrail":"Story trail for {label}: {count} beats","viewer.guided.chapter.open":"Open chapter {index} of {total}: {label}, {count} stops","viewer.guided.chapter.current":"Current chapter {index} of {total}: {label}, {count} stops","viewer.guided.chapter.selectedNodes":"{count} selected nodes","viewer.guided.chapter.stops":"{count} stops","viewer.guided.chapter.stop.one":"{count} stop","viewer.guided.chapter.stop.other":"{count} stops","viewer.guided.chapter.current.title":"{label} — current chapter, {count} stops","viewer.guided.chapter.delta.expanded":"{stay} stay, {enter} enter, {leave} leave","viewer.guided.chapter.delta.aria":"Open chapter {index} of {total}: {label}. Chapter focus delta: {delta}","viewer.guided.chapter.delta.title":"{label} — {delta} chapter focus","viewer.guided.handoff":"{from} → {to} · via {label}","viewer.guided.share.chapter":"Chapter {index} / {total}","viewer.guided.share.initial":"Chapter 01 / 01","viewer.guided.share.default":"Guided chapter","viewer.guided.state.ready":"Ready","viewer.guided.state.playing":"Playing","viewer.guided.state.settled":"Settled","viewer.guided.state.paused":"Paused","viewer.guided.state.pinned":"Pinned","viewer.guided.state.still":"Still","viewer.guided.share.step":"Step {index} / {total} · {label}","viewer.guided.share.staticMoment":"{step} · Static moment","viewer.guided.share.complete":"{count} steps complete · {note}","viewer.guided.share.settled":"Path settled for reading.","viewer.guided.share.staticPath":"{count} steps · Static path","viewer.guided.share.ready":"{count} steps · Ready","viewer.guided.share.aria":"{state} chapter {index} of {total}: {label}. {beat}. {route}","viewer.guided.beat.start":"Beat {index} / {total} · {label} · starting point","viewer.guided.beat.forward":"Beat {index} / {total} · {from} → {to}","viewer.guided.beat.reverse":"Beat {index} / {total} · {from} → {to} · reverse authored link","viewer.guided.beat.multiple":"Beat {index} / {total} · {from} ⇄ {to} · {count} authored links","viewer.guided.beat.group":"Beat {index} / {total} · {from} · {to} · grouped · no direct link","viewer.guided.beat.aria.prefix":"Story beat {index} of {total}: {label}. ","viewer.guided.beat.aria.start":"Starting point.","viewer.guided.beat.aria.forward":"From {from} through one authored forward relationship.","viewer.guided.beat.aria.reverse":"From {from}; the authored relationship points from {to} to {from}.","viewer.guided.beat.aria.multiple":"From {from} through {count} authored relationships; shown without arbitrary motion.","viewer.guided.beat.aria.group":"Grouped from {from} with no direct authored relationship.","viewer.guided.caption.start":"Starting point","viewer.guided.caption.grouped":"Grouped transition · no direct authored link","viewer.guided.caption.more":" +{count} more","viewer.guided.caption.reverse":"Reverse authored relationship","viewer.guided.caption.relationships":"{count} authored relationships","viewer.guided.caption.relationship":"Authored relationship","viewer.guided.caption.direction":"authored direction: {from} → {to}","viewer.guided.caption.starting":"Authored starting point","viewer.guided.beatLink":"Copy link to current story moment: Beat {index} of {total}: {label}","viewer.guided.noStory":"This diagram has no authored guided story.","viewer.guide.eyebrow":"Diagram guide","viewer.guide.close":"Close diagram guide","viewer.guide.inspecting":"Inspecting compiled semantics","viewer.guide.actions":"Diagram exploration actions","viewer.guide.find":"Find any node","viewer.guide.find.hint":"Search labels, responsibilities, kinds, and stable IDs.","viewer.guide.route":"Trace a route","viewer.guide.route.aria":"Trace a directed route","viewer.guide.route.hint":"Ask how two semantic nodes connect in authored direction.","viewer.guide.map":"See the whole system","viewer.guide.map.hint":"Open Semantic Radar with a live viewport and stable nodes.","viewer.guide.lens":"Compare semantic kinds","viewer.guide.lens.hint":"Count roles, reveal their traffic, and compare direct authored links.","viewer.guide.story":"Play the guided story","viewer.guide.story.hint":"Walk the authored chapters and real relationships.","viewer.guide.present":"Enter Presentation Stage","viewer.guide.present.hint":"Give the live diagram the viewport without changing export.","viewer.guide.shortcuts":"Additional keyboard shortcuts","viewer.guide.shortcut.export":"Export","viewer.guide.shortcut.theme":"Theme","viewer.guide.shortcut.style":"Style","viewer.guide.shortcut.reset":"Reset","viewer.guide.shortcut.zoomIn":"Zoom in","viewer.guide.shortcut.zoomOut":"Zoom out","viewer.guide.shortcut.close":"Close","viewer.guide.facts":"{nodes} · {relationships} · {views}","viewer.guide.fact.node.one":"{count} semantic node","viewer.guide.fact.node.other":"{count} semantic nodes","viewer.guide.fact.relationship.one":"{count} relationship","viewer.guide.fact.relationship.other":"{count} relationships","viewer.guide.fact.view.one":"{count} guided view","viewer.guide.fact.view.other":"{count} guided views","viewer.guide.story.available.one":"Walk {count} authored chapter and its real relationships.","viewer.guide.story.available.other":"Walk {count} authored chapters and their real relationships.","viewer.guide.story.unavailable":"No authored guided story in this diagram.","viewer.guide.open":"Open diagram guide","viewer.guide.noStory":"This diagram has no authored guided story.","viewer.finder.title":"Find a node","viewer.finder.close":"Close node finder","viewer.finder.placeholder":"Search labels or IDs","viewer.finder.search":"Search diagram nodes","viewer.finder.results":"Diagram nodes","viewer.finder.empty":"No matching nodes","viewer.finder.result.focus":"Focus {label}","viewer.finder.result.routeStart":"Choose {label} as route start","viewer.finder.result.routeTarget":"Choose {label} as route destination, {links}","viewer.finder.status.empty":"No matching nodes","viewer.finder.status.count.one":"{count} matching node","viewer.finder.status.count.other":"{count} matching nodes","viewer.finder.noun.nodes":"nodes","viewer.finder.link.one":"{count} link","viewer.finder.link.other":"{count} links","viewer.finder.result.focus.one":"Focus {label}, {count} related connection","viewer.finder.result.focus.other":"Focus {label}, {count} related connections","viewer.finder.status.filtered":"{visible} of {available} {noun}","viewer.finder.status.all":"{available} {noun}","viewer.passport.eyebrow":"Semantic passport","viewer.passport.metadata":"Node metadata","viewer.passport.evidence":"Verified source evidence","viewer.passport.verified":"Verified source","viewer.passport.verificationScope":"Verified against local Git at the pinned revision. Remote access has not been checked.","viewer.passport.reach":"Authored reach","viewer.passport.reach.trace":"Trace authored reachability","viewer.passport.upstream":"Upstream","viewer.passport.downstream":"Downstream","viewer.passport.upstream.trace":"Trace upstream authored reachability","viewer.passport.downstream.trace":"Trace downstream authored reachability","viewer.passport.close":"Close semantic passport","viewer.passport.copy":"Copy link","viewer.passport.copy.focus":"Copy link to focused node","viewer.passport.relations":"Relations","viewer.passport.relations.show":"Show connected relationships","viewer.passport.relations.hide":"Hide connected relationships","viewer.passport.relations.list":"Connected relationships","viewer.passport.copyRelation":"Copy relation","viewer.passport.copyNode":"Copy node","viewer.passport.copyPinned":"Copy link to pinned relationship","viewer.passport.copySource":"Copy link to source node","viewer.passport.copy.focused.success":"Focused node link copied","viewer.passport.copy.pinned.success":"Pinned relationship link copied","viewer.passport.copy.focused.failed":"Could not copy focused node link","viewer.passport.copy.pinned.failed":"Could not copy pinned relationship link","viewer.passport.relationship.none":"No connected relationships","viewer.passport.relationship.count.one":"{count} relation","viewer.passport.relationship.count.other":"{count} relations","viewer.passport.relationship.show.one":"Show {count} connected relationship","viewer.passport.relationship.show.other":"Show {count} connected relationships","viewer.passport.relationship.summary":"{out} outgoing · {in} incoming{loops}","viewer.passport.relationship.loops":" · {count} loop","viewer.passport.relationship.explorer":"Direct relationship explorer","viewer.passport.relationship.help":"Use arrow keys to explore relationships. Press Enter or Space to pin details; Escape clears.","viewer.passport.relationship.loopsBack":"loops back","viewer.passport.relationship.connectsTo":"connects to","viewer.passport.relationship.connectsFrom":"connects from","viewer.passport.relationship.pinned":"Pinned relationship · {from} → {to} · {label}","viewer.passport.relationship.inspect":"Inspect relationship {index} of {total}: {from} to {to}, {label}. Press Enter for details.","viewer.passport.relationship.group.out":"Outgoing","viewer.passport.relationship.group.in":"Incoming","viewer.passport.relationship.group.loop":"Self loops","viewer.passport.relationship.row":"{group}: {relationship}, {neighbor}","viewer.passport.relationship.direction.out":"OUT →","viewer.passport.relationship.direction.in":"← IN","viewer.passport.relationship.direction.loop":"LOOP","viewer.passport.sourceCount.one":"{count} verified source reference","viewer.passport.sourceCount.other":"{count} verified source references","viewer.passport.sourceMarker":"SRC","viewer.passport.beacon.one":"{count} verified source; focus this node to inspect","viewer.passport.beacon.other":"{count} verified sources; focus this node to inspect","viewer.passport.repository.open":"Open verified repository revision {revision}","viewer.passport.source.open":"Open verified source {path} at revision {revision}","viewer.passport.source.openLink":"Open ↗","viewer.passport.reach.upstream.one":"Trace {count} upstream authored node","viewer.passport.reach.upstream.other":"Trace {count} upstream authored nodes","viewer.passport.reach.downstream.one":"Trace {count} downstream authored node","viewer.passport.reach.downstream.other":"Trace {count} downstream authored nodes","viewer.passport.reach.noUpstream":"No upstream authored nodes","viewer.passport.reach.noDownstream":"No downstream authored nodes","viewer.passport.reach.status":"{direction} · {nodes} nodes · {links} links · max {hops} hops","viewer.route.eyebrow":"Route probe","viewer.route.start":"Choose a start node","viewer.route.start.find":"Find start","viewer.route.start.find.aria":"Find a route start","viewer.route.copy":"Copy link","viewer.route.copy.aria":"Copy link to traced route","viewer.route.clear":"Clear","viewer.route.clear.aria":"Clear route probe","viewer.route.traced":"Traced route","viewer.route.pickTwo":"Pick two semantic nodes on the diagram","viewer.route.pickOne":"Pick a semantic node on the diagram","viewer.route.controls":"Route journey controls","viewer.route.previous":"Previous route position","viewer.route.play":"Play route journey","viewer.route.pause":"Pause route journey","viewer.route.replay":"Replay route journey","viewer.route.next":"Next route position","viewer.route.journey":"Journey","viewer.route.pause.label":"Pause","viewer.route.replay.label":"Replay","viewer.route.overview":"Overview","viewer.route.overview.aria":"Show complete route overview","viewer.route.instructions":"Choose the source, then the destination. Direction matters.","viewer.route.destination":"Choose a destination from {label}","viewer.route.destination.find":"Find target","viewer.route.destination.find.aria":"Find a reachable route destination","viewer.route.differentDestination":"Choose a different destination","viewer.route.distinct":"A route needs two distinct semantic nodes.","viewer.route.unreachable":"No directed route to {label}","viewer.route.unreachable.detail":"{target} is not reachable from {source}. Pick a highlighted destination.","viewer.route.start.instructions":"Select the source. The next step will reveal only directed destinations.","viewer.route.copy.success":"Traced route link copied","viewer.route.copy.failed":"Could not copy traced route link","viewer.route.position":"Route position {index} of {total}: {label}","viewer.route.step":"Step {index} of {total} · {phase} · {label}","viewer.route.motionRequired":"Automatic journey requires Live motion","viewer.route.trigger.clear":"Clear traced route","viewer.route.overview.status":"{nodes} · {hops} · shortest authored route","viewer.route.overview.node.one":"{count} node","viewer.route.overview.node.other":"{count} nodes","viewer.route.overview.hop.one":"{count} directed hop","viewer.route.overview.hop.other":"{count} directed hops","viewer.route.phase.playing":"Playing","viewer.route.phase.complete":"Complete","viewer.route.phase.inspecting":"Inspecting","viewer.route.destination.count.one":"{count} directed destination available. Pick a highlighted node.","viewer.route.destination.count.other":"{count} directed destinations available. Pick a highlighted node.","viewer.route.noOutgoing":"No outgoing route starts here. Clear and choose another source.","viewer.route.result.title":"{source} to {target}","viewer.route.finder.source.title":"Choose route start","viewer.route.finder.source.placeholder":"Search route sources","viewer.route.finder.source.empty":"No matching route sources","viewer.route.finder.source.results":"Nodes that can start a route","viewer.route.finder.source.noun":"route sources","viewer.route.finder.source.badge":"start","viewer.route.finder.target.title":"Destination from {label}","viewer.route.finder.target.placeholder":"Search reachable destinations","viewer.route.finder.target.empty":"No matching reachable destinations","viewer.route.finder.target.results":"Reachable route destinations","viewer.route.finder.target.noun":"reachable destinations","viewer.route.hop.one":"{count} hop","viewer.route.hop.other":"{count} hops","viewer.lens.eyebrow":"Semantic lens","viewer.lens.title":"Compare system roles","viewer.lens.close":"Close semantic lens","viewer.lens.instruction":"Choose up to two semantic kinds. One reveals its real traffic; two compare only direct authored relationships.","viewer.lens.kinds":"Semantic kinds","viewer.lens.choose":"Choose a kind to inspect its nodes and touching relationships.","viewer.lens.copy":"Copy link to semantic lens","viewer.lens.clear":"Clear semantic lens","viewer.lens.open":"Open semantic lens","viewer.lens.openActive":"Open active semantic lens","viewer.lens.legend":"Semantic legend","viewer.lens.legend.inspect.one":"Inspect {label}, {count} node","viewer.lens.legend.inspect.other":"Inspect {label}, {count} nodes","viewer.lens.kind.count.one":"{label}, {count} node","viewer.lens.kind.count.other":"{label}, {count} nodes","viewer.lens.compare.one":"{first} → {second}: {forward} · {second} → {first}: {reverse} · {count} direct relationship","viewer.lens.compare.other":"{first} → {second}: {forward} · {second} → {first}: {reverse} · {count} direct relationships","viewer.lens.single":"{nodes} · {relationships} · connected peers remain visible","viewer.lens.node.one":"{count} {label} node","viewer.lens.node.other":"{count} {label} nodes","viewer.lens.relationship.one":"{count} touching relationship","viewer.lens.relationship.other":"{count} touching relationships","viewer.radar.title":"Semantic radar","viewer.radar.building":"Building overview","viewer.radar.openFull":"Open full semantic radar","viewer.radar.open":"Open radar","viewer.radar.close":"Close semantic radar","viewer.radar.surface":"Diagram overview. Click a node to focus it, or use arrow keys to pan.","viewer.radar.click":"Click node","viewer.radar.drag":"Drag to pan","viewer.radar.space":"Semantic radar needs more MAP space.","viewer.radar.nodes":"Semantic diagram radar nodes","viewer.radar.focus":"Focus {label} from Semantic Radar","viewer.radar.status":"{count} nodes · {viewport}","viewer.radar.fullMap":"{count} nodes · full map","viewer.radar.compacted":"Radar compacted to avoid covering the Semantic Passport or MAP controls.","viewer.radar.cancelWaiting":"Cancel semantic radar waiting for more MAP space","viewer.radar.needsSpace":"Semantic radar needs more visible MAP space","viewer.radar.viewport.full":"full map","viewer.radar.viewport.width":"{percent}% width","viewer.radar.viewport.scale":"{percent}% viewport","viewer.nav.controls":"Diagram view controls","viewer.nav.route":"Trace a directed route","viewer.nav.route.title":"Trace route (R)","viewer.nav.route.short":"PATH","viewer.nav.radar":"Open semantic radar","viewer.nav.radar.title":"Semantic radar (M)","viewer.nav.radar.short":"MAP","viewer.nav.lens":"Open semantic lens","viewer.nav.lens.title":"Semantic lens (L)","viewer.nav.lens.short":"LENS","viewer.nav.find":"Find a node","viewer.nav.find.title":"Find a node (/)","viewer.nav.guide":"Open diagram guide","viewer.nav.guide.title":"Diagram guide (?)","viewer.nav.zoomOut":"Zoom out","viewer.nav.zoomOut.title":"Zoom out (-)","viewer.nav.reset":"Reset diagram view","viewer.nav.reset.title":"Reset view (0)","viewer.nav.read":"READ","viewer.nav.zoomIn":"Zoom in","viewer.nav.zoomIn.title":"Zoom in (+)","viewer.nav.camera":"{hint}. Reset diagram view","viewer.nav.camera.title":"{semantic}{hint} · reset view (0)","viewer.nav.camera.semantic":"Semantic camera active · ","viewer.nav.level.map":"MAP","viewer.nav.level.read":"READ","viewer.nav.level.full":"FULL","viewer.nav.level.auto":"AUTO","viewer.nav.detail.map":"Zoom in to reveal relationship labels and node context","viewer.nav.detail.read":"Zoom in again to reveal tags and annotations","viewer.nav.detail.full":"Full diagram detail","viewer.intent.summary":"{label}. {out} outgoing, {in} incoming{loops}. {total} connections. Press Enter for details.","viewer.intent.loops":", {count} self loop","viewer.common.copied":"Copied","viewer.common.copyFailed":"Copy failed","viewer.common.copyLink":"Copy link","viewer.common.clear":"Clear","viewer.common.close":"Close"}}</script>
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
@@ -5131,7 +5131,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
-      <svg viewBox="0 0 1280 1660" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase">
+      <svg viewBox="0 0 1540 760" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase">
         <title id="archify-diagram-title">Phone Order Flowchart</title>
         <desc id="archify-diagram-description">DIN 66001 program flowchart — an AI phone agent ordering through /api/v1</desc>
         <!-- Definitions -->
@@ -5158,244 +5158,244 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
         <!-- Groups (phases) -->
         <g data-detail="context">
-          <rect x="398" y="110" width="676" height="468" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
-          <text x="410" y="125" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">A · Advise</text>
+          <rect x="3" y="116" width="653" height="556" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
+          <text x="15" y="131" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">A · Advise</text>
         </g>
         <g data-detail="context">
-          <rect x="446" y="726" width="614" height="380" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
-          <text x="458" y="741" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">B · Calculate</text>
+          <rect x="633" y="286" width="407" height="380" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
+          <text x="645" y="301" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">B · Calculate</text>
         </g>
         <g data-detail="context">
-          <rect x="264" y="1078" width="796" height="380" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
-          <text x="276" y="1093" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">C · Order</text>
+          <rect x="1038" y="292" width="408" height="380" rx="10" class="c-region" stroke-dasharray="5 4" fill="none"/>
+          <text x="1050" y="307" class="t-muted" font-size="8" font-weight="700" letter-spacing="0.6">C · Order</text>
         </g>
 
         <!-- Edges -->
-        <path data-edge-from="start" data-edge-to="announce" data-edge-key="0" data-composition-points="560,103;560,146" d="M 560 103 L 560 146" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:0"/>
-        <path data-edge-from="announce" data-edge-to="get_menu" data-edge-key="1" data-composition-points="560,198;560,237" d="M 560 198 L 560 237" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:1"/>
-        <path data-edge-from="get_menu" data-edge-to="take_wish" data-edge-key="2" data-composition-points="560,283;560,322" d="M 560 283 L 560 322" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:2"/>
-        <path data-edge-from="take_wish" data-edge-to="opening" data-edge-key="3" data-composition-points="560,374;560,413" d="M 560 374 L 560 413" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:3"/>
-        <path data-edge-from="opening" data-edge-to="is_open" data-edge-key="4" data-composition-points="560,459;560,492" d="M 560 459 L 560 492" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:4"/>
-        <path data-edge-from="is_open" data-edge-to="read_hours" data-edge-label="No" data-edge-key="5" data-composition-points="626,524;868,524" d="M 626 524 L 868 524" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:5"/>
-        <path data-edge-from="is_open" data-edge-to="delivery" data-edge-label="Yes" data-edge-key="6" data-composition-points="560,556;560,580" d="M 560 556 L 560 580" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:6"/>
-        <path data-edge-from="read_hours" data-edge-to="end_none" data-edge-key="7" data-composition-points="1052,524;1240,524;1240,1545;160,1545;160,1473" d="M 1052 524 L 1232 524 Q 1240 524 1240 532 L 1240 1537 Q 1240 1545 1232 1545 L 168 1545 Q 160 1545 160 1537 L 160 1473" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:7"/>
-        <path data-edge-from="delivery" data-edge-to="serviceability" data-edge-label="Yes" data-edge-key="8" data-composition-points="494,612;260,612" d="M 494 612 L 260 612" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:8"/>
-        <path data-edge-from="delivery" data-edge-to="quote" data-edge-label="No: pickup" data-edge-key="9" data-composition-points="626,612;643,612;643,781;660,781" d="M 626 612 L 635 612 Q 643 612 643 620 L 643 773 Q 643 781 651 781 L 660 781" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:9"/>
-        <path data-edge-from="serviceability" data-edge-to="in_zone" data-edge-key="10" data-composition-points="160,635;160,668" d="M 160 635 L 160 668" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:10"/>
-        <path data-edge-from="in_zone" data-edge-to="offer_pickup" data-edge-label="No" data-edge-key="11" data-composition-points="160,732;160,762" d="M 160 732 L 160 762" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:11"/>
-        <path data-edge-from="in_zone" data-edge-to="quote" data-edge-label="Yes" data-edge-key="12" data-composition-points="235,700;447.5,700;447.5,788;660,788" d="M 235 700 L 439.5 700 Q 447.5 700 447.5 708 L 447.5 780 Q 447.5 788 455.5 788 L 660 788" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="offer_pickup" data-edge-to="pickup_instead" data-edge-key="13" data-composition-points="160,814;160,844" d="M 160 814 L 160 844" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="pickup_instead" data-edge-to="quote" data-edge-label="Yes" data-edge-key="14" data-composition-points="250,876;455,876;455,795;660,795" d="M 250 876 L 447 876 Q 455 876 455 868 L 455 803 Q 455 795 463 795 L 660 795" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="pickup_instead" data-edge-to="end_none" data-edge-label="No" data-edge-key="15" data-composition-points="160,908;160,1473" d="M 160 908 L 160 1473" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="quote" data-edge-to="blockers" data-edge-key="16" data-composition-points="660,788;660,876;650,876" d="M 660 788 L 660 871 Q 660 876 655 876 L 650 876" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="blockers" data-edge-to="read_blockers" data-edge-label="No" data-edge-key="17" data-composition-points="650,876;882,876" d="M 650 876 L 882 876" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="read_blockers" data-edge-to="take_change" data-edge-key="18" data-composition-points="960,850;960,814" d="M 960 850 L 960 814" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="take_change" data-edge-to="quote" data-edge-key="19" data-composition-points="960,814;960,830;660,830;660,811;760,811" d="M 960 814 L 960 822 Q 960 830 952 830 L 668 830 Q 660 830 660 822 L 660 819 Q 660 811 668 811 L 760 811" class="a-dashed" fill="none" stroke-width="1.2" marker-end="url(#arrowhead-dashed)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="blockers" data-edge-to="read_total" data-edge-label="Yes" data-edge-key="20" data-composition-points="560,908;560,938" d="M 560 908 L 560 938" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="read_total" data-edge-to="confirmed" data-edge-key="21" data-composition-points="560,990;560,1020" d="M 560 990 L 560 1020" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="confirmed" data-edge-to="end_none" data-edge-label="No" data-edge-key="22" data-composition-points="494,1052;220,1052;220,1473;160,1473" d="M 494 1052 L 228 1052 Q 220 1052 220 1060 L 220 1465 Q 220 1473 212 1473 L 160 1473" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="confirmed" data-edge-to="make_key" data-edge-label="Yes" data-edge-key="23" data-composition-points="560,1084;560,1114" d="M 560 1084 L 560 1114" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="make_key" data-edge-to="post_order" data-edge-key="24" data-composition-points="560,1166;560,1205" d="M 560 1166 L 560 1205" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="post_order" data-edge-to="answered" data-edge-key="25" data-composition-points="560,1251;560,1284" d="M 560 1251 L 560 1284" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="answered" data-edge-to="retry" data-edge-label="No: timeout" data-edge-key="26" data-composition-points="460,1316;434,1316" d="M 460 1316 L 434 1316" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="retry" data-edge-to="post_order" data-edge-key="27" data-composition-points="360,1290;360,1175;482,1175;482,1228" d="M 360 1290 L 360 1183 Q 360 1175 368 1175 L 474 1175 Q 482 1175 482 1183 L 482 1228" class="a-dashed" fill="none" stroke-width="1.2" marker-end="url(#arrowhead-dashed)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="answered" data-edge-to="status" data-edge-label="Yes" data-edge-key="28" data-composition-points="560,1348;560,1372" d="M 560 1348 L 560 1372" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="status" data-edge-to="read_number" data-edge-label="201 / 200" data-edge-key="29" data-composition-points="626,1404;882,1404" d="M 626 1404 L 882 1404" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="read_number" data-edge-to="end_ok" data-edge-key="30" data-composition-points="960,1430;960,1473" d="M 960 1430 L 960 1473" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="status" data-edge-to="alert_owner" data-edge-label="409 conflict" data-edge-key="31" data-composition-points="560,1436;560,1460;360,1460;360,1378;360,1378" d="M 560 1436 L 560 1452 Q 560 1460 552 1460 L 368 1460 Q 360 1460 360 1452 L 360 1378 L 360 1378" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="status" data-edge-to="quote" data-edge-label="422 item gone" data-edge-key="32" data-composition-points="560,1372;626,1372;1100,1372;1100,720;560,720;560,765;760,765" d="M 560 1372 L 618 1372 Q 626 1372 634 1372 L 1092 1372 Q 1100 1372 1100 1364 L 1100 728 Q 1100 720 1092 720 L 568 720 Q 560 720 560 728 L 560 757 Q 560 765 568 765 L 760 765" class="a-dashed" fill="none" stroke-width="1.2" marker-end="url(#arrowhead-dashed)" data-animate="edge" style="--step:12"/>
-        <path data-edge-from="alert_owner" data-edge-to="end_none" data-edge-key="33" data-composition-points="360,1430;360,1451.5;160,1451.5;160,1473" d="M 360 1430 L 360 1443.5 Q 360 1451.5 352 1451.5 L 168 1451.5 Q 160 1451.5 160 1459.5 L 160 1473" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="start" data-edge-to="announce" data-edge-key="0" data-composition-points="150,109;150,152" d="M 150 109 L 150 152" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:0"/>
+        <path data-edge-from="announce" data-edge-to="get_menu" data-edge-key="1" data-composition-points="150,204;150,243" d="M 150 204 L 150 243" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:1"/>
+        <path data-edge-from="get_menu" data-edge-to="take_wish" data-edge-key="2" data-composition-points="150,289;150,328" d="M 150 289 L 150 328" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:2"/>
+        <path data-edge-from="take_wish" data-edge-to="opening" data-edge-key="3" data-composition-points="150,380;150,419" d="M 150 380 L 150 419" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:3"/>
+        <path data-edge-from="opening" data-edge-to="is_open" data-edge-key="4" data-composition-points="150,465;150,498" d="M 150 465 L 150 498" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:4"/>
+        <path data-edge-from="is_open" data-edge-to="read_hours" data-edge-label="No" data-edge-key="5" data-composition-points="216,530;266,530" d="M 216 530 L 266 530" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:5"/>
+        <path data-edge-from="is_open" data-edge-to="delivery" data-edge-label="Yes" data-edge-key="6" data-composition-points="150,562;150,586" d="M 150 562 L 150 586" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:6"/>
+        <path data-edge-from="read_hours" data-edge-to="end_none" data-edge-key="7" data-composition-points="350,504;350,461" d="M 350 504 L 350 461" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:7"/>
+        <path data-edge-from="delivery" data-edge-to="serviceability" data-edge-label="Yes" data-edge-key="8" data-composition-points="216,618;251.5,618" d="M 216 618 L 251.5 618" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:8"/>
+        <path data-edge-from="delivery" data-edge-to="quote" data-edge-label="No: pickup" data-edge-key="9" data-composition-points="150,650;150,710;750,710;750,641" d="M 150 650 L 150 702 Q 150 710 158 710 L 742 710 Q 750 710 750 702 L 750 641" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:9"/>
+        <path data-edge-from="serviceability" data-edge-to="in_zone" data-edge-key="10" data-composition-points="448.5,618;484,618" d="M 448.5 618 L 484 618" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:10"/>
+        <path data-edge-from="in_zone" data-edge-to="offer_pickup" data-edge-label="No" data-edge-key="11" data-composition-points="550,586;550,556" d="M 550 586 L 550 556" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:11"/>
+        <path data-edge-from="in_zone" data-edge-to="quote" data-edge-label="Yes" data-edge-key="12" data-composition-points="550,650;550,700;750,700;750,641" d="M 550 650 L 550 692 Q 550 700 558 700 L 742 700 Q 750 700 750 692 L 750 641" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="offer_pickup" data-edge-to="pickup_instead" data-edge-key="13" data-composition-points="550,504;550,474" d="M 550 504 L 550 474" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="pickup_instead" data-edge-to="quote" data-edge-label="Yes" data-edge-key="14" data-composition-points="634,442;646,442;646,680;750,680;750,641" d="M 634 442 L 640 442 Q 646 442 646 448 L 646 672 Q 646 680 654 680 L 742 680 Q 750 680 750 672 L 750 641" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="pickup_instead" data-edge-to="end_none" data-edge-label="No" data-edge-key="15" data-composition-points="466,442;406,442" d="M 466 442 L 406 442" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="quote" data-edge-to="blockers" data-edge-key="16" data-composition-points="750,595;750,562" d="M 750 595 L 750 562" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="blockers" data-edge-to="read_blockers" data-edge-label="No" data-edge-key="17" data-composition-points="834,530;882,530" d="M 834 530 L 882 530" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="read_blockers" data-edge-to="take_change" data-edge-key="18" data-composition-points="950,556;950,592" d="M 950 556 L 950 592" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="take_change" data-edge-to="quote" data-edge-key="19" data-composition-points="890,618;845,618" d="M 890 618 L 845 618" class="a-dashed" fill="none" stroke-width="1.2" marker-end="url(#arrowhead-dashed)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="blockers" data-edge-to="read_total" data-edge-label="Yes" data-edge-key="20" data-composition-points="750,498;750,468" d="M 750 498 L 750 468" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="read_total" data-edge-to="confirmed" data-edge-key="21" data-composition-points="750,416;750,386" d="M 750 416 L 750 386" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="confirmed" data-edge-to="end_none" data-edge-label="No" data-edge-key="22" data-composition-points="684,354;646,354;646,400;350,400;350,423" d="M 684 354 L 654 354 Q 646 354 646 362 L 646 392 Q 646 400 638 400 L 358 400 Q 350 400 350 408 L 350 423" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="confirmed" data-edge-to="make_key" data-edge-label="Yes" data-edge-key="23" data-composition-points="816,354;1060,354" d="M 816 354 L 1060 354" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="make_key" data-edge-to="post_order" data-edge-key="24" data-composition-points="1150,380;1150,419" d="M 1150 380 L 1150 419" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="post_order" data-edge-to="answered" data-edge-key="25" data-composition-points="1150,465;1150,498" d="M 1150 465 L 1150 498" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="answered" data-edge-to="retry" data-edge-label="No: timeout" data-edge-key="26" data-composition-points="1240,530;1254,530;1254,442;1284,442" d="M 1240 530 L 1247 530 Q 1254 530 1254 523 L 1254 450 Q 1254 442 1262 442 L 1284 442" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="retry" data-edge-to="post_order" data-edge-key="27" data-composition-points="1284,442;1228,442" d="M 1284 442 L 1228 442" class="a-dashed" fill="none" stroke-width="1.2" marker-end="url(#arrowhead-dashed)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="answered" data-edge-to="status" data-edge-label="Yes" data-edge-key="28" data-composition-points="1150,562;1150,586" d="M 1150 562 L 1150 586" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="status" data-edge-to="read_number" data-edge-label="201 / 200" data-edge-key="29" data-composition-points="1216,618;1286,618" d="M 1216 618 L 1286 618" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="status" data-edge-to="alert_owner" data-edge-label="409 conflict" data-edge-key="30" data-composition-points="1150,650;1150,690;1470,690;1470,354;1424,354" d="M 1150 650 L 1150 682 Q 1150 690 1158 690 L 1462 690 Q 1470 690 1470 682 L 1470 362 Q 1470 354 1462 354 L 1424 354" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="status" data-edge-to="quote" data-edge-label="422 item gone" data-edge-key="31" data-composition-points="1084,618;1050,618;1050,710;750,710;750,641" d="M 1084 618 L 1058 618 Q 1050 618 1050 626 L 1050 702 Q 1050 710 1042 710 L 758 710 Q 750 710 750 702 L 750 641" class="a-dashed" fill="none" stroke-width="1.2" marker-end="url(#arrowhead-dashed)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="read_number" data-edge-to="end_ok" data-edge-key="32" data-composition-points="1350,592;1350,549" d="M 1350 592 L 1350 549" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
+        <path data-edge-from="alert_owner" data-edge-to="end_none" data-edge-key="33" data-composition-points="1350,328;1350,30;350,30;350,423" d="M 1350 328 L 1350 38 Q 1350 30 1342 30 L 358 30 Q 350 30 350 38 L 350 423" class="a-default" fill="none" stroke-width="1.2" marker-end="url(#arrowhead)" data-animate="edge" style="--step:12"/>
 
         <!-- Symbols -->
         <g id="node-start" data-node-id="start" data-node-label="Call comes in" tabindex="0" role="button" aria-label="Focus Call comes in, start / end" aria-pressed="false" data-node-kind="terminator" data-node-context="start / end">
           <title>Call comes in · start / end</title>
-          <rect x="496" y="65" width="128" height="38" rx="19" class="c-mask"/>
-          <rect x="496" y="65" width="128" height="38" rx="19" class="c-database" data-animate="node" style="--step:0"/>
-          <text data-node-label="" x="560" y="87.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Call comes in</text>
+          <rect x="86" y="71" width="128" height="38" rx="19" class="c-mask"/>
+          <rect x="86" y="71" width="128" height="38" rx="19" class="c-database" data-animate="node" style="--step:0"/>
+          <text data-node-label="" x="150" y="93.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Call comes in</text>
         </g>
 
         <g id="node-announce" data-node-id="announce" data-node-label="Announce: a machine speaks" tabindex="0" role="button" aria-label="Focus Announce: a machine speaks, AI Act Art. 50, process" aria-pressed="false" data-node-kind="process" data-node-sublabel="AI Act Art. 50" data-node-context="process">
           <title>Announce: a machine speaks · AI Act Art. 50 · process</title>
-          <rect x="460" y="146" width="200" height="52" rx="4" class="c-mask"/>
-          <rect x="460" y="146" width="200" height="52" rx="4" class="c-backend" data-animate="node" style="--step:1"/>
-          <text data-node-label="" data-detail-anchor="" x="560" y="169" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Announce: a machine speaks</text>
-          <text data-detail="context" x="560" y="183" class="t-muted" font-size="9" text-anchor="middle">AI Act Art. 50</text>
+          <rect x="60" y="152" width="180" height="52" rx="4" class="c-mask"/>
+          <rect x="60" y="152" width="180" height="52" rx="4" class="c-backend" data-animate="node" style="--step:1"/>
+          <text data-node-label="" data-detail-anchor="" x="150" y="175" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Announce: a machine speaks</text>
+          <text data-detail="context" x="150" y="189" class="t-muted" font-size="10" text-anchor="middle">AI Act Art. 50</text>
         </g>
 
         <g id="node-get_menu" data-node-id="get_menu" data-node-label="GET /api/v1/menu" tabindex="0" role="button" aria-label="Focus GET /api/v1/menu, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
           <title>GET /api/v1/menu · subroutine / call</title>
-          <rect x="482" y="237" width="156" height="46" rx="3" class="c-mask"/><line x1="491" y1="237" x2="491" y2="283" class="c-mask" fill="none"/><line x1="629" y1="237" x2="629" y2="283" class="c-mask" fill="none"/>
-          <rect x="482" y="237" width="156" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:2"/><line x1="491" y1="237" x2="491" y2="283" class="c-frontend" fill="none"/><line x1="629" y1="237" x2="629" y2="283" class="c-frontend" fill="none"/>
-          <text data-node-label="" x="560" y="263.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">GET /api/v1/menu</text>
+          <rect x="72" y="243" width="156" height="46" rx="3" class="c-mask"/><line x1="81" y1="243" x2="81" y2="289" class="c-mask" fill="none"/><line x1="219" y1="243" x2="219" y2="289" class="c-mask" fill="none"/>
+          <rect x="72" y="243" width="156" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:2"/><line x1="81" y1="243" x2="81" y2="289" class="c-frontend" fill="none"/><line x1="219" y1="243" x2="219" y2="289" class="c-frontend" fill="none"/>
+          <text data-node-label="" x="150" y="269.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">GET /api/v1/menu</text>
         </g>
 
         <g id="node-take_wish" data-node-id="take_wish" data-node-label="Take wish: items, qty, mode, ZIP" tabindex="0" role="button" aria-label="Focus Take wish: items, qty, mode, ZIP, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
           <title>Take wish: items, qty, mode, ZIP · input / output</title>
-          <polygon points="436.64,322 700,322 683.36,374 420,374" class="c-mask"/>
-          <polygon points="436.64,322 700,322 683.36,374 420,374" class="c-cloud" data-animate="node" style="--step:3"/>
-          <text data-node-label="" x="560" y="351.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Take wish: items, qty, mode, ZIP</text>
+          <polygon points="41.64,328 275,328 258.36,380 25,380" class="c-mask"/>
+          <polygon points="41.64,328 275,328 258.36,380 25,380" class="c-cloud" data-animate="node" style="--step:3"/>
+          <text data-node-label="" x="150" y="357.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Take wish: items, qty, mode, ZIP</text>
         </g>
 
         <g id="node-opening" data-node-id="opening" data-node-label="GET /api/v1/opening-state" tabindex="0" role="button" aria-label="Focus GET /api/v1/opening-state, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
           <title>GET /api/v1/opening-state · subroutine / call</title>
-          <rect x="460" y="413" width="200" height="46" rx="3" class="c-mask"/><line x1="469" y1="413" x2="469" y2="459" class="c-mask" fill="none"/><line x1="651" y1="413" x2="651" y2="459" class="c-mask" fill="none"/>
-          <rect x="460" y="413" width="200" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:4"/><line x1="469" y1="413" x2="469" y2="459" class="c-frontend" fill="none"/><line x1="651" y1="413" x2="651" y2="459" class="c-frontend" fill="none"/>
-          <text data-node-label="" x="560" y="439.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">GET /api/v1/opening-state</text>
+          <rect x="55" y="419" width="190" height="46" rx="3" class="c-mask"/><line x1="64" y1="419" x2="64" y2="465" class="c-mask" fill="none"/><line x1="236" y1="419" x2="236" y2="465" class="c-mask" fill="none"/>
+          <rect x="55" y="419" width="190" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:4"/><line x1="64" y1="419" x2="64" y2="465" class="c-frontend" fill="none"/><line x1="236" y1="419" x2="236" y2="465" class="c-frontend" fill="none"/>
+          <text data-node-label="" x="150" y="445.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">GET /api/v1/opening-state</text>
         </g>
 
         <g id="node-is_open" data-node-id="is_open" data-node-label="Open?" tabindex="0" role="button" aria-label="Focus Open?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
           <title>Open? · decision</title>
-          <polygon points="560,492 626,524 560,556 494,524" class="c-mask"/>
-          <polygon points="560,492 626,524 560,556 494,524" class="c-security" data-animate="node" style="--step:5"/>
-          <text data-node-label="" x="560" y="527.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Open?</text>
-        </g>
-
-        <g id="node-read_hours" data-node-id="read_hours" data-node-label="Read next opening time" tabindex="0" role="button" aria-label="Focus Read next opening time, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
-          <title>Read next opening time · input / output</title>
-          <polygon points="884.64,498 1052,498 1035.36,550 868,550" class="c-mask"/>
-          <polygon points="884.64,498 1052,498 1035.36,550 868,550" class="c-cloud" data-animate="node" style="--step:6"/>
-          <text data-node-label="" x="960" y="527.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read next opening time</text>
+          <polygon points="150,498 216,530 150,562 84,530" class="c-mask"/>
+          <polygon points="150,498 216,530 150,562 84,530" class="c-security" data-animate="node" style="--step:5"/>
+          <text data-node-label="" x="150" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Open?</text>
         </g>
 
         <g id="node-delivery" data-node-id="delivery" data-node-label="Delivery?" tabindex="0" role="button" aria-label="Focus Delivery?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
           <title>Delivery? · decision</title>
-          <polygon points="560,580 626,612 560,644 494,612" class="c-mask"/>
-          <polygon points="560,580 626,612 560,644 494,612" class="c-security" data-animate="node" style="--step:7"/>
-          <text data-node-label="" x="560" y="615.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Delivery?</text>
+          <polygon points="150,586 216,618 150,650 84,618" class="c-mask"/>
+          <polygon points="150,586 216,618 150,650 84,618" class="c-security" data-animate="node" style="--step:7"/>
+          <text data-node-label="" x="150" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Delivery?</text>
         </g>
 
-        <g id="node-serviceability" data-node-id="serviceability" data-node-label="GET /api/v1/serviceability" tabindex="0" role="button" aria-label="Focus GET /api/v1/serviceability, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
-          <title>GET /api/v1/serviceability · subroutine / call</title>
-          <rect x="60" y="589" width="200" height="46" rx="3" class="c-mask"/><line x1="69" y1="589" x2="69" y2="635" class="c-mask" fill="none"/><line x1="251" y1="589" x2="251" y2="635" class="c-mask" fill="none"/>
-          <rect x="60" y="589" width="200" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:9"/><line x1="69" y1="589" x2="69" y2="635" class="c-frontend" fill="none"/><line x1="251" y1="589" x2="251" y2="635" class="c-frontend" fill="none"/>
-          <text data-node-label="" x="160" y="615.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">GET /api/v1/serviceability</text>
-        </g>
-
-        <g id="node-in_zone" data-node-id="in_zone" data-node-label="ZIP in zone?" tabindex="0" role="button" aria-label="Focus ZIP in zone?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
-          <title>ZIP in zone? · decision</title>
-          <polygon points="160,668 235,700 160,732 85,700" class="c-mask"/>
-          <polygon points="160,668 235,700 160,732 85,700" class="c-security" data-animate="node" style="--step:11"/>
-          <text data-node-label="" x="160" y="703.5" class="t-primary" font-size="9.7" font-weight="600" text-anchor="middle">ZIP in zone?</text>
-        </g>
-
-        <g id="node-offer_pickup" data-node-id="offer_pickup" data-node-label="Offer pickup" tabindex="0" role="button" aria-label="Focus Offer pickup, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
-          <title>Offer pickup · input / output</title>
-          <polygon points="98.64,762 238,762 221.36,814 82,814" class="c-mask"/>
-          <polygon points="98.64,762 238,762 221.36,814 82,814" class="c-cloud" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="160" y="791.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Offer pickup</text>
-        </g>
-
-        <g id="node-pickup_instead" data-node-id="pickup_instead" data-node-label="Pickup instead?" tabindex="0" role="button" aria-label="Focus Pickup instead?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
-          <title>Pickup instead? · decision</title>
-          <polygon points="160,844 250,876 160,908 70,876" class="c-mask"/>
-          <polygon points="160,844 250,876 160,908 70,876" class="c-security" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="160" y="879.5" class="t-primary" font-size="9.5" font-weight="600" text-anchor="middle">Pickup instead?</text>
-        </g>
-
-        <g id="node-quote" data-node-id="quote" data-node-label="POST /api/v1/orders/quote" tabindex="0" role="button" aria-label="Focus POST /api/v1/orders/quote, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
-          <title>POST /api/v1/orders/quote · subroutine / call</title>
-          <rect x="660" y="765" width="200" height="46" rx="3" class="c-mask"/><line x1="669" y1="765" x2="669" y2="811" class="c-mask" fill="none"/><line x1="851" y1="765" x2="851" y2="811" class="c-mask" fill="none"/>
-          <rect x="660" y="765" width="200" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:10"/><line x1="669" y1="765" x2="669" y2="811" class="c-frontend" fill="none"/><line x1="851" y1="765" x2="851" y2="811" class="c-frontend" fill="none"/>
-          <text data-node-label="" x="760" y="791.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">POST /api/v1/orders/quote</text>
-        </g>
-
-        <g id="node-blockers" data-node-id="blockers" data-node-label="Blockers empty?" tabindex="0" role="button" aria-label="Focus Blockers empty?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
-          <title>Blockers empty? · decision</title>
-          <polygon points="560,844 650,876 560,908 470,876" class="c-mask"/>
-          <polygon points="560,844 650,876 560,908 470,876" class="c-security" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="560" y="879.5" class="t-primary" font-size="9.5" font-weight="600" text-anchor="middle">Blockers empty?</text>
-        </g>
-
-        <g id="node-read_blockers" data-node-id="read_blockers" data-node-label="Read blockers back" tabindex="0" role="button" aria-label="Focus Read blockers back, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
-          <title>Read blockers back · input / output</title>
-          <polygon points="898.64,850 1038,850 1021.36,902 882,902" class="c-mask"/>
-          <polygon points="898.64,850 1038,850 1021.36,902 882,902" class="c-cloud" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="960" y="879.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read blockers back</text>
-        </g>
-
-        <g id="node-take_change" data-node-id="take_change" data-node-label="Take the change" tabindex="0" role="button" aria-label="Focus Take the change, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
-          <title>Take the change · input / output</title>
-          <polygon points="898.64,762 1038,762 1021.36,814 882,814" class="c-mask"/>
-          <polygon points="898.64,762 1038,762 1021.36,814 882,814" class="c-cloud" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="960" y="791.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Take the change</text>
-        </g>
-
-        <g id="node-read_total" data-node-id="read_total" data-node-label="Read total, ETA, terms" tabindex="0" role="button" aria-label="Focus Read total, ETA, terms, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
-          <title>Read total, ETA, terms · input / output</title>
-          <polygon points="484.64,938 652,938 635.36,990 468,990" class="c-mask"/>
-          <polygon points="484.64,938 652,938 635.36,990 468,990" class="c-cloud" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="560" y="967.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read total, ETA, terms</text>
-        </g>
-
-        <g id="node-confirmed" data-node-id="confirmed" data-node-label="Confirmed?" tabindex="0" role="button" aria-label="Focus Confirmed?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
-          <title>Confirmed? · decision</title>
-          <polygon points="560,1020 626,1052 560,1084 494,1052" class="c-mask"/>
-          <polygon points="560,1020 626,1052 560,1084 494,1052" class="c-security" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="560" y="1055.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Confirmed?</text>
-        </g>
-
-        <g id="node-make_key" data-node-id="make_key" data-node-label="Create idempotency key" tabindex="0" role="button" aria-label="Focus Create idempotency key, termsAcceptedAt, process" aria-pressed="false" data-node-kind="process" data-node-sublabel="termsAcceptedAt" data-node-context="process">
-          <title>Create idempotency key · termsAcceptedAt · process</title>
-          <rect x="486" y="1114" width="148" height="52" rx="4" class="c-mask"/>
-          <rect x="486" y="1114" width="148" height="52" rx="4" class="c-backend" data-animate="node" style="--step:12"/>
-          <text data-node-label="" data-detail-anchor="" x="560" y="1137" class="t-primary" font-size="9.4" font-weight="600" text-anchor="middle">Create idempotency key</text>
-          <text data-detail="context" x="560" y="1151" class="t-muted" font-size="9" text-anchor="middle">termsAcceptedAt</text>
-        </g>
-
-        <g id="node-post_order" data-node-id="post_order" data-node-label="POST /api/v1/orders" tabindex="0" role="button" aria-label="Focus POST /api/v1/orders, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
-          <title>POST /api/v1/orders · subroutine / call</title>
-          <rect x="482" y="1205" width="156" height="46" rx="3" class="c-mask"/><line x1="491" y1="1205" x2="491" y2="1251" class="c-mask" fill="none"/><line x1="629" y1="1205" x2="629" y2="1251" class="c-mask" fill="none"/>
-          <rect x="482" y="1205" width="156" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:12"/><line x1="491" y1="1205" x2="491" y2="1251" class="c-frontend" fill="none"/><line x1="629" y1="1205" x2="629" y2="1251" class="c-frontend" fill="none"/>
-          <text data-node-label="" x="560" y="1231.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">POST /api/v1/orders</text>
-        </g>
-
-        <g id="node-answered" data-node-id="answered" data-node-label="Answer received?" tabindex="0" role="button" aria-label="Focus Answer received?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
-          <title>Answer received? · decision</title>
-          <polygon points="560,1284 660,1316 560,1348 460,1316" class="c-mask"/>
-          <polygon points="560,1284 660,1316 560,1348 460,1316" class="c-security" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="560" y="1319.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Answer received?</text>
-        </g>
-
-        <g id="node-retry" data-node-id="retry" data-node-label="Resend with same key" tabindex="0" role="button" aria-label="Focus Resend with same key, process" aria-pressed="false" data-node-kind="process" data-node-context="process">
-          <title>Resend with same key · process</title>
-          <rect x="286" y="1290" width="148" height="52" rx="4" class="c-mask"/>
-          <rect x="286" y="1290" width="148" height="52" rx="4" class="c-backend" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="360" y="1319.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Resend with same key</text>
-        </g>
-
-        <g id="node-status" data-node-id="status" data-node-label="Status?" tabindex="0" role="button" aria-label="Focus Status?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
-          <title>Status? · decision</title>
-          <polygon points="560,1372 626,1404 560,1436 494,1404" class="c-mask"/>
-          <polygon points="560,1372 626,1404 560,1436 494,1404" class="c-security" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="560" y="1407.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Status?</text>
-        </g>
-
-        <g id="node-read_number" data-node-id="read_number" data-node-label="Read order number" tabindex="0" role="button" aria-label="Focus Read order number, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
-          <title>Read order number · input / output</title>
-          <polygon points="898.64,1378 1038,1378 1021.36,1430 882,1430" class="c-mask"/>
-          <polygon points="898.64,1378 1038,1378 1021.36,1430 882,1430" class="c-cloud" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="960" y="1407.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read order number</text>
-        </g>
-
-        <g id="node-alert_owner" data-node-id="alert_owner" data-node-label="Alert the owner" tabindex="0" role="button" aria-label="Focus Alert the owner, process" aria-pressed="false" data-node-kind="process" data-node-context="process">
-          <title>Alert the owner · process</title>
-          <rect x="286" y="1378" width="148" height="52" rx="4" class="c-mask"/>
-          <rect x="286" y="1378" width="148" height="52" rx="4" class="c-backend" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="360" y="1407.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Alert the owner</text>
-        </g>
-
-        <g id="node-end_ok" data-node-id="end_ok" data-node-label="Order on the board" tabindex="0" role="button" aria-label="Focus Order on the board, start / end" aria-pressed="false" data-node-kind="terminator" data-node-context="start / end">
-          <title>Order on the board · start / end</title>
-          <rect x="896" y="1473" width="128" height="38" rx="19" class="c-mask"/>
-          <rect x="896" y="1473" width="128" height="38" rx="19" class="c-database" data-animate="node" style="--step:12"/>
-          <text data-node-label="" x="960" y="1495.5" class="t-primary" font-size="9.9" font-weight="600" text-anchor="middle">Order on the board</text>
+        <g id="node-read_hours" data-node-id="read_hours" data-node-label="Read next opening time" tabindex="0" role="button" aria-label="Focus Read next opening time, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
+          <title>Read next opening time · input / output</title>
+          <polygon points="282.64,504 434,504 417.36,556 266,556" class="c-mask"/>
+          <polygon points="282.64,504 434,504 417.36,556 266,556" class="c-cloud" data-animate="node" style="--step:6"/>
+          <text data-node-label="" x="350" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read next opening time</text>
         </g>
 
         <g id="node-end_none" data-node-id="end_none" data-node-label="End without order" tabindex="0" role="button" aria-label="Focus End without order, start / end" aria-pressed="false" data-node-kind="terminator" data-node-context="start / end">
           <title>End without order · start / end</title>
-          <rect x="96" y="1473" width="128" height="38" rx="19" class="c-mask"/>
-          <rect x="96" y="1473" width="128" height="38" rx="19" class="c-database" data-animate="node" style="--step:8"/>
-          <text data-node-label="" x="160" y="1495.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">End without order</text>
+          <rect x="294" y="423" width="112" height="38" rx="19" class="c-mask"/>
+          <rect x="294" y="423" width="112" height="38" rx="19" class="c-database" data-animate="node" style="--step:8"/>
+          <text data-node-label="" x="350" y="445.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">End without order</text>
+        </g>
+
+        <g id="node-serviceability" data-node-id="serviceability" data-node-label="GET /api/v1/serviceability" tabindex="0" role="button" aria-label="Focus GET /api/v1/serviceability, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
+          <title>GET /api/v1/serviceability · subroutine / call</title>
+          <rect x="251.5" y="595" width="197" height="46" rx="3" class="c-mask"/><line x1="260.5" y1="595" x2="260.5" y2="641" class="c-mask" fill="none"/><line x1="439.5" y1="595" x2="439.5" y2="641" class="c-mask" fill="none"/>
+          <rect x="251.5" y="595" width="197" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:9"/><line x1="260.5" y1="595" x2="260.5" y2="641" class="c-frontend" fill="none"/><line x1="439.5" y1="595" x2="439.5" y2="641" class="c-frontend" fill="none"/>
+          <text data-node-label="" x="350" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">GET /api/v1/serviceability</text>
+        </g>
+
+        <g id="node-pickup_instead" data-node-id="pickup_instead" data-node-label="Pickup instead?" tabindex="0" role="button" aria-label="Focus Pickup instead?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
+          <title>Pickup instead? · decision</title>
+          <polygon points="550,410 634,442 550,474 466,442" class="c-mask"/>
+          <polygon points="550,410 634,442 550,474 466,442" class="c-security" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="550" y="445.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Pickup instead?</text>
+        </g>
+
+        <g id="node-offer_pickup" data-node-id="offer_pickup" data-node-label="Offer pickup" tabindex="0" role="button" aria-label="Focus Offer pickup, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
+          <title>Offer pickup · input / output</title>
+          <polygon points="488.64,504 628,504 611.36,556 472,556" class="c-mask"/>
+          <polygon points="488.64,504 628,504 611.36,556 472,556" class="c-cloud" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="550" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Offer pickup</text>
+        </g>
+
+        <g id="node-in_zone" data-node-id="in_zone" data-node-label="ZIP in zone?" tabindex="0" role="button" aria-label="Focus ZIP in zone?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
+          <title>ZIP in zone? · decision</title>
+          <polygon points="550,586 616,618 550,650 484,618" class="c-mask"/>
+          <polygon points="550,586 616,618 550,650 484,618" class="c-security" data-animate="node" style="--step:11"/>
+          <text data-node-label="" x="550" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ZIP in zone?</text>
+        </g>
+
+        <g id="node-confirmed" data-node-id="confirmed" data-node-label="Confirmed?" tabindex="0" role="button" aria-label="Focus Confirmed?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
+          <title>Confirmed? · decision</title>
+          <polygon points="750,322 816,354 750,386 684,354" class="c-mask"/>
+          <polygon points="750,322 816,354 750,386 684,354" class="c-security" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="750" y="357.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Confirmed?</text>
+        </g>
+
+        <g id="node-read_total" data-node-id="read_total" data-node-label="Read total, ETA, terms" tabindex="0" role="button" aria-label="Focus Read total, ETA, terms, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
+          <title>Read total, ETA, terms · input / output</title>
+          <polygon points="682.64,416 834,416 817.36,468 666,468" class="c-mask"/>
+          <polygon points="682.64,416 834,416 817.36,468 666,468" class="c-cloud" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="750" y="445.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read total, ETA, terms</text>
+        </g>
+
+        <g id="node-blockers" data-node-id="blockers" data-node-label="Blockers empty?" tabindex="0" role="button" aria-label="Focus Blockers empty?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
+          <title>Blockers empty? · decision</title>
+          <polygon points="750,498 834,530 750,562 666,530" class="c-mask"/>
+          <polygon points="750,498 834,530 750,562 666,530" class="c-security" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="750" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Blockers empty?</text>
+        </g>
+
+        <g id="node-quote" data-node-id="quote" data-node-label="POST /api/v1/orders/quote" tabindex="0" role="button" aria-label="Focus POST /api/v1/orders/quote, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
+          <title>POST /api/v1/orders/quote · subroutine / call</title>
+          <rect x="655" y="595" width="190" height="46" rx="3" class="c-mask"/><line x1="664" y1="595" x2="664" y2="641" class="c-mask" fill="none"/><line x1="836" y1="595" x2="836" y2="641" class="c-mask" fill="none"/>
+          <rect x="655" y="595" width="190" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:10"/><line x1="664" y1="595" x2="664" y2="641" class="c-frontend" fill="none"/><line x1="836" y1="595" x2="836" y2="641" class="c-frontend" fill="none"/>
+          <text data-node-label="" x="750" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">POST /api/v1/orders/quote</text>
+        </g>
+
+        <g id="node-take_change" data-node-id="take_change" data-node-label="Take the change" tabindex="0" role="button" aria-label="Focus Take the change, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
+          <title>Take the change · input / output</title>
+          <polygon points="906.64,592 1010,592 993.36,644 890,644" class="c-mask"/>
+          <polygon points="906.64,592 1010,592 993.36,644 890,644" class="c-cloud" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="950" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Take the change</text>
+        </g>
+
+        <g id="node-read_blockers" data-node-id="read_blockers" data-node-label="Read blockers back" tabindex="0" role="button" aria-label="Focus Read blockers back, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
+          <title>Read blockers back · input / output</title>
+          <polygon points="898.64,504 1018,504 1001.36,556 882,556" class="c-mask"/>
+          <polygon points="898.64,504 1018,504 1001.36,556 882,556" class="c-cloud" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="950" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read blockers back</text>
+        </g>
+
+        <g id="node-make_key" data-node-id="make_key" data-node-label="Create idempotency key" tabindex="0" role="button" aria-label="Focus Create idempotency key, termsAcceptedAt, process" aria-pressed="false" data-node-kind="process" data-node-sublabel="termsAcceptedAt" data-node-context="process">
+          <title>Create idempotency key · termsAcceptedAt · process</title>
+          <rect x="1060" y="328" width="180" height="52" rx="4" class="c-mask"/>
+          <rect x="1060" y="328" width="180" height="52" rx="4" class="c-backend" data-animate="node" style="--step:12"/>
+          <text data-node-label="" data-detail-anchor="" x="1150" y="351" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Create idempotency key</text>
+          <text data-detail="context" x="1150" y="365" class="t-muted" font-size="10" text-anchor="middle">termsAcceptedAt</text>
+        </g>
+
+        <g id="node-post_order" data-node-id="post_order" data-node-label="POST /api/v1/orders" tabindex="0" role="button" aria-label="Focus POST /api/v1/orders, subroutine / call" aria-pressed="false" data-node-kind="subroutine" data-node-context="subroutine / call">
+          <title>POST /api/v1/orders · subroutine / call</title>
+          <rect x="1072" y="419" width="156" height="46" rx="3" class="c-mask"/><line x1="1081" y1="419" x2="1081" y2="465" class="c-mask" fill="none"/><line x1="1219" y1="419" x2="1219" y2="465" class="c-mask" fill="none"/>
+          <rect x="1072" y="419" width="156" height="46" rx="3" class="c-frontend" data-animate="node" style="--step:12"/><line x1="1081" y1="419" x2="1081" y2="465" class="c-frontend" fill="none"/><line x1="1219" y1="419" x2="1219" y2="465" class="c-frontend" fill="none"/>
+          <text data-node-label="" x="1150" y="445.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">POST /api/v1/orders</text>
+        </g>
+
+        <g id="node-answered" data-node-id="answered" data-node-label="Answer received?" tabindex="0" role="button" aria-label="Focus Answer received?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
+          <title>Answer received? · decision</title>
+          <polygon points="1150,498 1240,530 1150,562 1060,530" class="c-mask"/>
+          <polygon points="1150,498 1240,530 1150,562 1060,530" class="c-security" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="1150" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Answer received?</text>
+        </g>
+
+        <g id="node-status" data-node-id="status" data-node-label="Status?" tabindex="0" role="button" aria-label="Focus Status?, decision" aria-pressed="false" data-node-kind="decision" data-node-context="decision">
+          <title>Status? · decision</title>
+          <polygon points="1150,586 1216,618 1150,650 1084,618" class="c-mask"/>
+          <polygon points="1150,586 1216,618 1150,650 1084,618" class="c-security" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="1150" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Status?</text>
+        </g>
+
+        <g id="node-retry" data-node-id="retry" data-node-label="Resend with same key" tabindex="0" role="button" aria-label="Focus Resend with same key, process" aria-pressed="false" data-node-kind="process" data-node-context="process">
+          <title>Resend with same key · process</title>
+          <rect x="1284" y="416" width="132" height="52" rx="4" class="c-mask"/>
+          <rect x="1284" y="416" width="132" height="52" rx="4" class="c-backend" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="1350" y="445.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Resend with same key</text>
+        </g>
+
+        <g id="node-read_number" data-node-id="read_number" data-node-label="Read order number" tabindex="0" role="button" aria-label="Focus Read order number, input / output" aria-pressed="false" data-node-kind="io" data-node-context="input / output">
+          <title>Read order number · input / output</title>
+          <polygon points="1302.64,592 1414,592 1397.36,644 1286,644" class="c-mask"/>
+          <polygon points="1302.64,592 1414,592 1397.36,644 1286,644" class="c-cloud" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="1350" y="621.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Read order number</text>
+        </g>
+
+        <g id="node-alert_owner" data-node-id="alert_owner" data-node-label="Alert the owner" tabindex="0" role="button" aria-label="Focus Alert the owner, process" aria-pressed="false" data-node-kind="process" data-node-context="process">
+          <title>Alert the owner · process</title>
+          <rect x="1276" y="328" width="148" height="52" rx="4" class="c-mask"/>
+          <rect x="1276" y="328" width="148" height="52" rx="4" class="c-backend" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="1350" y="357.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Alert the owner</text>
+        </g>
+
+        <g id="node-end_ok" data-node-id="end_ok" data-node-label="Order on the board" tabindex="0" role="button" aria-label="Focus Order on the board, start / end" aria-pressed="false" data-node-kind="terminator" data-node-context="start / end">
+          <title>Order on the board · start / end</title>
+          <rect x="1286" y="511" width="128" height="38" rx="19" class="c-mask"/>
+          <rect x="1286" y="511" width="128" height="38" rx="19" class="c-database" data-animate="node" style="--step:12"/>
+          <text data-node-label="" x="1350" y="533.5" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Order on the board</text>
         </g>
 
         <!-- Edge labels -->
@@ -5405,108 +5405,108 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 
         <g data-detail="context" data-edge-from="is_open" data-edge-to="read_hours" data-edge-label="No" data-edge-key="5">
-          <rect x="733" y="503" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="747" y="514" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
+          <rect x="227" y="509" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="241" y="520" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
         </g>
         <g data-detail="context" data-edge-from="is_open" data-edge-to="delivery" data-edge-label="Yes" data-edge-key="6">
-          <rect x="546" y="557" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="560" y="568" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="136" y="563" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="150" y="574" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
 
         <g data-detail="context" data-edge-from="delivery" data-edge-to="serviceability" data-edge-label="Yes" data-edge-key="8">
-          <rect x="363" y="557" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="377" y="568" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="219.75" y="619" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="233.75" y="630" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
         <g data-detail="context" data-edge-from="delivery" data-edge-to="quote" data-edge-label="No: pickup" data-edge-key="9">
-          <rect x="612.5" y="697.5" width="61" height="16" rx="4" class="c-mask"/>
-          <text x="643" y="708.5" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No: pickup</text>
+          <rect x="419.5" y="711" width="61" height="16" rx="4" class="c-mask"/>
+          <text x="450" y="722" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No: pickup</text>
         </g>
 
         <g data-detail="context" data-edge-from="in_zone" data-edge-to="offer_pickup" data-edge-label="No" data-edge-key="11">
-          <rect x="146" y="735" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="160" y="746" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
+          <rect x="536" y="563" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="550" y="574" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
         </g>
         <g data-detail="context" data-edge-from="in_zone" data-edge-to="quote" data-edge-label="Yes" data-edge-key="12">
-          <rect x="327.25" y="679" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="341.25" y="690" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="596" y="649" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="610" y="660" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
 
         <g data-detail="context" data-edge-from="pickup_instead" data-edge-to="quote" data-edge-label="Yes" data-edge-key="14">
-          <rect x="338.5" y="855" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="352.5" y="866" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="632" y="562" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="646" y="573" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
         <g data-detail="context" data-edge-from="pickup_instead" data-edge-to="end_none" data-edge-label="No" data-edge-key="15">
-          <rect x="146" y="909" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="160" y="920" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
+          <rect x="422" y="407" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="436" y="418" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
         </g>
 
         <g data-detail="context" data-edge-from="blockers" data-edge-to="read_blockers" data-edge-label="No" data-edge-key="17">
-          <rect x="752" y="855" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="766" y="866" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
+          <rect x="844" y="531" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="858" y="542" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
         </g>
 
 
         <g data-detail="context" data-edge-from="blockers" data-edge-to="read_total" data-edge-label="Yes" data-edge-key="20">
-          <rect x="546" y="909" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="560" y="920" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="736" y="475" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="750" y="486" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
 
         <g data-detail="context" data-edge-from="confirmed" data-edge-to="end_none" data-edge-label="No" data-edge-key="22">
-          <rect x="206" y="1241.5" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="220" y="1252.5" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
+          <rect x="632" y="344" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="646" y="355" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No</text>
         </g>
         <g data-detail="context" data-edge-from="confirmed" data-edge-to="make_key" data-edge-label="Yes" data-edge-key="23">
-          <rect x="546" y="1085" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="560" y="1096" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="924" y="355" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="938" y="366" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
 
 
         <g data-detail="context" data-edge-from="answered" data-edge-to="retry" data-edge-label="No: timeout" data-edge-key="26">
-          <rect x="414.05" y="1351" width="65.9" height="16" rx="4" class="c-mask"/>
-          <text x="447" y="1362" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No: timeout</text>
+          <rect x="1221.05" y="483" width="65.9" height="16" rx="4" class="c-mask"/>
+          <text x="1254" y="494" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">No: timeout</text>
         </g>
 
         <g data-detail="context" data-edge-from="answered" data-edge-to="status" data-edge-label="Yes" data-edge-key="28">
-          <rect x="546" y="1349" width="28" height="16" rx="4" class="c-mask"/>
-          <text x="560" y="1360" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
+          <rect x="1136" y="563" width="28" height="16" rx="4" class="c-mask"/>
+          <text x="1150" y="574" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Yes</text>
         </g>
         <g data-detail="context" data-edge-from="status" data-edge-to="read_number" data-edge-label="201 / 200" data-edge-key="29">
-          <rect x="725.95" y="1383" width="56.1" height="16" rx="4" class="c-mask"/>
-          <text x="754" y="1394" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">201 / 200</text>
+          <rect x="1222.95" y="597" width="56.1" height="16" rx="4" class="c-mask"/>
+          <text x="1251" y="608" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">201 / 200</text>
+        </g>
+        <g data-detail="context" data-edge-from="status" data-edge-to="alert_owner" data-edge-label="409 conflict" data-edge-key="30">
+          <rect x="1274.6" y="669" width="70.80000000000001" height="16" rx="4" class="c-mask"/>
+          <text x="1310" y="680" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">409 conflict</text>
+        </g>
+        <g data-detail="context" data-edge-from="status" data-edge-to="quote" data-edge-label="422 item gone" data-edge-key="31">
+          <rect x="1012.15" y="663" width="75.7" height="16" rx="4" class="c-mask"/>
+          <text x="1050" y="674" class="t-messagebus" font-size="8" font-weight="600" text-anchor="middle">422 item gone</text>
         </g>
 
-        <g data-detail="context" data-edge-from="status" data-edge-to="alert_owner" data-edge-label="409 conflict" data-edge-key="31">
-          <rect x="424.6" y="1439" width="70.80000000000001" height="16" rx="4" class="c-mask"/>
-          <text x="460" y="1450" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">409 conflict</text>
-        </g>
-        <g data-detail="context" data-edge-from="status" data-edge-to="quote" data-edge-label="422 item gone" data-edge-key="32">
-          <rect x="825.15" y="1351" width="75.7" height="16" rx="4" class="c-mask"/>
-          <text x="863" y="1362" class="t-messagebus" font-size="8" font-weight="600" text-anchor="middle">422 item gone</text>
-        </g>
 
 
         <!-- Legend -->
         <g data-legend="" data-legend-bridge="">
-          <text x="40" y="1604" class="t-primary" font-size="12" font-weight="650">Legend</text>
-          <g data-legend-semantic-kind="terminator" data-legend-kind="terminator" data-legend-label="start / end" data-legend-x="40" data-legend-baseline="1624" data-legend-width="98">
-            <rect x="40" y="1616" width="14" height="9" rx="4.5" class="c-database" stroke-width="1"/>
-            <text x="62" y="1624" class="t-muted" font-size="10" font-weight="500">start / end</text>
+          <text x="40" y="704" class="t-primary" font-size="12" font-weight="650">Legend</text>
+          <g data-legend-semantic-kind="terminator" data-legend-kind="terminator" data-legend-label="start / end" data-legend-x="40" data-legend-baseline="724" data-legend-width="98">
+            <rect x="40" y="716" width="14" height="9" rx="4.5" class="c-database" stroke-width="1"/>
+            <text x="62" y="724" class="t-muted" font-size="10" font-weight="500">start / end</text>
           </g>
-          <g data-legend-semantic-kind="process" data-legend-kind="process" data-legend-label="process" data-legend-x="160" data-legend-baseline="1624" data-legend-width="78">
-            <rect x="160" y="1616" width="14" height="9" rx="1.5" class="c-backend" stroke-width="1"/>
-            <text x="182" y="1624" class="t-muted" font-size="10" font-weight="500">process</text>
+          <g data-legend-semantic-kind="process" data-legend-kind="process" data-legend-label="process" data-legend-x="160" data-legend-baseline="724" data-legend-width="78">
+            <rect x="160" y="716" width="14" height="9" rx="1.5" class="c-backend" stroke-width="1"/>
+            <text x="182" y="724" class="t-muted" font-size="10" font-weight="500">process</text>
           </g>
-          <g data-legend-semantic-kind="decision" data-legend-kind="decision" data-legend-label="decision" data-legend-x="260" data-legend-baseline="1624" data-legend-width="83">
-            <polygon points="267,1615 275,1620.5 267,1626 259,1620.5" class="c-security" stroke-width="1"/>
-            <text x="282" y="1624" class="t-muted" font-size="10" font-weight="500">decision</text>
+          <g data-legend-semantic-kind="decision" data-legend-kind="decision" data-legend-label="decision" data-legend-x="260" data-legend-baseline="724" data-legend-width="83">
+            <polygon points="267,715 275,720.5 267,726 259,720.5" class="c-security" stroke-width="1"/>
+            <text x="282" y="724" class="t-muted" font-size="10" font-weight="500">decision</text>
           </g>
-          <g data-legend-semantic-kind="io" data-legend-kind="io" data-legend-label="input / output" data-legend-x="365" data-legend-baseline="1624" data-legend-width="113">
-            <polygon points="368,1616 380,1616 377,1625 365,1625" class="c-cloud" stroke-width="1"/>
-            <text x="387" y="1624" class="t-muted" font-size="10" font-weight="500">input / output</text>
+          <g data-legend-semantic-kind="io" data-legend-kind="io" data-legend-label="input / output" data-legend-x="365" data-legend-baseline="724" data-legend-width="113">
+            <polygon points="368,716 380,716 377,725 365,725" class="c-cloud" stroke-width="1"/>
+            <text x="387" y="724" class="t-muted" font-size="10" font-weight="500">input / output</text>
           </g>
-          <g data-legend-semantic-kind="subroutine" data-legend-kind="subroutine" data-legend-label="subroutine / call" data-legend-x="500" data-legend-baseline="1624" data-legend-width="128">
-            <rect x="500" y="1616" width="14" height="9" rx="1" class="c-frontend" stroke-width="1"/><line x1="502.5" y1="1616" x2="502.5" y2="1625" class="c-frontend" fill="none" stroke-width="1"/><line x1="511.5" y1="1616" x2="511.5" y2="1625" class="c-frontend" fill="none" stroke-width="1"/>
-            <text x="522" y="1624" class="t-muted" font-size="10" font-weight="500">subroutine / call</text>
+          <g data-legend-semantic-kind="subroutine" data-legend-kind="subroutine" data-legend-label="subroutine / call" data-legend-x="500" data-legend-baseline="724" data-legend-width="128">
+            <rect x="500" y="716" width="14" height="9" rx="1" class="c-frontend" stroke-width="1"/><line x1="502.5" y1="716" x2="502.5" y2="725" class="c-frontend" fill="none" stroke-width="1"/><line x1="511.5" y1="716" x2="511.5" y2="725" class="c-frontend" fill="none" stroke-width="1"/>
+            <text x="522" y="724" class="t-muted" font-size="10" font-weight="500">subroutine / call</text>
           </g>
         </g>
       </svg>

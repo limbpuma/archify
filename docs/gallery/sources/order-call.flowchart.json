@@ -5,89 +5,658 @@
     "title": "Phone Order Flowchart",
     "subtitle": "DIN 66001 program flowchart — an AI phone agent ordering through /api/v1",
     "output": "examples/flowchart-order-call.html",
-    "viewBox": [1280, 1660],
+    "viewBox": [
+      1540,
+      760
+    ],
     "animation": "trace",
     "quality_profile": "showcase",
-    "grid": { "colWidth": 200, "rowHeight": 88, "originX": 160, "originY": 84 },
+    "grid": {
+      "colWidth": 200,
+      "rowHeight": 88,
+      "originX": 150,
+      "originY": 90
+    },
     "views": [
-      { "id": "happy-path", "label": "Happy path", "focus": ["start", "announce", "get_menu", "take_wish", "opening", "is_open", "delivery", "quote", "blockers", "read_total", "confirmed", "make_key", "post_order", "answered", "status", "read_number", "end_ok"], "note": "Follow the call from the first announcement to an order on the board." },
-      { "id": "quote-loop", "label": "Quote loop", "focus": ["quote", "blockers", "read_blockers", "take_change"], "note": "Every change in the conversation is a new quote; blockers drive the questions." },
-      { "id": "retry-and-exits", "label": "Retry and exits", "focus": ["post_order", "answered", "retry", "status", "alert_owner", "end_none"], "note": "The same idempotency key is resent after a timeout; 409 alerts the owner, 422 re-quotes." }
+      {
+        "id": "happy-path",
+        "label": "Happy path",
+        "focus": [
+          "start",
+          "announce",
+          "get_menu",
+          "take_wish",
+          "opening",
+          "is_open",
+          "delivery",
+          "serviceability",
+          "in_zone",
+          "quote",
+          "blockers",
+          "read_total",
+          "confirmed",
+          "make_key",
+          "post_order",
+          "answered",
+          "status",
+          "read_number",
+          "end_ok"
+        ],
+        "note": "Follow the call from the first announcement to an order on the board."
+      },
+      {
+        "id": "quote-loop",
+        "label": "Quote loop",
+        "focus": [
+          "quote",
+          "blockers",
+          "read_blockers",
+          "take_change"
+        ],
+        "note": "Every change in the conversation is a new quote; blockers drive the questions."
+      },
+      {
+        "id": "retry-and-exits",
+        "label": "Retry and exits",
+        "focus": [
+          "post_order",
+          "answered",
+          "retry",
+          "status",
+          "alert_owner",
+          "end_none"
+        ],
+        "note": "The same idempotency key is resent after a timeout; 409 alerts the owner, 422 re-quotes."
+      }
     ]
   },
   "groups": [
-    { "id": "advise", "label": "A · Advise", "nodes": ["announce", "get_menu", "take_wish", "opening", "is_open", "read_hours"] },
-    { "id": "calculate", "label": "B · Calculate", "nodes": ["quote", "blockers", "read_blockers", "take_change", "read_total", "confirmed"] },
-    { "id": "order", "label": "C · Order", "nodes": ["make_key", "post_order", "answered", "retry", "status", "read_number", "alert_owner"] }
+    {
+      "id": "advise",
+      "label": "A · Advise",
+      "nodes": [
+        "announce",
+        "get_menu",
+        "take_wish",
+        "opening",
+        "is_open",
+        "read_hours",
+        "delivery",
+        "serviceability",
+        "in_zone",
+        "offer_pickup",
+        "pickup_instead"
+      ]
+    },
+    {
+      "id": "calculate",
+      "label": "B · Calculate",
+      "nodes": [
+        "quote",
+        "blockers",
+        "read_blockers",
+        "take_change",
+        "read_total",
+        "confirmed"
+      ]
+    },
+    {
+      "id": "order",
+      "label": "C · Order",
+      "nodes": [
+        "make_key",
+        "post_order",
+        "answered",
+        "retry",
+        "status",
+        "read_number",
+        "alert_owner"
+      ]
+    }
   ],
   "nodes": [
-    { "id": "start", "symbol": "terminator", "label": "Call comes in", "col": 2, "row": 0 },
-    { "id": "announce", "symbol": "process", "label": "Announce: a machine speaks", "sublabel": "AI Act Art. 50", "col": 2, "row": 1, "width": 200 },
-    { "id": "get_menu", "symbol": "subroutine", "label": "GET /api/v1/menu", "col": 2, "row": 2 },
-    { "id": "take_wish", "symbol": "io", "label": "Take wish: items, qty, mode, ZIP", "col": 2, "row": 3, "width": 280 },
-    { "id": "opening", "symbol": "subroutine", "label": "GET /api/v1/opening-state", "col": 2, "row": 4, "width": 200 },
-    { "id": "is_open", "symbol": "decision", "label": "Open?", "col": 2, "row": 5 },
-    { "id": "read_hours", "symbol": "io", "label": "Read next opening time", "col": 4, "row": 5, "width": 184 },
-    { "id": "delivery", "symbol": "decision", "label": "Delivery?", "col": 2, "row": 6 },
-    { "id": "serviceability", "symbol": "subroutine", "label": "GET /api/v1/serviceability", "col": 0, "row": 6, "width": 200 },
-    { "id": "in_zone", "symbol": "decision", "label": "ZIP in zone?", "col": 0, "row": 7, "width": 150 },
-    { "id": "offer_pickup", "symbol": "io", "label": "Offer pickup", "col": 0, "row": 8 },
-    { "id": "pickup_instead", "symbol": "decision", "label": "Pickup instead?", "col": 0, "row": 9, "width": 180 },
-    { "id": "quote", "symbol": "subroutine", "label": "POST /api/v1/orders/quote", "col": 3, "row": 8, "width": 200 },
-    { "id": "blockers", "symbol": "decision", "label": "Blockers empty?", "col": 2, "row": 9, "width": 180 },
-    { "id": "read_blockers", "symbol": "io", "label": "Read blockers back", "col": 4, "row": 9 },
-    { "id": "take_change", "symbol": "io", "label": "Take the change", "col": 4, "row": 8 },
-    { "id": "read_total", "symbol": "io", "label": "Read total, ETA, terms", "col": 2, "row": 10, "width": 184 },
-    { "id": "confirmed", "symbol": "decision", "label": "Confirmed?", "col": 2, "row": 11 },
-    { "id": "make_key", "symbol": "process", "label": "Create idempotency key", "sublabel": "termsAcceptedAt", "col": 2, "row": 12 },
-    { "id": "post_order", "symbol": "subroutine", "label": "POST /api/v1/orders", "col": 2, "row": 13 },
-    { "id": "answered", "symbol": "decision", "label": "Answer received?", "col": 2, "row": 14, "width": 200 },
-    { "id": "retry", "symbol": "process", "label": "Resend with same key", "col": 1, "row": 14 },
-    { "id": "status", "symbol": "decision", "label": "Status?", "col": 2, "row": 15 },
-    { "id": "read_number", "symbol": "io", "label": "Read order number", "col": 4, "row": 15 },
-    { "id": "alert_owner", "symbol": "process", "label": "Alert the owner", "col": 1, "row": 15 },
-    { "id": "end_ok", "symbol": "terminator", "label": "Order on the board", "col": 4, "row": 16 },
-    { "id": "end_none", "symbol": "terminator", "label": "End without order", "col": 0, "row": 16 }
+    {
+      "id": "start",
+      "symbol": "terminator",
+      "label": "Call comes in",
+      "col": 0,
+      "row": 0
+    },
+    {
+      "id": "announce",
+      "symbol": "process",
+      "label": "Announce: a machine speaks",
+      "sublabel": "AI Act Art. 50",
+      "col": 0,
+      "row": 1,
+      "width": 180
+    },
+    {
+      "id": "get_menu",
+      "symbol": "subroutine",
+      "label": "GET /api/v1/menu",
+      "col": 0,
+      "row": 2
+    },
+    {
+      "id": "take_wish",
+      "symbol": "io",
+      "label": "Take wish: items, qty, mode, ZIP",
+      "col": 0,
+      "row": 3,
+      "width": 250
+    },
+    {
+      "id": "opening",
+      "symbol": "subroutine",
+      "label": "GET /api/v1/opening-state",
+      "col": 0,
+      "row": 4,
+      "width": 190
+    },
+    {
+      "id": "is_open",
+      "symbol": "decision",
+      "label": "Open?",
+      "col": 0,
+      "row": 5
+    },
+    {
+      "id": "delivery",
+      "symbol": "decision",
+      "label": "Delivery?",
+      "col": 0,
+      "row": 6
+    },
+    {
+      "id": "read_hours",
+      "symbol": "io",
+      "label": "Read next opening time",
+      "col": 1,
+      "row": 5,
+      "width": 168
+    },
+    {
+      "id": "end_none",
+      "symbol": "terminator",
+      "label": "End without order",
+      "col": 1,
+      "row": 4,
+      "width": 112
+    },
+    {
+      "id": "serviceability",
+      "symbol": "subroutine",
+      "label": "GET /api/v1/serviceability",
+      "col": 1,
+      "row": 6,
+      "width": 197
+    },
+    {
+      "id": "pickup_instead",
+      "symbol": "decision",
+      "label": "Pickup instead?",
+      "col": 2,
+      "row": 4,
+      "width": 168
+    },
+    {
+      "id": "offer_pickup",
+      "symbol": "io",
+      "label": "Offer pickup",
+      "col": 2,
+      "row": 5
+    },
+    {
+      "id": "in_zone",
+      "symbol": "decision",
+      "label": "ZIP in zone?",
+      "col": 2,
+      "row": 6
+    },
+    {
+      "id": "confirmed",
+      "symbol": "decision",
+      "label": "Confirmed?",
+      "col": 3,
+      "row": 3
+    },
+    {
+      "id": "read_total",
+      "symbol": "io",
+      "label": "Read total, ETA, terms",
+      "col": 3,
+      "row": 4,
+      "width": 168
+    },
+    {
+      "id": "blockers",
+      "symbol": "decision",
+      "label": "Blockers empty?",
+      "col": 3,
+      "row": 5,
+      "width": 168
+    },
+    {
+      "id": "quote",
+      "symbol": "subroutine",
+      "label": "POST /api/v1/orders/quote",
+      "col": 3,
+      "row": 6,
+      "width": 190
+    },
+    {
+      "id": "take_change",
+      "symbol": "io",
+      "label": "Take the change",
+      "col": 4,
+      "row": 6,
+      "width": 120
+    },
+    {
+      "id": "read_blockers",
+      "symbol": "io",
+      "label": "Read blockers back",
+      "col": 4,
+      "row": 5,
+      "width": 136
+    },
+    {
+      "id": "make_key",
+      "symbol": "process",
+      "label": "Create idempotency key",
+      "sublabel": "termsAcceptedAt",
+      "col": 5,
+      "row": 3,
+      "width": 180
+    },
+    {
+      "id": "post_order",
+      "symbol": "subroutine",
+      "label": "POST /api/v1/orders",
+      "col": 5,
+      "row": 4
+    },
+    {
+      "id": "answered",
+      "symbol": "decision",
+      "label": "Answer received?",
+      "col": 5,
+      "row": 5,
+      "width": 180
+    },
+    {
+      "id": "status",
+      "symbol": "decision",
+      "label": "Status?",
+      "col": 5,
+      "row": 6
+    },
+    {
+      "id": "retry",
+      "symbol": "process",
+      "label": "Resend with same key",
+      "col": 6,
+      "row": 4,
+      "width": 132
+    },
+    {
+      "id": "read_number",
+      "symbol": "io",
+      "label": "Read order number",
+      "col": 6,
+      "row": 6,
+      "width": 128
+    },
+    {
+      "id": "alert_owner",
+      "symbol": "process",
+      "label": "Alert the owner",
+      "col": 6,
+      "row": 3
+    },
+    {
+      "id": "end_ok",
+      "symbol": "terminator",
+      "label": "Order on the board",
+      "col": 6,
+      "row": 5
+    }
   ],
   "edges": [
-    { "from": "start", "to": "announce" },
-    { "from": "announce", "to": "get_menu" },
-    { "from": "get_menu", "to": "take_wish" },
-    { "from": "take_wish", "to": "opening" },
-    { "from": "opening", "to": "is_open" },
-    { "from": "is_open", "to": "read_hours", "label": "No" },
-    { "from": "is_open", "to": "delivery", "label": "Yes", "labelDy": 22 },
-    { "from": "read_hours", "to": "end_none", "fromSide": "right", "toSide": "top", "via": [[1240, 524], [1240, 1545], [160, 1545]] },
-    { "from": "delivery", "to": "serviceability", "label": "Yes", "labelDy": -34 },
-    { "from": "delivery", "to": "quote", "label": "No: pickup", "labelDy": 22 },
-    { "from": "serviceability", "to": "in_zone" },
-    { "from": "in_zone", "to": "offer_pickup", "label": "No", "labelDy": 24 },
-    { "from": "in_zone", "to": "quote", "label": "Yes", "fromSide": "right", "toSide": "left", "labelSegment": 0 },
-    { "from": "offer_pickup", "to": "pickup_instead" },
-    { "from": "pickup_instead", "to": "quote", "label": "Yes", "fromSide": "right", "toSide": "left", "labelSegment": 0 },
-    { "from": "pickup_instead", "to": "end_none", "label": "No", "labelDy": 22, "route": "straight" },
-    { "from": "quote", "to": "blockers", "via": [[660, 876]] },
-    { "from": "blockers", "to": "read_blockers", "label": "No", "route": "straight" },
-    { "from": "read_blockers", "to": "take_change", "fromSide": "top", "toSide": "bottom" },
-    { "from": "take_change", "to": "quote", "fromSide": "bottom", "toSide": "bottom", "variant": "dashed", "via": [[960, 830], [660, 830], [660, 811]] },
-    { "from": "blockers", "to": "read_total", "label": "Yes", "labelDy": 22 },
-    { "from": "read_total", "to": "confirmed" },
-    { "from": "confirmed", "to": "end_none", "label": "No", "fromSide": "left", "toSide": "top", "via": [[220, 1052], [220, 1473]] },
-    { "from": "confirmed", "to": "make_key", "label": "Yes", "labelDy": 22 },
-    { "from": "make_key", "to": "post_order" },
-    { "from": "post_order", "to": "answered" },
-    { "from": "answered", "to": "retry", "label": "No: timeout", "labelDy": 56, "route": "straight" },
-    { "from": "retry", "to": "post_order", "fromSide": "top", "toSide": "left", "variant": "dashed", "via": [[360, 1175], [482, 1175]] },
-    { "from": "answered", "to": "status", "label": "Yes", "labelDy": 22 },
-    { "from": "status", "to": "read_number", "label": "201 / 200" },
-    { "from": "read_number", "to": "end_ok" },
-    { "from": "status", "to": "alert_owner", "label": "409 conflict", "fromSide": "bottom", "toSide": "top", "via": [[560, 1460], [360, 1460], [360, 1378]], "labelSegment": 1 },
-    { "from": "status", "to": "quote", "label": "422 item gone", "fromSide": "top", "toSide": "top", "variant": "dashed", "via": [[626, 1372], [1100, 1372], [1100, 720], [560, 720], [560, 765]] },
-    { "from": "alert_owner", "to": "end_none", "fromSide": "bottom", "toSide": "top" }
+    {
+      "from": "start",
+      "to": "announce"
+    },
+    {
+      "from": "announce",
+      "to": "get_menu"
+    },
+    {
+      "from": "get_menu",
+      "to": "take_wish"
+    },
+    {
+      "from": "take_wish",
+      "to": "opening"
+    },
+    {
+      "from": "opening",
+      "to": "is_open"
+    },
+    {
+      "from": "is_open",
+      "to": "read_hours",
+      "label": "No",
+      "toSide": "left"
+    },
+    {
+      "from": "is_open",
+      "to": "delivery",
+      "label": "Yes",
+      "labelDy": 22
+    },
+    {
+      "from": "read_hours",
+      "to": "end_none",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "from": "delivery",
+      "to": "serviceability",
+      "label": "Yes",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelDy": 22
+    },
+    {
+      "from": "delivery",
+      "to": "quote",
+      "label": "No: pickup",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "labelDy": 22,
+      "route": "drop",
+      "channelY": 710
+    },
+    {
+      "from": "serviceability",
+      "to": "in_zone",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "from": "in_zone",
+      "to": "offer_pickup",
+      "label": "No",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -2
+    },
+    {
+      "from": "in_zone",
+      "to": "quote",
+      "label": "Yes",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          550,
+          700
+        ],
+        [
+          750,
+          700
+        ]
+      ],
+      "labelDy": -30,
+      "labelDx": -40
+    },
+    {
+      "from": "offer_pickup",
+      "to": "pickup_instead",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "from": "pickup_instead",
+      "to": "quote",
+      "label": "Yes",
+      "fromSide": "right",
+      "toSide": "bottom",
+      "via": [
+        [
+          646,
+          442
+        ],
+        [
+          646,
+          680
+        ],
+        [
+          750,
+          680
+        ]
+      ],
+      "labelDy": 22
+    },
+    {
+      "from": "pickup_instead",
+      "to": "end_none",
+      "label": "No",
+      "fromSide": "left",
+      "toSide": "right",
+      "labelDy": -14
+    },
+    {
+      "from": "quote",
+      "to": "blockers"
+    },
+    {
+      "from": "blockers",
+      "to": "read_blockers",
+      "label": "No",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelDy": 22
+    },
+    {
+      "from": "read_blockers",
+      "to": "take_change",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "take_change",
+      "to": "quote",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "right",
+      "labelDy": -14
+    },
+    {
+      "from": "blockers",
+      "to": "read_total",
+      "label": "Yes",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -2
+    },
+    {
+      "from": "read_total",
+      "to": "confirmed",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "from": "confirmed",
+      "to": "end_none",
+      "label": "No",
+      "fromSide": "left",
+      "toSide": "top",
+      "via": [
+        [
+          646,
+          354
+        ],
+        [
+          646,
+          400
+        ],
+        [
+          350,
+          400
+        ]
+      ],
+      "labelDy": -12
+    },
+    {
+      "from": "confirmed",
+      "to": "make_key",
+      "label": "Yes",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelDy": 22
+    },
+    {
+      "from": "make_key",
+      "to": "post_order"
+    },
+    {
+      "from": "post_order",
+      "to": "answered"
+    },
+    {
+      "from": "answered",
+      "to": "retry",
+      "label": "No: timeout",
+      "fromSide": "right",
+      "toSide": "left",
+      "via": [
+        [
+          1254,
+          530
+        ],
+        [
+          1254,
+          442
+        ]
+      ],
+      "labelDy": 18
+    },
+    {
+      "from": "retry",
+      "to": "post_order",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "right",
+      "labelDy": -14
+    },
+    {
+      "from": "answered",
+      "to": "status",
+      "label": "Yes",
+      "labelDy": 22
+    },
+    {
+      "from": "status",
+      "to": "read_number",
+      "label": "201 / 200",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "from": "status",
+      "to": "alert_owner",
+      "label": "409 conflict",
+      "fromSide": "bottom",
+      "toSide": "right",
+      "via": [
+        [
+          1150,
+          690
+        ],
+        [
+          1470,
+          690
+        ],
+        [
+          1470,
+          354
+        ]
+      ]
+    },
+    {
+      "from": "status",
+      "to": "quote",
+      "label": "422 item gone",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "bottom",
+      "via": [
+        [
+          1050,
+          618
+        ],
+        [
+          1050,
+          710
+        ],
+        [
+          750,
+          710
+        ]
+      ],
+      "labelDy": 20
+    },
+    {
+      "from": "read_number",
+      "to": "end_ok",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "from": "alert_owner",
+      "to": "end_none",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          1350,
+          30
+        ],
+        [
+          350,
+          30
+        ]
+      ]
+    }
   ],
   "cards": [
-    { "dot": "emerald", "title": "One rule", "items": ["The agent proposes, the domain decides: prices, zones, minimums and risk are computed only by the API.", "Every diamond reads what the previous API call returned — never the agent's own knowledge."] },
-    { "dot": "amber", "title": "Two loops", "items": ["Quote loop: every change in the conversation is a new /orders/quote; blockers are the only source of questions.", "Retry loop: a timeout resends the same idempotency key — never a second pizza."] },
-    { "dot": "rose", "title": "Exits", "items": ["409 conflict alerts the owner and ends without order.", "422 item gone returns to the quote with the item removed."] }
+    {
+      "dot": "emerald",
+      "title": "One rule",
+      "items": [
+        "The agent proposes, the domain decides: prices, zones, minimums and risk are computed only by the API.",
+        "Every diamond reads what the previous API call returned — never the agent's own knowledge."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Two loops",
+      "items": [
+        "Quote loop: every change in the conversation is a new /orders/quote; blockers are the only source of questions.",
+        "Retry loop: a timeout resends the same idempotency key — never a second pizza."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Exits",
+      "items": [
+        "409 conflict alerts the owner and ends without order.",
+        "422 item gone returns to the quote with the item removed."
+      ]
+    }
   ]
 }

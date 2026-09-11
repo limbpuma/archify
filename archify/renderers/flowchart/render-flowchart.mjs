@@ -82,7 +82,8 @@ const symbolText = {
   connector: 't-muted',
 };
 
-const nodeTextFit = { sublabelPreferred: 9, sublabelMinimum: 7, tagPreferred: 9, tagMinimum: 7 };
+const nodeTextFit = { sublabelPreferred: 10, sublabelMinimum: 10, tagPreferred: 10, tagMinimum: 10 };
+const primaryMinimumFontSize = 10;
 
 function legendY() {
   return viewBox[1] - 36;
@@ -398,7 +399,7 @@ function renderNode(node) {
   const textWidth = node.width * innerFactor;
   const hasSub = node.sublabel != null && node.sublabel !== '' && node.symbol !== 'connector';
   const labelY = hasSub ? node.cy - 3 : node.cy + 3.5;
-  const labelFontSize = node.symbol === 'connector' ? 9 : fittedNodeFontSize(node.label, textWidth, 10, 8);
+  const labelFontSize = node.symbol === 'connector' ? 9 : fittedNodeFontSize(node.label, textWidth, 10, primaryMinimumFontSize);
   const sub = hasSub
     ? `\n          <text data-detail="context" x="${node.cx}" y="${node.cy + 11}" class="t-muted" font-size="${fittedNodeFontSize(node.sublabel, textWidth, nodeTextFit.sublabelPreferred, nodeTextFit.sublabelMinimum)}" text-anchor="middle">${esc(node.sublabel)}</text>`
     : '';
