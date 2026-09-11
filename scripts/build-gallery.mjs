@@ -175,6 +175,19 @@ const CASES = [
     descriptionEn: 'A DIN 66001 program flowchart of an AI phone agent: announcement, menu, quote loop, idempotent order placement, retry, and three labelled exits.',
     descriptionZh: 'DIN 66001 程序流程图：AI 电话代理的宣告、菜单、报价循环、幂等下单、重试与三个带标注的出口。',
   },
+  {
+    id: 'order-call-struktogramm',
+    type: 'struktogramm',
+    input: 'order-call.struktogramm.json',
+    output: 'order-call.struktogramm.html',
+    focus: 'announce',
+    view: 'advise',
+    accent: '#14b8a6',
+    titleEn: 'Phone Order Struktogramm',
+    titleZh: '电话下单结构图',
+    descriptionEn: 'A Nassi-Shneiderman diagram (DIN 66261) of the same AI phone agent algorithm: nested boxes, branched if/case, looped until, and explicit exits without arrows.',
+    descriptionZh: '同一段 AI 电话代理算法的 Nassi-Shneiderman 结构图（DIN 66261）：嵌套方框、if 与 case 分支、until 循环和显式退出，全程没有箭头。',
+  },
 ];
 
 const SHAPES = {
@@ -184,6 +197,7 @@ const SHAPES = {
   dataflow: ['nodes', 'flows'],
   lifecycle: ['states', 'transitions'],
   flowchart: ['nodes', 'edges'],
+  struktogramm: ['blocks', null],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -194,6 +208,7 @@ const TYPE_ACCENTS = {
   dataflow: '#b45309',
   lifecycle: '#be123c',
   flowchart: '#0d9488',
+  struktogramm: '#0f766e',
 };
 
 function digest(buffer) {

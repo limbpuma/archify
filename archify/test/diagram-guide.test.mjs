@@ -17,6 +17,7 @@ const CASES = {
   dataflow: 'product-analytics.dataflow.json',
   lifecycle: 'agent-run.lifecycle.json',
   flowchart: 'order-call.flowchart.json',
+  struktogramm: 'order-call.struktogramm.json',
 };
 
 function render(mode, example) {
