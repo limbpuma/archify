@@ -157,7 +157,7 @@ expectFailure('if block without else branch', 'struktogramm',
   }, 'needs both then and else');
 expectFailure('struktogramm text wider than its column', 'struktogramm',
   (d) => {
-    const inner = d.blocks[0].then[0].else[0];
+    const inner = d.blocks.find((b) => b.id === 'open_branch').then[0].then[1];
     inner.kind = 'statement';
     inner.text = 'X'.repeat(96);
   }, 'does not fit');
