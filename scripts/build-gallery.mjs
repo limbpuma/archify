@@ -188,6 +188,19 @@ const CASES = [
     descriptionEn: 'A Nassi-Shneiderman diagram (DIN 66261) of the same AI phone agent algorithm: nested boxes, branched if/case, looped until, and explicit exits without arrows.',
     descriptionZh: '同一段 AI 电话代理算法的 Nassi-Shneiderman 结构图（DIN 66261）：嵌套方框、if 与 case 分支、until 循环和显式退出，全程没有箭头。',
   },
+  {
+    id: 'phone-ordering-usecase',
+    type: 'usecase',
+    input: 'phone-ordering.usecase.json',
+    output: 'phone-ordering.usecase.html',
+    focus: 'place_order',
+    view: 'customer',
+    accent: '#6366f1',
+    titleEn: 'Phone Ordering Use Cases',
+    titleZh: '电话下单用例图',
+    descriptionEn: 'A UML use case diagram (Anwendungsfalldiagramm): primary customer and staff actors, secondary payment provider, three include flows, an optional voucher extension, and a repeat-order generalization.',
+    descriptionZh: 'UML 用例图（Anwendungsfalldiagramm）：主要参与者客户与店员，次要参与者支付服务，三个 include 子流程，可选的 voucher extend，以及 repeat-order 的泛化关系。',
+  },
 ];
 
 const SHAPES = {
@@ -198,6 +211,7 @@ const SHAPES = {
   lifecycle: ['states', 'transitions'],
   flowchart: ['nodes', 'edges'],
   struktogramm: ['blocks', null],
+  usecase: ['nodes', 'relations'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -209,6 +223,7 @@ const TYPE_ACCENTS = {
   lifecycle: '#be123c',
   flowchart: '#0d9488',
   struktogramm: '#0f766e',
+  usecase: '#4f46e5',
 };
 
 function digest(buffer) {

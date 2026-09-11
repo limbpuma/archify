@@ -300,6 +300,31 @@ const RAW_RECIPES = [
       prompt: '用 Archify 结构图模式把这段算法画成 Nassi-Shneiderman 图。使用 statement、io、call、if、case、while、until、for、exit 搭建嵌套块树，为需要不同宽度的分支设置 split 与 weight，让渲染器负责盒子计算。保留一条明显的主路径，给每个循环清晰的退出条件，并在 10px 字号下保证文本能放下。未知值要标明，不要编造。',
     },
   },
+  {
+    id: 'use-case-model', type: 'usecase', proof: 'phone-ordering-usecase',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify usecase mode to model the requirements of [the system you are describing]: [paste the actors (people or external systems), use cases (the things they need to do), and any include or extend relationships between use cases]. Place actors outside the system boundary and use cases inside it, give every use case a verb-object name, and use «include» for mandatory sub-flows and «extend» for optional ones. If a relationship or boundary is unknown, mark it instead of inventing one.' },
+      zh: { descriptionPrompt: '用 Archify 用例模式建模【你要描述的系统】的需求：[粘贴参与者（人或外部系统）、用例（他们要做的事）以及用例之间的 include / extend 关系]。参与者放在系统边界外，用例放在边界内，每个用例用动宾命名；强制子流程用 «include»，可选扩展用 «extend»。未知的关系或边界要标明，不要编造。' },
+    },
+    signals: [['use case', 16], ['usecase', 14], ['anwendungsfall', 16], ['actor', 8], ['akteur', 8], ['system boundary', 12], ['include', 8], ['extend', 8], ['requirements', 10], ['uml', 9], ['用例', 16], ['用例图', 14], ['参与者', 8], ['系统边界', 12], ['包含', 8], ['扩展', 8], ['需求', 10]],
+    en: {
+      title: 'Use case model (Anwendungsfalldiagramm)', question: 'Who needs the system to do what, and which flows always or sometimes happen together?',
+      summary: 'A UML use case diagram: stick-figure actors outside the system boundary, use-case ellipses inside it, plain associations, «include» and «extend» as dashed open arrows, and generalization as a hollow triangle.',
+      useWhen: 'Requirements elicitation, IHK Fachinformatiker project documentation, system scope reviews, and any stakeholder overview that needs the actor-to-capability view without component or timing detail.',
+      avoidWhen: 'The audience needs component ownership, request timing between services, a state model, or algorithm branching — use architecture, sequence, or flowchart instead.',
+      include: ['primary and secondary actors', 'verb-object use cases inside the system boundary', '«include» for mandatory sub-flows', '«extend» for optional sub-flows and generalization for inheritance'],
+      prompt: 'Use Archify usecase mode to model this system as a UML use case diagram. Place every primary actor on the left, secondary actors on the right (dashed figure), and put every use case inside exactly one system boundary. Use a plain association line between an actor and a use case, a dashed «include» arrow for mandatory sub-flows, a dashed «extend» arrow for optional extensions, and a solid hollow-triangle generalization for actor or use-case inheritance. Give every use case a verb-object name and use the same block tree and texts the example ships with.',
+    },
+    zh: {
+      title: '用例图（Anwendungsfalldiagramm）', question: '谁需要系统做哪些事，哪些流程总是或偶尔同时发生？',
+      summary: 'UML 用例图：参与者火柴人在系统边界外，用例椭圆在边界内；关联用实线，«include» 和 «extend» 用带空心箭头的虚线，泛化用空心三角箭头。',
+      useWhen: '适合需求收集、IHK Fachinformatiker 项目文档、系统范围评审，以及任何需要按参与者-能力视角概览干系人而不关心组件或时序的场景。',
+      avoidWhen: '如果受众需要组件归属、服务间调用时序、对象状态或算法分支，请改用架构图、时序图或流程图。',
+      include: ['主要与次要参与者', '边界内动宾命名的用例', '强制子流程的 «include»', '可选子流程的 «extend» 和用于继承的泛化'],
+      prompt: '用 Archify 用例模式把该系统画成 UML 用例图。主要参与者放左侧，次要参与者放右侧（虚线火柴人），每个用例放在唯一的系统边界内。参与者与用例之间用实线关联，强制子流程用带 «include» 的虚线箭头，可选扩展用带 «extend» 的虚线箭头，参与者或用例的继承用空心三角箭头的实线。每个用例用动宾命名，并保持示例原有的块结构与文本。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

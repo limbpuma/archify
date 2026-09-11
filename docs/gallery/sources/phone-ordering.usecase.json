@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "diagram_type": "usecase",
+  "meta": {
+    "title": "Phone Ordering Use Cases",
+    "subtitle": "UML use case diagram of the AI phone ordering system and the people around it",
+    "output": "examples/usecase-phone-ordering.html",
+    "viewBox": [
+      1380,
+      620
+    ],
+    "grid": {
+      "colWidth": 200,
+      "rowHeight": 96,
+      "originX": 100,
+      "originY": 96
+    },
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "customer",
+        "label": "Customer journey",
+        "focus": [
+          "customer",
+          "place_order",
+          "repeat_order",
+          "track_order"
+        ],
+        "note": "The customer places, repeats and tracks orders over the phone."
+      },
+      {
+        "id": "includes",
+        "label": "What placing an order includes",
+        "focus": [
+          "place_order",
+          "get_quote",
+          "pay_order",
+          "check_hours",
+          "apply_voucher"
+        ],
+        "note": "Placing an order always includes a quote, a payment and an opening-hours check; a voucher optionally extends the payment."
+      },
+      {
+        "id": "staff",
+        "label": "Restaurant staff",
+        "focus": [
+          "staff",
+          "update_menu",
+          "mark_ready"
+        ],
+        "note": "Staff maintain the menu and mark orders ready; the payment provider settles payments."
+      }
+    ]
+  },
+  "groups": [
+    {
+      "id": "system",
+      "label": "PHONE ORDERING SYSTEM",
+      "nodes": [
+        "repeat_order",
+        "get_quote",
+        "place_order",
+        "pay_order",
+        "track_order",
+        "apply_voucher",
+        "update_menu",
+        "check_hours",
+        "mark_ready"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "customer",
+      "kind": "actor",
+      "label": "Customer",
+      "col": 0,
+      "row": 1
+    },
+    {
+      "id": "staff",
+      "kind": "actor",
+      "label": "Restaurant staff",
+      "col": 0,
+      "row": 3,
+      "dy": 48
+    },
+    {
+      "id": "payment_provider",
+      "kind": "actor",
+      "label": "Payment provider",
+      "secondary": true,
+      "col": 6,
+      "row": 1
+    },
+    {
+      "id": "repeat_order",
+      "kind": "usecase",
+      "label": "Repeat last order",
+      "col": 2,
+      "row": 0
+    },
+    {
+      "id": "get_quote",
+      "kind": "usecase",
+      "label": "Get quote",
+      "col": 4,
+      "row": 0
+    },
+    {
+      "id": "place_order",
+      "kind": "usecase",
+      "label": "Place order",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": "pay_order",
+      "kind": "usecase",
+      "label": "Pay order",
+      "col": 4,
+      "row": 1
+    },
+    {
+      "id": "track_order",
+      "kind": "usecase",
+      "label": "Track order",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "apply_voucher",
+      "kind": "usecase",
+      "label": "Apply voucher",
+      "col": 4,
+      "row": 2
+    },
+    {
+      "id": "update_menu",
+      "kind": "usecase",
+      "label": "Update menu",
+      "col": 2,
+      "row": 3
+    },
+    {
+      "id": "check_hours",
+      "kind": "usecase",
+      "label": "Check opening hours",
+      "col": 4,
+      "row": 3,
+      "width": 170
+    },
+    {
+      "id": "mark_ready",
+      "kind": "usecase",
+      "label": "Mark order ready",
+      "col": 2,
+      "row": 4
+    }
+  ],
+  "relations": [
+    {
+      "id": "customer_places",
+      "from": "customer",
+      "to": "place_order",
+      "kind": "association"
+    },
+    {
+      "id": "customer_repeats",
+      "from": "customer",
+      "to": "repeat_order",
+      "kind": "association",
+      "channelX": 290
+    },
+    {
+      "id": "customer_tracks",
+      "from": "customer",
+      "to": "track_order",
+      "kind": "association",
+      "channelX": 290
+    },
+    {
+      "id": "repeat_is_a",
+      "from": "repeat_order",
+      "to": "place_order",
+      "kind": "generalization"
+    },
+    {
+      "id": "includes_quote",
+      "from": "place_order",
+      "to": "get_quote",
+      "kind": "include",
+      "channelX": 640
+    },
+    {
+      "id": "includes_payment",
+      "from": "place_order",
+      "to": "pay_order",
+      "kind": "include"
+    },
+    {
+      "id": "includes_hours",
+      "from": "place_order",
+      "to": "check_hours",
+      "kind": "include",
+      "channelX": 760
+    },
+    {
+      "id": "voucher_extends",
+      "from": "apply_voucher",
+      "to": "pay_order",
+      "kind": "extend"
+    },
+    {
+      "id": "provider_settles",
+      "from": "payment_provider",
+      "to": "pay_order",
+      "kind": "association"
+    },
+    {
+      "id": "staff_updates",
+      "from": "staff",
+      "to": "update_menu",
+      "kind": "association"
+    },
+    {
+      "id": "staff_marks",
+      "from": "staff",
+      "to": "mark_ready",
+      "kind": "association"
+    }
+  ],
+  "cards": []
+}

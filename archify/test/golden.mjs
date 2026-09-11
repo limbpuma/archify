@@ -81,6 +81,7 @@ const GOLDEN = [
   ['architecture', 'web-app.architecture.json', 'web-app-rendered.html'],
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
   ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
+  ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -161,6 +162,15 @@ expectFailure('struktogramm text wider than its column', 'struktogramm',
     inner.kind = 'statement';
     inner.text = 'X'.repeat(96);
   }, 'does not fit');
+expectFailure('usecase association between two use cases', 'usecase',
+  (d) => {
+    d.relations.push({ from: 'place_order', to: 'pay_order', kind: 'association' });
+  }, 'links two');
+expectFailure('usecase actor placed inside the system boundary', 'usecase',
+  (d) => {
+    d.nodes.find((n) => n.kind === 'actor').col = 4;
+    d.groups[0].nodes.push('customer');
+  }, 'is inside system boundary');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

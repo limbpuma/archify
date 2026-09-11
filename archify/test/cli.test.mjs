@@ -159,8 +159,8 @@ test('cli: guide lists all scenario recipes by diagram type', () => {
   const result = run(['guide']);
 
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /Archify scenario recipes \(13\)/);
-  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm']) {
+  assert.match(result.stdout, /Archify scenario recipes \(14\)/);
+  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'usecase']) {
     assert.match(result.stdout, new RegExp(`\\[${type}\\]`));
   }
 });
