@@ -79,6 +79,7 @@ const GOLDEN = [
   ['dataflow', 'product-analytics.dataflow.json', 'dataflow-product-analytics.html'],
   ['lifecycle', 'agent-run.lifecycle.json', 'lifecycle-agent-run.html'],
   ['architecture', 'web-app.architecture.json', 'web-app-rendered.html'],
+  ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -139,6 +140,15 @@ expectFailure('zero component height rejected by schema', 'architecture',
   (d) => { d.components[0].size = [120, 0]; }, '/components/0/size/1');
 expectFailure('negative component width rejected by schema', 'architecture',
   (d) => { d.components[0].size = [-1, 60]; }, '/components/0/size/0');
+expectFailure('decision without branch label', 'flowchart',
+  (d) => {
+    const edge = d.edges.find((e) => e.from === 'is_open' && e.to === 'read_hours');
+    delete edge.label;
+  }, 'needs a label');
+expectFailure('terminator with both incoming and outgoing edges', 'flowchart',
+  (d) => {
+    d.edges.push({ from: 'end_ok', 'to': 'start', label: 'loop' });
+  }, 'incoming and outgoing');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');
