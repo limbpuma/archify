@@ -141,8 +141,8 @@ Continue with focused requests such as `add Redis`, `move auth to the left`, or 
 | **Lifecycle** | States, retries, waits, terminal outcomes | States, events, retry and cancellation paths |
 | **Flowchart** | Algorithms and decision logic (DIN 66001 / ISO 5807 symbols) | Start/end, process, decision diamonds with labelled answers, I/O, subroutine calls, loops |
 | **Struktogramm** | Structured programs (Nassi-Shneiderman, DIN 66261) | Nested boxes for sequence, if/case, while/until/for loops, and exits — no arrows |
-| **UML class** | Class diagrams: classes, attributes, methods, associations, aggregation, composition, inheritance, realization, dependency | Class names, attributes, methods, multiplicities, navigation, stereotype annotations |
-| **ER diagram** | Data models, database schemas, ER models in Chen or IE crow's-foot notation | Entities, attributes (key / derived / multivalued), relationships, (min,max) or crow's-foot cardinalities |
+| **UML class** | Class diagrams (Klassendiagramm) | Members, multiplicities, aggregation |
+| **ER diagram** | Chen or crow's-foot data models | Entities, attributes, (min,max) cardinalities |
 
 Architecture's optional `deployment-ownership` profile fails closed when authored owners, region placement, private database scope, or named crossings are missing; it is never implicit and does not inspect live infrastructure. See the [checked deployment proof](https://tt-a1i.github.io/archify/gallery.html#proof-deployment-ownership).
 
