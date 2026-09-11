@@ -227,6 +227,19 @@ const CASES = [
     descriptionEn: 'An IE crow\'s-foot entity-relationship diagram: Customer, Order, OrderLine, Product and Category boxes list their attributes inline with PK / FK badges; lines carry one / zero-many cardinality glyphs and turn dashed when the relationship is non-identifying.',
     descriptionZh: 'IE Krähenfuß 实体关系图：Customer / Order / OrderLine / Product / Category 用方框列出属性并标注 PK / FK，连线两端带 one / zero-many 基数符号，非标识联系画虚线。',
   },
+  {
+    id: 'phone-order',
+    type: 'epk',
+    input: 'phone-order.epk.json',
+    output: 'epk-phone-order.html',
+    focus: 'take_order',
+    view: 'intake',
+    accent: '#f97316',
+    titleEn: 'Phone Order Process Chain',
+    titleZh: '电话下单事件驱动过程链',
+    descriptionEn: 'An extended event-driven process chain (eEPK) of one phone order: events, functions, an XOR payment decision, an AND split for fulfilment, and organisational units and information objects attached to functions.',
+    descriptionZh: '一张电话下单的扩展事件驱动过程链（eEPK）：事件、功能、支付 XOR 决策、履约 AND 分裂，以及挂在功能上的组织单元和信息对象。',
+  },
 ];
 
 const SHAPES = {
@@ -239,6 +252,7 @@ const SHAPES = {
   struktogramm: ['blocks', null],
   'uml-class': ['classes', 'relations'],
   erd: ['nodes', 'relations'],
+  epk: ['nodes', 'edges'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -252,6 +266,7 @@ const TYPE_ACCENTS = {
   struktogramm: '#0f766e',
   'uml-class': '#7c3aed',
   erd: '#0ea5e9',
+  epk: '#ea580c',
 };
 
 function digest(buffer) {

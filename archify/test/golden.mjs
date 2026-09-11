@@ -84,6 +84,7 @@ const GOLDEN = [
   ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
   ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
+  ['epk', 'phone-order.epk.json', 'epk-phone-order.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -201,6 +202,14 @@ expectFailure("crows-foot relation without toCardinality", 'erd',
     const rel = d.relations.find((r) => r.to === 'order');
     delete rel.toCardinality;
   }, 'needs toCardinality', 'order-crowsfoot.erd.json');
+expectFailure('epk XOR split directly after an event', 'epk',
+  (d) => {
+    d.nodes.find((node) => node.id === 'ready_split').operator = 'xor';
+  }, 'XOR split');
+expectFailure('epk function followed by another function', 'epk',
+  (d) => {
+    d.nodes.find((node) => node.id === 'order_recorded').kind = 'function';
+  }, 'followed by function');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

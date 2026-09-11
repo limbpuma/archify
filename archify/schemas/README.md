@@ -16,6 +16,7 @@ against one of the schemas in this folder before any layout work happens.
 | `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
 | `uml-class.schema.json` | `diagram_type: "uml-class"` | `groups`, `classes`, `relations` |
 | `erd.schema.json` | `diagram_type: "erd"` | `nodes`, `relations` (Chen entities/relationships/attributes or IE crow's-foot entities with attribute lists) |
+| `epk.schema.json` | `diagram_type: "epk"` | `groups`, `nodes` (event, function, connector, org, info), `edges` |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -80,6 +81,27 @@ crow's-foot `relations` require both cardinalities as one of `one`,
 `zero-one`, `one-many`, `zero-many`, or `many`, and may set
 `identifying: false` to draw the line dashed.
 
+EPK `meta` additionally accepts a `grid` object with the same `colWidth` /
+`rowHeight` / `originX` / `originY` keys as Flowchart (defaults: `250×60` at
+`120, 100`). The author owns placement; the renderer never moves a symbol.
+`nodes` declare a `kind` of `event` (hexagon), `function` (rounded
+rectangle), `connector` (circle carrying an `operator` of `xor`, `and`, or
+`or`), `org` (ellipse with a bar), or `info` (rectangle); `col` and `row`
+are bounded to `0..15`. The grammar is strict: the chain starts with an
+event without incoming control flow and ends with an event without outgoing
+control flow; control flow alternates event → function → event across
+connectors; events carry at most one incoming and one outgoing control flow
+while functions carry exactly one of each; a connector is a split (1 in,
+≥ 2 out) or a join (≥ 2 in, 1 out) and an XOR or OR split may never follow
+an event (only AND may split after an event). Organisational units and
+information objects attach to functions only, never take part in the control
+flow, and each must be attached to at least one function. Edge meaning is
+inferred from the node kinds: control flow (solid arrow), assignment
+(`org ↔ function`, solid line without arrowhead), and information flow
+(`info ↔ function`, dashed arrow). `meta.viewBox[0]` should stay ≤ 1380 so
+the 1440 px desktop projection keeps the 9 px satellite text above the 6 px
+readability floor.
+
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
 and an optional short `note`.
@@ -128,6 +150,7 @@ Supported keys are renderer-owned:
 | Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
 | UML Class | `class`, `abstract`, `interface`, `enum`, `association`, `aggregation`, `composition`, `inheritance`, `realization`, `dependency` |
 | ERD | `entity`, `weak-entity`, `relationship`, `attribute`, `key-attribute`, `derived-attribute`, `multivalued-attribute`, `one`, `zero-one`, `one-many`, `zero-many`, `many` |
+| EPK | `event`, `function`, `xor`, `and`, `or`, `org`, `info` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
@@ -178,7 +201,7 @@ version; additive, backwards-compatible fields do not.
 
 ## Shared definitions (common.schema.json)
 
-The eight diagram schemas reference `common.schema.json#/$defs/...`:
+The ten diagram schemas reference `common.schema.json#/$defs/...`:
 
 - `id` — element identifiers, pattern `^[a-zA-Z][a-zA-Z0-9_-]*$`
 - `point` — an `[x, y]` pair of numbers (used by `via` and `labelAt`)
@@ -198,7 +221,7 @@ stays in `lifecycle.schema.json`.
 
 ## Runtime validation
 
-At development time, `scripts/generate-validators.mjs` compiles all eight
+At development time, `scripts/generate-validators.mjs` compiles all ten
 schemas with ajv's draft 2020-12 standalone generator using `strict: true` and
 `allErrors: true`. The generated `renderers/shared/generated-validators.mjs`
 is committed and shipped with the skill, so runtime validation has no npm or
