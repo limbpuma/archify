@@ -82,7 +82,7 @@ const symbolText = {
   connector: 't-muted',
 };
 
-const nodeTextFit = { sublabelPreferred: 7, sublabelMinimum: 6, tagPreferred: 7, tagMinimum: 6 };
+const nodeTextFit = { sublabelPreferred: 9, sublabelMinimum: 7, tagPreferred: 9, tagMinimum: 7 };
 
 function legendY() {
   return viewBox[1] - 36;
