@@ -6,8 +6,8 @@
     "subtitle": "Nassi-Shneiderman diagram (DIN 66261) of the AI phone agent's call script",
     "output": "examples/struktogramm-order-call.html",
     "viewBox": [
-      980,
-      720
+      1240,
+      680
     ],
     "animation": "trace",
     "quality_profile": "showcase",
@@ -46,9 +46,9 @@
       }
     ],
     "layout": {
-      "rowHeight": 26,
-      "indent": 24,
-      "margin": 40
+      "rowHeight": 24,
+      "indent": 22,
+      "margin": 120
     }
   },
   "blocks": [
@@ -221,30 +221,5 @@
       ]
     }
   ],
-  "cards": [
-    {
-      "dot": "emerald",
-      "title": "One rule",
-      "items": [
-        "The agent proposes, the domain decides: every number comes from /api/v1.",
-        "No branch reads anything the previous call did not return."
-      ]
-    },
-    {
-      "dot": "amber",
-      "title": "Two loops",
-      "items": [
-        "Quote loop: repeat POST /orders/quote until blockers are empty.",
-        "Retry loop: resend the same idempotency key until an answer arrives."
-      ]
-    },
-    {
-      "dot": "rose",
-      "title": "Exits",
-      "items": [
-        "Closed, unconfirmed or 409 conflict end without order.",
-        "422 item gone leaves the case and re-enters the quote loop."
-      ]
-    }
-  ]
+  "cards": []
 }
