@@ -1,6 +1,6 @@
 ---
 name: archify
-description: Create polished, validated architecture, workflow, sequence, data-flow, lifecycle/state, DIN 66001 program-flowchart, and Nassi-Shneiderman (DIN 66261) Struktogramm diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, algorithms and decision logic (Programmablaufplan / PAP, flowchart with decision diamonds), structured programs (Nassi-Shneiderman, Struktogramm, nested boxes without arrows, IHK-style algorithm descriptions, pseudocode-as-diagram), or to convert/beautify Mermaid.
+description: Create polished, validated architecture, workflow, sequence, data-flow, lifecycle/state, DIN 66001 program-flowchart, Nassi-Shneiderman (DIN 66261) Struktogramm, UML class (Klassendiagramm), ER (Chen / IE crow's-foot), and UML use case (Anwendungsfalldiagramm) diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, stateDiagram, and classDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, algorithms and decision logic (Programmablaufplan / PAP, flowchart with decision diamonds), structured programs (Nassi-Shneiderman, Struktogramm, nested boxes without arrows, IHK-style algorithm descriptions, pseudocode-as-diagram), UML domain models (uml-class, classes/interfaces/enumerations, inheritance, realization, aggregation, composition, multiplicities), entity-relationship diagrams (ER, Chen min-max or IE crow's-foot), system requirements (UML use case, Anwendungsfalldiagramm, actors and system boundary, include/extend), or to convert/beautify Mermaid.
 license: MIT
 metadata:
   version: "2.17"
@@ -16,7 +16,7 @@ Create a self-contained, interactive HTML diagram from a small typed JSON specif
 
 Use this bounded path for ordinary generation. Do not read the optional Viewer Runtime reference unless the user asks about those features.
 
-1. Choose `architecture`, `workflow`, `sequence`, `dataflow`, `lifecycle`, `flowchart`, or `struktogramm` from the question.
+1. Choose `architecture`, `workflow`, `sequence`, `dataflow`, `lifecycle`, `flowchart`, `struktogramm`, `uml-class`, `erd`, or `usecase` from the question.
 2. Read one matching schema in `schemas/`, `schemas/common.schema.json`, and one matching JSON example in `examples/`. Read only those files. Fresh authorship means new stable IDs, domain wording, and layout; use the example for field shape, not facts. New workflow sources use `schema_version: 2` and its readable layout contract; keep `schema_version: 1` only when preserving an existing workflow's fixed geometry. When real product identity matters, query `node bin/archify.mjs brands "<name>" --json`; read `references/brand-marks.md` only for an unknown brand with a user-provided URL.
 3. Artifact first: the next tool action must write the candidate. Write the candidate before inspecting renderer internals. Do not plan exact coordinates in prose. Start with one clear main path, short side branches, sparse labels, and at most 12 primary nodes. Set `meta.quality_profile` to `"showcase"` unless the user explicitly requests a dense `standard` map. Start with automatic routes and labels. Do not add `via`, `channelX`, `channelY`, or `labelAt` before a diagnostic calls for one; apply at most one diagnosed geometry control per repair.
 4. Validate after every candidate edit and immediately before handoff:
@@ -56,6 +56,8 @@ Flowchart note: symbols sit on an explicit `col`/`row` grid (`meta.grid`, defaul
 
 Struktogramm note: author a nested `blocks` tree (statement, io, call, if, case, while, until, for, exit) with `split` for unequal if-branches and `weight` per case column. There are no edges and no routing vocabulary — the renderer owns box arithmetic; the author owns the tree and its proportions. `meta.layout.rowHeight` (default 34, range 24–64) and `meta.layout.indent` (default 26, range 12–60) control box heights and loop indentation; `meta.viewBox` must keep `viewBox[0] ≤ 1240` so the 1440 px desktop projection still leaves ≥ 6 px on the 8 px branch-label source size. Total rows ≤ 40, nesting depth ≤ 6, every `if` needs `then` and `else`, every `case` needs ≥ 2 cases, every loop needs a `body`, and every text must fit its column at the 10 px source size. Used for IHK Fachinformatiker-style algorithm descriptions, pseudocode-to-diagram, and any time arrows would be the wrong tool. Contract and task list: [`renderers/struktogramm/README.md`](renderers/struktogramm/README.md).
 
+Usecase note: symbols sit on an explicit `col`/`row` grid (`meta.grid`, default 200×96 px) inside a `groups[]` system boundary (solid rectangle, system name in the top-left corner). Stick-figure actors stand outside the boundary (primary on column 0, secondary `secondary: true` on the last column with a dashed figure); use-case ellipses live inside it. Associations are plain solid lines, `include` / `extend` are dashed open arrows whose labels fall back to `«include»` / `«extend»` if the author omits them, and `generalization` is a hollow triangle. Routing vocabulary is the shared one (`route`, `fromSide`/`toSide`, `channelX`/`channelY`, `via`, `cornerRadius`, `labelAt`, `width`); when several relations leave one node, automatic port spread (14px) keeps parallel verticals distinct, so give fan-outs their own `channelX` whenever they share a row. `meta.viewBox` should keep `viewBox[0] ≤ 1380` so 9 px source text projects ≥ 6 px at the 1440 px desktop. Used for IHK Fachinformatiker project documentation, requirements elicitation, and any stakeholder overview that needs the actor-to-capability view without component or timing detail. Contract and task list: [`renderers/usecase/README.md`](renderers/usecase/README.md).
+
 ## Type router
 
 | Type | Use for |
@@ -67,6 +69,9 @@ Struktogramm note: author a nested `blocks` tree (statement, io, call, if, case,
 | `lifecycle` | State/status transitions, retries, waiting and terminal states |
 | `flowchart` | Algorithms, decision logic, call scripts, exception handling, Programmablaufplan (DIN 66001 / ISO 5807 symbols) |
 | `struktogramm` | Structured programs, nested control structures, IHK-style algorithm descriptions |
+| `uml-class` | Domain models, classes / interfaces / enumerations, inheritance, realization, multiplicities |
+| `erd` | Entity-relationship schemas, Chen (min, max) and IE crow's-foot notations |
+| `usecase` | Requirements, actors and system scope, Anwendungsfalldiagramm for IHK project documentation |
 
 When ambiguous, run `node bin/archify.mjs guide "<scenario>" --json`. Scenario proof examples are structural references, not facts to copy.
 
@@ -74,9 +79,10 @@ When ambiguous, run `node bin/archify.mjs guide "<scenario>" --json`. Scenario p
 
 Read Mermaid for topology and meaning, then author fresh Archify JSON; do not mechanically render Mermaid styling.
 
-- `flowchart` / `graph` with decision nodes (`{ }`), I/O (`[/ /]`) or subroutines (`[[ ]]`) → `flowchart`; a plain step graph without decisions → `workflow`; a component map → `architecture`. There is no Mermaid equivalent for `struktogramm`: when a user pastes pseudocode or a Nassi-Shneiderman-style nested block sketch, author a fresh `struktogramm` block tree — never try to recover arrows that the source did not have.
+- `flowchart` / `graph` with decision nodes (`{ }`), I/O (`[/ /]`) or subroutines (`[[ ]]`) → `flowchart`; a plain step graph without decisions → `workflow`; a component map → `architecture`. A flowchart that names actors (stick figures or named entities) and feature ellipses with `<<include>>` / `<<extend>>` edges → `usecase`: author the JSON with `kind: "actor" | "usecase"`, a `groups[]` system boundary, and `include` / `extend` relations so the boundary, automatic stereotypes, dashed arrows and generalization triangle render correctly. There is no Mermaid equivalent for `struktogramm`: when a user pastes pseudocode or a Nassi-Shneiderman-style nested block sketch, author a fresh `struktogramm` block tree — never try to recover arrows that the source did not have.
 - `sequenceDiagram` → `sequence`; participants become semantic participants and arrows become messages.
 - `stateDiagram` → `lifecycle`; states and transitions retain meaning, not Mermaid style.
+- `classDiagram` → `uml-class`; classes, attributes, methods, and relationship arrows (association, aggregation, composition, inheritance, realization, dependency) carry over by meaning, not Mermaid styling.
 
 ## Authoring invariants
 
