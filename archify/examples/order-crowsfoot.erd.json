@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Phone Order Data Model (Crow's Foot)",
+    "subtitle": "Relational data model of the ordering domain in IE crow's-foot notation",
+    "notation": "crowsfoot",
+    "output": "examples/erd-order-crowsfoot.html",
+    "viewBox": [
+      1380,
+      440
+    ],
+    "grid": {
+      "colWidth": 320,
+      "rowHeight": 170,
+      "originX": 124,
+      "originY": 100
+    },
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "orders",
+        "label": "Orders",
+        "focus": [
+          "customer",
+          "order",
+          "order_line"
+        ],
+        "note": "One customer places many orders; each order contains one or more lines (identifying relationship)."
+      },
+      {
+        "id": "catalog",
+        "label": "Catalog",
+        "focus": [
+          "order_line",
+          "product",
+          "category"
+        ],
+        "note": "Lines refer to exactly one product; every product belongs to one category."
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "customer",
+      "name": "Customer",
+      "col": 0,
+      "row": 0,
+      "attributes": [
+        {
+          "name": "id",
+          "type": "INT",
+          "pk": true
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(120)"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR(32)"
+        }
+      ]
+    },
+    {
+      "id": "order",
+      "name": "Order",
+      "col": 1,
+      "row": 0,
+      "attributes": [
+        {
+          "name": "id",
+          "type": "INT",
+          "pk": true
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "fk": true
+        },
+        {
+          "name": "placed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(20)"
+        }
+      ]
+    },
+    {
+      "id": "order_line",
+      "name": "OrderLine",
+      "col": 2,
+      "row": 0,
+      "attributes": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "line_no",
+          "type": "INT",
+          "pk": true
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "fk": true
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL(8,2)"
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "name": "Product",
+      "col": 3,
+      "row": 0,
+      "attributes": [
+        {
+          "name": "id",
+          "type": "INT",
+          "pk": true
+        },
+        {
+          "name": "category_id",
+          "type": "INT",
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(120)"
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL(8,2)"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "id": "category",
+      "name": "Category",
+      "col": 3,
+      "row": 1,
+      "attributes": [
+        {
+          "name": "id",
+          "type": "INT",
+          "pk": true
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(60)"
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "places",
+      "from": "customer",
+      "to": "order",
+      "label": "places",
+      "fromCardinality": "one",
+      "toCardinality": "zero-many",
+      "identifying": false
+    },
+    {
+      "id": "contains",
+      "from": "order",
+      "to": "order_line",
+      "label": "contains",
+      "fromCardinality": "one",
+      "toCardinality": "one-many",
+      "identifying": true
+    },
+    {
+      "id": "refers_to",
+      "from": "order_line",
+      "to": "product",
+      "label": "refers to",
+      "fromCardinality": "zero-many",
+      "toCardinality": "one",
+      "identifying": false
+    },
+    {
+      "id": "belongs_to",
+      "from": "product",
+      "to": "category",
+      "label": "belongs to",
+      "fromCardinality": "zero-many",
+      "toCardinality": "one",
+      "identifying": false,
+      "labelDy": 70
+    }
+  ],
+  "cards": []
+}
