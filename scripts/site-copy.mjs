@@ -11,6 +11,7 @@ export const DIAGRAM_TYPES = Object.freeze([
   'struktogramm',
   'erd',
   'netzplan',
+  'epk',
 ]);
 
 export const DIAGRAM_TYPE_LABELS = Object.freeze({
@@ -27,6 +28,7 @@ export const DIAGRAM_TYPE_LABELS = Object.freeze({
     struktogramm: 'Struktogramm',
     erd: 'ER diagram',
     netzplan: 'Network plan',
+    epk: 'Event-driven process chain',
   }),
   zh: Object.freeze({
     architecture: '架构图',
@@ -41,6 +43,7 @@ export const DIAGRAM_TYPE_LABELS = Object.freeze({
     struktogramm: '结构图',
     erd: '实体关系图',
     netzplan: '网络计划',
+    epk: '事件驱动过程链',
   }),
 });
 

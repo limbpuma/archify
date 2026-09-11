@@ -23,6 +23,7 @@ const CASES = {
   usecase: 'phone-ordering.usecase.json',
   netzplan: 'rollout.netzplan.json',
   activity: 'phone-order.activity.json',
+  epk: 'phone-order.epk.json',
 };
 
 function render(mode, example) {

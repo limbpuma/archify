@@ -87,6 +87,7 @@ const GOLDEN = [
   ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
   ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
   ['activity', 'phone-order.activity.json', 'activity-phone-order.html'],
+  ['epk', 'phone-order.epk.json', 'epk-phone-order.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -234,6 +235,14 @@ expectFailure('two initial nodes in one activity', 'activity',
     d.nodes.push({ id: 'start_b', kind: 'initial', col: 0, row: 6 });
     d.edges.push({ from: 'end_done', to: 'start_b' });
   }, 'exactly one initial node');
+expectFailure('epk XOR split directly after an event', 'epk',
+  (d) => {
+    d.nodes.find((node) => node.id === 'ready_split').operator = 'xor';
+  }, 'XOR split');
+expectFailure('epk function followed by another function', 'epk',
+  (d) => {
+    d.nodes.find((node) => node.id === 'order_recorded').kind = 'function';
+  }, 'followed by function');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

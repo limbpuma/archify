@@ -23,6 +23,7 @@ const TARGETS = [
   ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
   ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
   ['activity', 'phone-order.activity.json', 'activity-phone-order.html'],
+  ['epk', 'phone-order.epk.json', 'epk-phone-order.html'],
 ];
 
 for (const [mode, input, output] of TARGETS) {

@@ -10,7 +10,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(__dirname, '..');
 
-const TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase', 'netzplan', 'activity']);
+const TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase', 'netzplan', 'activity', 'epk']);
 
 // Mirrors renderers/shared/validator-names.mjs. The CLI must run from a bare
 // bin/ copy (doctor's incomplete-installation probe), so it cannot import it.
@@ -37,7 +37,7 @@ function usage() {
   archify demo [output-directory]
 
 Types:
-  architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm, uml-class, erd, usecase, netzplan, activity
+  architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm, uml-class, erd, usecase, netzplan, activity, epk
 `;
 }
 
@@ -1402,6 +1402,7 @@ async function commandDoctor() {
     usecase: 'phone-ordering.usecase.json',
     netzplan: 'rollout.netzplan.json',
     activity: 'phone-order.activity.json',
+    epk: 'phone-order.epk.json',
   };
 
   for (const type of TYPES) {

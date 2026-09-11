@@ -452,6 +452,33 @@ const RAW_RECIPES = [
       prompt: '用 Archify 活动图模式绘制这段流程。用列范围定义一个或多个垂直泳道，让每个泳道对应一个明确的负责人（例如 CUSTOMER、AI AGENT、KITCHEN），把每个节点放在显式的 (col, row) 网格上，给每个决策的每条出边标注守卫（例如 "[yes]" 或 "[no]"，渲染器会自动加括号），并行分支使用 fork/join 条。保留一条明显的主路径，确保只有一个初始节点和至少一个最终节点，并保持 viewBox[0] ≤ 1380，让 1440px 桌面投影下 10px 的成员文字仍 ≥ 6px。未知值要标明，不要编造。',
     },
   },
+  {
+    id: 'process-chain', type: 'epk', proof: 'phone-order',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify EPK (event-driven process chain) mode to describe this business process as an eEPK: [list the start and end events, the functions between them, the XOR / AND / OR decisions, the organisational units responsible, and the information objects each function reads or writes]. Keep the chain alternating event → function → event and mark unknown facts instead of inventing them.' },
+      zh: { descriptionPrompt: '用 Archify EPK（事件驱动过程链）模式把这条业务流程描述成 eEPK：[列出开始与结束事件、其间的功能、XOR / AND / OR 决策、负责的组织单元，以及每个功能读取或写入的信息对象]。保持事件 → 功能 → 事件的交替，未知事实要标明而不是编造。' },
+    },
+    signals: [['EPK', 16], ['eEPK', 14], ['ereignisgesteuerte Prozesskette', 16], ['event-driven process chain', 16], ['ARIS', 12], ['Geschäftsprozess', 12], ['business process', 10], ['event-driven', 12], ['XOR', 10], ['organisational unit', 8], ['业务流程', 10], ['事件驱动', 12], ['组织单元', 8], ['信息对象', 8]],
+    en: {
+      title: 'Event-driven process chain (eEPK)',
+      question: 'Which events trigger which functions, who is responsible, and what information is used?',
+      summary: 'An extended event-driven process chain (eEPK): events as hexagons, functions as rounded rectangles, XOR / AND / OR connectors, and organisational units and information objects attached to functions.',
+      useWhen: 'Documenting a business process ARIS-style for IHK or Geschäftsprozess documentation, when responsibilities and information objects matter.',
+      avoidWhen: 'The audience needs call order, state transitions, or plain algorithm logic — use sequence, lifecycle, or flowchart instead.',
+      include: ['start and end events', 'functions between events', 'XOR / AND / OR connectors', 'organisational units and information objects attached to functions'],
+      prompt: 'Use Archify epk mode to draw this event-driven process chain. Author events as hexagons, functions as rounded rectangles, and XOR / AND / OR connectors as operator circles on an explicit (col, row) grid; keep the control flow alternating event → function → event across connectors, give every function exactly one incoming and one outgoing control flow, and attach organisational units and information objects to functions only. Never put an XOR or OR split directly after an event — only AND may split after an event. Route split connectors with fromSide: "bottom" / toSide: "top". Keep viewBox[0] ≤ 1380 so the 1440px desktop projection keeps the text readable. Mark unknown facts instead of inventing them.',
+    },
+    zh: {
+      title: '事件驱动过程链（eEPK）',
+      question: '哪些事件触发哪些功能、由谁负责、使用哪些信息？',
+      summary: '扩展事件驱动过程链（eEPK）：事件为六边形、功能为圆角矩形，XOR / AND / OR 连接器，以及挂在功能上的组织单元和信息对象。',
+      useWhen: '按 ARIS 风格记录业务流程（Geschäftsprozess、IHK 文档），且职责与信息对象重要时使用。',
+      avoidWhen: '如果重点是调用顺序、状态流转或纯算法逻辑，请改用时序图、生命周期图或流程图。',
+      include: ['开始与结束事件', '事件之间的功能', 'XOR / AND / OR 连接器', '挂在功能上的组织单元与信息对象'],
+      prompt: '用 Archify epk 模式绘制这条事件驱动过程链。事件画成六边形，功能画成圆角矩形，XOR / AND / OR 连接器画成运算符圆圈，全部放在显式的 (col, row) 网格上；控制流跨越连接器保持事件 → 功能 → 事件的交替，每个功能恰好一条入边和一条出边，组织单元和信息对象只能挂在功能上。事件之后绝不能直接放 XOR 或 OR 分裂——只有 AND 可以在事件后分裂。分裂连接器用 fromSide: "bottom" / toSide: "top" 路由。viewBox[0] 保持 ≤ 1380，让 1440px 桌面投影下文字仍清晰可读。未知事实要标明，不要编造。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "diagram_type": "epk",
+  "meta": {
+    "title": "Phone Order Process Chain",
+    "subtitle": "Extended event-driven process chain (eEPK) of one phone order from the incoming call to hand-over",
+    "output": "examples/epk-phone-order.html",
+    "viewBox": [
+      1380,
+      820
+    ],
+    "grid": {
+      "colWidth": 250,
+      "rowHeight": 60,
+      "originX": 120,
+      "originY": 100
+    },
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "intake",
+        "label": "Intake and payment",
+        "focus": [
+          "call_received",
+          "take_order",
+          "order_recorded",
+          "check_payment",
+          "payment_split"
+        ],
+        "note": "The agent takes the order from the menu, then the payment check decides how the chain continues."
+      },
+      {
+        "id": "fulfil",
+        "label": "Fulfilment in parallel",
+        "focus": [
+          "payment_ok",
+          "prepare",
+          "order_ready",
+          "ready_split",
+          "notify",
+          "hand_over",
+          "notified",
+          "handed_over"
+        ],
+        "note": "Once the order is ready, notifying the customer and handing it to the courier run in parallel."
+      },
+      {
+        "id": "decline",
+        "label": "Declined payment",
+        "focus": [
+          "payment_declined",
+          "cancel",
+          "cancelled"
+        ],
+        "note": "A declined payment cancels the order and ends the chain."
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "call_received",
+      "kind": "event",
+      "label": "Call received",
+      "col": 2,
+      "row": 0
+    },
+    {
+      "id": "take_order",
+      "kind": "function",
+      "label": "Take order",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": "menu",
+      "kind": "info",
+      "label": "Menu",
+      "col": 1,
+      "row": 1
+    },
+    {
+      "id": "agent",
+      "kind": "org",
+      "label": "AI phone agent",
+      "col": 3,
+      "row": 1
+    },
+    {
+      "id": "order_recorded",
+      "kind": "event",
+      "label": "Order recorded",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "check_payment",
+      "kind": "function",
+      "label": "Check payment",
+      "col": 2,
+      "row": 3
+    },
+    {
+      "id": "payment_provider",
+      "kind": "org",
+      "label": "Payment provider",
+      "col": 3,
+      "row": 3,
+      "width": 150
+    },
+    {
+      "id": "payment_split",
+      "kind": "connector",
+      "operator": "xor",
+      "col": 2,
+      "row": 4
+    },
+    {
+      "id": "payment_ok",
+      "kind": "event",
+      "label": "Payment approved",
+      "col": 1,
+      "row": 5
+    },
+    {
+      "id": "payment_declined",
+      "kind": "event",
+      "label": "Payment declined",
+      "col": 3,
+      "row": 5
+    },
+    {
+      "id": "prepare",
+      "kind": "function",
+      "label": "Prepare order",
+      "col": 1,
+      "row": 6
+    },
+    {
+      "id": "kitchen",
+      "kind": "org",
+      "label": "Kitchen",
+      "col": 0,
+      "row": 6
+    },
+    {
+      "id": "cancel",
+      "kind": "function",
+      "label": "Cancel order",
+      "col": 3,
+      "row": 6
+    },
+    {
+      "id": "agent_cancel",
+      "kind": "org",
+      "label": "AI phone agent",
+      "col": 4,
+      "row": 6
+    },
+    {
+      "id": "order_ready",
+      "kind": "event",
+      "label": "Order ready",
+      "col": 1,
+      "row": 7
+    },
+    {
+      "id": "cancelled",
+      "kind": "event",
+      "label": "Order cancelled",
+      "col": 3,
+      "row": 7
+    },
+    {
+      "id": "ready_split",
+      "kind": "connector",
+      "operator": "and",
+      "col": 1,
+      "row": 8
+    },
+    {
+      "id": "notify",
+      "kind": "function",
+      "label": "Notify customer",
+      "col": 0,
+      "row": 9
+    },
+    {
+      "id": "hand_over",
+      "kind": "function",
+      "label": "Hand to courier",
+      "col": 2,
+      "row": 9
+    },
+    {
+      "id": "courier",
+      "kind": "org",
+      "label": "Courier",
+      "col": 3,
+      "row": 9
+    },
+    {
+      "id": "notified",
+      "kind": "event",
+      "label": "Customer notified",
+      "col": 0,
+      "row": 10
+    },
+    {
+      "id": "handed_over",
+      "kind": "event",
+      "label": "Order handed over",
+      "col": 2,
+      "row": 10
+    }
+  ],
+  "edges": [
+    {
+      "from": "call_received",
+      "to": "take_order"
+    },
+    {
+      "from": "menu",
+      "to": "take_order"
+    },
+    {
+      "from": "agent",
+      "to": "take_order"
+    },
+    {
+      "from": "take_order",
+      "to": "order_recorded"
+    },
+    {
+      "from": "order_recorded",
+      "to": "check_payment"
+    },
+    {
+      "from": "payment_provider",
+      "to": "check_payment"
+    },
+    {
+      "from": "check_payment",
+      "to": "payment_split"
+    },
+    {
+      "from": "payment_split",
+      "to": "payment_ok",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "payment_split",
+      "to": "payment_declined",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "payment_ok",
+      "to": "prepare"
+    },
+    {
+      "from": "kitchen",
+      "to": "prepare"
+    },
+    {
+      "from": "prepare",
+      "to": "order_ready"
+    },
+    {
+      "from": "payment_declined",
+      "to": "cancel"
+    },
+    {
+      "from": "agent_cancel",
+      "to": "cancel"
+    },
+    {
+      "from": "cancel",
+      "to": "cancelled"
+    },
+    {
+      "from": "order_ready",
+      "to": "ready_split"
+    },
+    {
+      "from": "ready_split",
+      "to": "notify",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "ready_split",
+      "to": "hand_over",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "courier",
+      "to": "hand_over"
+    },
+    {
+      "from": "notify",
+      "to": "notified"
+    },
+    {
+      "from": "hand_over",
+      "to": "handed_over"
+    }
+  ],
+  "cards": []
+}

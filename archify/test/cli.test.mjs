@@ -82,7 +82,7 @@ test('cli: help lists commands and diagram types', () => {
   assert.match(result.stdout, /archify guide \[scenario or question\]/);
   assert.match(result.stdout, /archify doctor/);
   assert.match(result.stdout, /archify demo \[output-directory\]/);
-  assert.match(result.stdout, /architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm, uml-class, erd, usecase, netzplan, activity/);
+  assert.match(result.stdout, /architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm, uml-class, erd, usecase, netzplan, activity, epk/);
 });
 
 test('cli: doctor reports a complete installation is ready', () => {
@@ -101,6 +101,7 @@ test('cli: doctor reports a complete installation is ready', () => {
   assert.match(result.stdout, /\[ok\] erd renderer, schema, and example/);
   assert.match(result.stdout, /\[ok\] netzplan renderer, schema, and example/);
   assert.match(result.stdout, /\[ok\] activity renderer, schema, and example/);
+  assert.match(result.stdout, /\[ok\] epk renderer, schema, and example/);
   assert.match(result.stdout, /Archify is ready\./);
 });
 
@@ -162,8 +163,8 @@ test('cli: guide lists all scenario recipes by diagram type', () => {
   const result = run(['guide']);
 
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /Archify scenario recipes \(19\)/);
-  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase', 'netzplan', 'activity']) {
+  assert.match(result.stdout, /Archify scenario recipes \(20\)/);
+  for (const type of ['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase', 'netzplan', 'activity', 'epk']) {
     assert.match(result.stdout, new RegExp(`\\[${type}\\]`));
   }
 });
@@ -413,7 +414,7 @@ test('cli: deliver works from an installed skill without node_modules', () => {
   const installedCli = path.join(installedRoot, 'bin/archify.mjs');
   const cases = [
     ['architecture-boundaries', 'architecture', 'production-deployment.architecture.json'],
-    ['architecture-issue-110', 'architecture', 'brand-aware-delivery.architecture.json'],
+    ['architecture-issue-20', 'architecture', 'brand-aware-delivery.architecture.json'],
     ['workflow', 'workflow', 'agent-tool-call.workflow.json'],
     ['sequence', 'sequence', 'cache-miss-request.sequence.json'],
     ['dataflow', 'dataflow', 'product-analytics.dataflow.json'],

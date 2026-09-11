@@ -266,6 +266,19 @@ const CASES = [
     descriptionEn: 'A UML activity diagram of one phone order with vertical swimlanes for customer, AI agent and kitchen: opening check, quote loop, parallel confirmation and kitchen work, and two explicit terminal states.',
     descriptionZh: '一段电话下单的 UML 活动图：用垂直泳道区分顾客、AI 代理和厨房，包含营业检查、报价循环、确认短信与厨房并行工作，以及两个明确的终态。',
   },
+  {
+    id: 'phone-order',
+    type: 'epk',
+    input: 'phone-order.epk.json',
+    output: 'epk-phone-order.html',
+    focus: 'take_order',
+    view: 'intake',
+    accent: '#f97316',
+    titleEn: 'Phone Order Process Chain',
+    titleZh: '电话下单事件驱动过程链',
+    descriptionEn: 'An extended event-driven process chain (eEPK) of one phone order: events, functions, an XOR payment decision, an AND split for fulfilment, and organisational units and information objects attached to functions.',
+    descriptionZh: '一张电话下单的扩展事件驱动过程链（eEPK）：事件、功能、支付 XOR 决策、履约 AND 分裂，以及挂在功能上的组织单元和信息对象。',
+  },
 ];
 
 const SHAPES = {
@@ -281,6 +294,7 @@ const SHAPES = {
   usecase: ['nodes', 'relations'],
   netzplan: ['activities', 'dependencies'],
   activity: ['nodes', 'edges'],
+  epk: ['nodes', 'edges'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -297,6 +311,7 @@ const TYPE_ACCENTS = {
   usecase: '#4f46e5',
   netzplan: '#4f46e5',
   activity: '#0e7490',
+  epk: '#ea580c',
 };
 
 function digest(buffer) {

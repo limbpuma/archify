@@ -19,6 +19,7 @@ against one of the schemas in this folder before any layout work happens.
 | `usecase.schema.json` | `diagram_type: "usecase"` | `groups` (system boundary), `nodes` (actor, usecase), `relations` (association, include, extend, generalization) |
 | `netzplan.schema.json` | `diagram_type: "netzplan"` | `groups`, `activities`, `dependencies` (activity-on-node network plan, DIN 69900 / CPM) |
 | `activity.schema.json` | `diagram_type: "activity"` | `nodes` (initial, final, action, decision, merge, fork, join, object), `edges`, `lanes` |
+| `epk.schema.json` | `diagram_type: "epk"` | `groups`, `nodes` (event, function, connector, org, info), `edges` |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -120,6 +121,27 @@ horizontal); `action` carries `label` and optional `sublabel`.
 Guards on flows leaving a decision are written as `label` and rendered
 as `[label]` (brackets added when missing).
 
+EPK `meta` additionally accepts a `grid` object with the same `colWidth` /
+`rowHeight` / `originX` / `originY` keys as Flowchart (defaults: `250×60` at
+`120, 100`). The author owns placement; the renderer never moves a symbol.
+`nodes` declare a `kind` of `event` (hexagon), `function` (rounded
+rectangle), `connector` (circle carrying an `operator` of `xor`, `and`, or
+`or`), `org` (ellipse with a bar), or `info` (rectangle); `col` and `row`
+are bounded to `0..15`. The grammar is strict: the chain starts with an
+event without incoming control flow and ends with an event without outgoing
+control flow; control flow alternates event → function → event across
+connectors; events carry at most one incoming and one outgoing control flow
+while functions carry exactly one of each; a connector is a split (1 in,
+≥ 2 out) or a join (≥ 2 in, 1 out) and an XOR or OR split may never follow
+an event (only AND may split after an event). Organisational units and
+information objects attach to functions only, never take part in the control
+flow, and each must be attached to at least one function. Edge meaning is
+inferred from the node kinds: control flow (solid arrow), assignment
+(`org ↔ function`, solid line without arrowhead), and information flow
+(`info ↔ function`, dashed arrow). `meta.viewBox[0]` should stay ≤ 1380 so
+the 1440 px desktop projection keeps the 9 px satellite text above the 6 px
+readability floor.
+
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
 and an optional short `note`.
@@ -171,6 +193,7 @@ Supported keys are renderer-owned:
 | Usecase | `actor`, `usecase`, `system`, `association`, `include`, `extend`, `generalization` |
 | Netzplan | `activity`, `critical` |
 | Activity | `initial`, `final`, `action`, `decision`, `merge`, `fork`, `join`, `object`, `lane` |
+| EPK | `event`, `function`, `xor`, `and`, `or`, `org`, `info` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
