@@ -250,6 +250,31 @@ const RAW_RECIPES = [
       prompt: '用 Archify 生命周期模式建模部署对象。展示排队、构建、验证、等待审批、晋级、回滚以及所有终态，并标注允许每次状态转换的事件和守卫条件。',
     },
   },
+  {
+    id: 'program-flowchart', type: 'flowchart', proof: 'order-call',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify flowchart mode to turn this algorithm or call script into a program flowchart: [paste the steps, decisions, branches, loops, API calls, and exception exits]. Use the DIN 66001 program-flowchart symbols (terminator, process, decision, I/O, subroutine, connector), place every symbol on an explicit (col, row) grid, label every decision branch with its answer, and mark unknown values instead of inventing them.' },
+      zh: { descriptionPrompt: '用 Archify 流程图模式把下面这段算法或话术脚本画成 DIN 66001 程序流程图：[粘贴步骤、决策、分支、循环、接口调用和异常出口]。使用 Grenzstelle、Verarbeitung、Verzweigung、Ein-/Ausgabe、Unterprogramm、Übergangsstelle 等 DIN 66001 符号，把每个符号放在显式的 (col, row) 网格上，标注每个决策分支的答案，未知值要标明而不是编造。' },
+    },
+    signals: [['flowchart', 14], ['program flowchart', 16], ['pap', 14], ['programmablaufplan', 16], ['decision diamond', 10], ['algorithm', 9], ['din 66001', 12], ['iso 5807', 8], ['call script', 8], ['流程图', 14], ['程序流程图', 16], ['决策菱形', 10], ['算法', 9], ['话术脚本', 8]],
+    en: {
+      title: 'Program flowchart', question: 'How does the algorithm branch, loop, and exit?',
+      summary: 'A DIN 66001 program flowchart with one start, labelled decision diamonds, I/O parallelograms, subroutine calls, loops, and explicit end symbols.',
+      useWhen: 'Documenting a decision tree, a call script, an exception handler, or any algorithm where every branch must be visible and labelled.',
+      avoidWhen: 'The audience needs component ownership, timing between actors, or a state model — use architecture, sequence, or lifecycle instead.',
+      include: ['one start and at least one end', 'labelled decision branches', 'I/O and subroutine symbols', 'visible loop and exception exits'],
+      prompt: 'Use Archify flowchart mode to draw this algorithm. Place every symbol on an explicit (col, row) grid using terminator, process, decision, I/O, subroutine, and connector symbols. Label every outgoing decision edge with the answer (e.g. "Yes", "No", "409 conflict"). Show loops back to the earlier step and mark the exit conditions. If a value is unknown, mark it instead of inventing one.',
+    },
+    zh: {
+      title: '程序流程图', question: '算法如何分支、循环、退出？',
+      summary: 'DIN 66001 程序流程图：单一入口、标注答案的决策菱形、输入/输出、调用子流程、循环回路和显式终态。',
+      useWhen: '适合记录决策树、话术脚本、异常处理或任何需要把每个分支都画出来并标注的算法。',
+      avoidWhen: '如果重点是组件归属、参与者时序或对象状态，请改用架构图、时序图或生命周期图。',
+      include: ['一个入口和至少一个出口', '标注答案的决策分支', '输入/输出与子流程', '可见的循环与异常出口'],
+      prompt: '用 Archify 流程图模式绘制这段算法。把每个符号放在显式的 (col, row) 网格上，使用 Grenzstelle、Verarbeitung、Verzweigung、Ein-/Ausgabe、Unterprogramm、Übergangsstelle 等符号。每个决策的每条出边都要标注答案（例如 "Yes"、"No"、"409 conflict"）。把循环回退到上一步，并显式画出异常退出。未知值要标明，不要编造。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

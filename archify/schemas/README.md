@@ -12,6 +12,7 @@ against one of the schemas in this folder before any layout work happens.
 | `dataflow.schema.json` | `diagram_type: "dataflow"` | `stages`, `nodes`, `flows` |
 | `lifecycle.schema.json` | `diagram_type: "lifecycle"` | `lanes`, `states`, `transitions` |
 | `architecture.schema.json` | `diagram_type: "architecture"` | `components`, `boundaries`, `connections` |
+| `flowchart.schema.json` | `diagram_type: "flowchart"` | `groups`, `nodes`, `edges` |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -37,6 +38,15 @@ diagram renders at the same coordinates no matter how wide its viewBox is.
 `spread` derives the gap and box width from the viewBox instead, which turns a
 wide canvas into column distance and label room rather than empty space on the
 right. Lane order, IDs, and message semantics are unchanged either way.
+
+Flowchart `meta` additionally accepts a `grid` object with `colWidth`,
+`rowHeight`, `originX`, and `originY`. A node's centre is
+`originX + col * colWidth + dx` and `originY + row * rowHeight + dy`; the
+author owns placement and the renderer never moves a symbol. The validator
+uses the same `colWidth` for symbol width checks and the same `rowHeight` for
+label-fit factors per symbol. `col` is bounded to `0..15` and `row` to
+`0..31`. Flowchart `nodes` accept the same `width`/`height` overrides as
+the other renderers so labels longer than the default footprint still fit.
 
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
@@ -82,6 +92,7 @@ Supported keys are renderer-owned:
 | Sequence | `emphasis`, `return`, `security`, `dashed`, `default` |
 | Dataflow | `emphasis`, `security`, `dashed`, `database`, `default` |
 | Lifecycle | `start`, `active`, `waiting`, `decision`, `success`, `failure`, `neutral`, `external` |
+| Flowchart | `terminator`, `process`, `decision`, `io`, `subroutine`, `connector` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
