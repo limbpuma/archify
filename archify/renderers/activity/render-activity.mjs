@@ -226,11 +226,20 @@ function validateActivity() {
 // Rendering
 // ---------------------------------------------------------------------------
 
+// Filled shapes keep a literal fill style; trace animation appends its own
+// style attribute, so merge both into one style declaration — SVG forbids a
+// duplicate attribute and the XML artifact check enforces it.
+function withFillStyle(fill, extraAttrs) {
+  const match = String(extraAttrs).match(/ style="([^"]*)"/);
+  if (!match) return ` style="${fill}"${extraAttrs}`;
+  return ` style="${fill};${match[1]}"${extraAttrs.replace(/ style="[^"]*"/, '')}`;
+}
+
 function nodeShape(node, cls, extraAttrs = '') {
   const { x, y, width: w, height: h, cx, cy } = node;
   switch (node.kind) {
     case 'initial':
-      return `<circle cx="${cx}" cy="${cy}" r="${w / 2}" class="${cls}" style="fill:var(--arrow)"${extraAttrs}/>`;
+      return `<circle cx="${cx}" cy="${cy}" r="${w / 2}" class="${cls}"${withFillStyle('fill:var(--arrow)', extraAttrs)}/>`;
     case 'final':
       return `<circle cx="${cx}" cy="${cy}" r="${w / 2}" class="${cls}"${extraAttrs}/>`
         + `<circle cx="${cx}" cy="${cy}" r="${w / 2 - 5}" class="${cls}" style="fill:var(--arrow)"/>`;
@@ -239,7 +248,7 @@ function nodeShape(node, cls, extraAttrs = '') {
       return `<polygon points="${cx},${y} ${x + w},${cy} ${cx},${y + h} ${x},${cy}" class="${cls}"${extraAttrs}/>`;
     case 'fork':
     case 'join':
-      return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" class="${cls}" style="fill:var(--arrow)"${extraAttrs}/>`;
+      return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" class="${cls}"${withFillStyle('fill:var(--arrow)', extraAttrs)}/>`;
     case 'object':
       return `<rect x="${x}" y="${y}" width="${w}" height="${h}" class="${cls}"${extraAttrs}/>`;
     case 'action':
