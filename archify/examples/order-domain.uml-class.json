@@ -154,6 +154,8 @@
       "kind": "enum",
       "col": 5,
       "row": 1,
+      "dx": 12,
+      "width": 160,
       "attributes": [
         "PIZZA",
         "PASTA",
