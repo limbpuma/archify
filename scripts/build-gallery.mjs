@@ -162,6 +162,19 @@ const CASES = [
     descriptionEn: 'A classic AWS web stack with edge delivery, authentication, API services, cache, persistence, and background work.',
     descriptionZh: '经典 AWS Web 栈：边缘分发、鉴权、API 服务、缓存、持久化与后台任务。',
   },
+  {
+    id: 'order-call',
+    type: 'flowchart',
+    input: 'order-call.flowchart.json',
+    output: 'order-call.flowchart.html',
+    focus: 'quote',
+    view: 'happy-path',
+    accent: '#2dd4bf',
+    titleEn: 'Phone Order Program Flowchart',
+    titleZh: '电话下单程序流程图',
+    descriptionEn: 'A DIN 66001 program flowchart of an AI phone agent: announcement, menu, quote loop, idempotent order placement, retry, and three labelled exits.',
+    descriptionZh: 'DIN 66001 程序流程图：AI 电话代理的宣告、菜单、报价循环、幂等下单、重试与三个带标注的出口。',
+  },
 ];
 
 const SHAPES = {
@@ -170,6 +183,7 @@ const SHAPES = {
   sequence: ['participants', 'messages'],
   dataflow: ['nodes', 'flows'],
   lifecycle: ['states', 'transitions'],
+  flowchart: ['nodes', 'edges'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -179,6 +193,7 @@ const TYPE_ACCENTS = {
   sequence: '#6d28d9',
   dataflow: '#b45309',
   lifecycle: '#be123c',
+  flowchart: '#0d9488',
 };
 
 function digest(buffer) {

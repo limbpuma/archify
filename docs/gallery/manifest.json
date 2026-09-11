@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "generator": "scripts/build-gallery.mjs",
   "archifyVersion": "2.17.0-dev.1",
-  "entryCount": 11,
-  "checkCount": 99,
+  "entryCount": 12,
+  "checkCount": 108,
   "entries": [
     {
       "id": "agent-tool-call",
@@ -1093,6 +1093,106 @@
           "minInteriorSegmentPx": 104,
           "shortSegmentCount": 0,
           "shortEndpointSegmentCount": 0,
+          "shortInteriorSegmentCount": 0,
+          "microSegmentCount": 0
+        },
+        "suggestedLimits": {
+          "bendsPerRelationship": 2,
+          "stretch": 1.35,
+          "segmentPx": 16,
+          "microSegmentPx": 8
+        },
+        "issues": []
+      }
+    },
+    {
+      "id": "order-call",
+      "type": "flowchart",
+      "title": "Phone Order Flowchart",
+      "subtitle": "DIN 66001 program flowchart — an AI phone agent ordering through /api/v1",
+      "input": "gallery/sources/order-call.flowchart.json",
+      "artifact": "gallery/artifacts/order-call.flowchart.html",
+      "focus": "quote",
+      "view": "happy-path",
+      "viewCount": 3,
+      "viewIds": [
+        "happy-path",
+        "quote-loop",
+        "retry-and-exits"
+      ],
+      "guidedPlayback": true,
+      "schemaVersion": 1,
+      "visualPreset": "classic",
+      "animation": "trace",
+      "engineeringProfile": null,
+      "nodeCount": 27,
+      "edgeCount": 34,
+      "artifactBytes": 830306,
+      "artifactSha256": "f07e4b504b6dbfc90020099afaad406b9c515feb86178427ac40e3374e43271e",
+      "sourceBytes": 8218,
+      "sourceSha256": "4426dad052a6f19e522e3ab279a14cd2f8deb58fbbdd1ed3361cb0bd33eb585c",
+      "checks": [
+        {
+          "name": "single_svg",
+          "ok": true
+        },
+        {
+          "name": "finite_svg",
+          "ok": true
+        },
+        {
+          "name": "orthogonal_arrows",
+          "ok": true
+        },
+        {
+          "name": "label_route_clearance",
+          "ok": true
+        },
+        {
+          "name": "relationship_crossings",
+          "ok": true
+        },
+        {
+          "name": "relationship_corridors",
+          "ok": true
+        },
+        {
+          "name": "container_border_runs",
+          "ok": true
+        },
+        {
+          "name": "route_rhythm",
+          "ok": true
+        },
+        {
+          "name": "legend_clearance",
+          "ok": true
+        }
+      ],
+      "composition": {
+        "schemaVersion": 1,
+        "profile": "showcase",
+        "status": "pass",
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "metrics": {
+          "properCrossings": 0,
+          "ambiguousCorridors": 0,
+          "containerBorderRuns": 0,
+          "labelRouteClearanceIssues": 0,
+          "minLabelRouteClearance": 6.5,
+          "desktopReadabilityIssues": 0,
+          "minProjectedNodeTextPx": null,
+          "maxBends": 4,
+          "routesOverSuggestedBends": 3,
+          "maxStretch": 2.45,
+          "routesOverSuggestedStretch": 3,
+          "minSegmentPx": 10,
+          "minInteriorSegmentPx": 19,
+          "shortSegmentCount": 1,
+          "shortEndpointSegmentCount": 1,
           "shortInteriorSegmentCount": 0,
           "microSegmentCount": 0
         },
