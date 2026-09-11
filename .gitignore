@@ -4,3 +4,9 @@ node_modules/
 .claude/
 .lore/
 /.impeccable/
+
+# Local visual-check receipts: never commit per-deliver sidecars.
+examples/*.visual-check.*
+/examples/*.visual-check.*
+archify/examples/*.visual-check.*
+/archify/examples/*.visual-check.*
