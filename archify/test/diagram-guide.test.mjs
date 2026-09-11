@@ -21,6 +21,7 @@ const CASES = {
   'uml-class': 'order-domain.uml-class.json',
   erd: 'order-chen.erd.json',
   usecase: 'phone-ordering.usecase.json',
+  netzplan: 'rollout.netzplan.json',
 };
 
 function render(mode, example) {

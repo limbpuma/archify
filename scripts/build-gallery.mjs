@@ -240,6 +240,19 @@ const CASES = [
     descriptionEn: 'A UML use case diagram (Anwendungsfalldiagramm): primary customer and staff actors, secondary payment provider, three include flows, an optional voucher extension, and a repeat-order generalization.',
     descriptionZh: 'UML 用例图（Anwendungsfalldiagramm）：主要参与者客户与店员，次要参与者支付服务，三个 include 子流程，可选的 voucher extend，以及 repeat-order 的泛化关系。',
   },
+  {
+    id: 'network-plan',
+    type: 'netzplan',
+    input: 'rollout.netzplan.json',
+    output: 'netzplan-rollout.html',
+    focus: 'requirements',
+    view: 'critical',
+    accent: '#4f46e5',
+    titleEn: 'Phone Order Rollout Network Plan',
+    titleZh: '电话下单上线网络计划',
+    descriptionEn: 'An activity-on-node network plan (DIN 69900 / CPM) for the AI phone agent rollout: the renderer computes FAZ/FEZ/SAZ/SEZ and the total and free float, then highlights the critical path from requirements through API v1, telephony and testing to go-live.',
+    descriptionZh: 'AI 电话代理上线的单代号网络计划（DIN 69900 / CPM）：渲染器计算 FAZ/FEZ/SAZ/SEZ、总时差与自由时差，并高亮从需求、API v1、电话集成、测试到上线的关键路径。',
+  },
 ];
 
 const SHAPES = {
@@ -253,6 +266,7 @@ const SHAPES = {
   'uml-class': ['classes', 'relations'],
   erd: ['nodes', 'relations'],
   usecase: ['nodes', 'relations'],
+  netzplan: ['activities', 'dependencies'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -267,6 +281,7 @@ const TYPE_ACCENTS = {
   'uml-class': '#7c3aed',
   erd: '#0ea5e9',
   usecase: '#4f46e5',
+  netzplan: '#4f46e5',
 };
 
 function digest(buffer) {

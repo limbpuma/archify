@@ -85,6 +85,7 @@ const GOLDEN = [
   ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
   ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
+  ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -211,6 +212,17 @@ expectFailure('usecase actor placed inside the system boundary', 'usecase',
     d.nodes.find((n) => n.kind === 'actor').col = 4;
     d.groups[0].nodes.push('customer');
   }, 'is inside system boundary');
+expectFailure('netzplan dependency cycle is rejected', 'netzplan',
+  (d) => {
+    d.dependencies.push({ from: 'golive', to: 'requirements' });
+  }, 'cycle through');
+expectFailure('netzplan successor placed left of its predecessor is rejected', 'netzplan',
+  (d) => {
+    const training = d.activities.find((a) => a.id === 'training');
+    const requirements = d.activities.find((a) => a.id === 'requirements');
+    training.col = requirements.col;
+    training.row = requirements.row;
+  }, 'not placed further right');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "generator": "scripts/build-gallery.mjs",
   "archifyVersion": "2.17.0-dev.1",
-  "entryCount": 17,
-  "checkCount": 153,
+  "entryCount": 18,
+  "checkCount": 162,
   "entries": [
     {
       "id": "agent-tool-call",
@@ -1690,6 +1690,106 @@
           "maxStretch": 1,
           "routesOverSuggestedStretch": 0,
           "minSegmentPx": 46,
+          "minInteriorSegmentPx": 96,
+          "shortSegmentCount": 0,
+          "shortEndpointSegmentCount": 0,
+          "shortInteriorSegmentCount": 0,
+          "microSegmentCount": 0
+        },
+        "suggestedLimits": {
+          "bendsPerRelationship": 2,
+          "stretch": 1.35,
+          "segmentPx": 16,
+          "microSegmentPx": 8
+        },
+        "issues": []
+      }
+    },
+    {
+      "id": "network-plan",
+      "type": "netzplan",
+      "title": "Phone Ordering Rollout Network Plan",
+      "subtitle": "Activity-on-node network plan (DIN 69900) for rolling out the AI phone agent — durations in working days",
+      "input": "gallery/sources/rollout.netzplan.json",
+      "artifact": "gallery/artifacts/netzplan-rollout.html",
+      "focus": "requirements",
+      "view": "critical",
+      "viewCount": 3,
+      "viewIds": [
+        "design",
+        "critical",
+        "float"
+      ],
+      "guidedPlayback": true,
+      "schemaVersion": 1,
+      "visualPreset": "classic",
+      "animation": "trace",
+      "engineeringProfile": null,
+      "nodeCount": 7,
+      "edgeCount": 9,
+      "artifactBytes": 815126,
+      "artifactSha256": "08738832eded8db05cb59936ebae60de18d6d82be096d5aa9cdcc69830f39146",
+      "sourceBytes": 3053,
+      "sourceSha256": "50928c91550ee24200fe1d5486ae75263c33a2820a7ce8b2073646878fd910b4",
+      "checks": [
+        {
+          "name": "single_svg",
+          "ok": true
+        },
+        {
+          "name": "finite_svg",
+          "ok": true
+        },
+        {
+          "name": "orthogonal_arrows",
+          "ok": true
+        },
+        {
+          "name": "label_route_clearance",
+          "ok": true
+        },
+        {
+          "name": "relationship_crossings",
+          "ok": true
+        },
+        {
+          "name": "relationship_corridors",
+          "ok": true
+        },
+        {
+          "name": "container_border_runs",
+          "ok": true
+        },
+        {
+          "name": "route_rhythm",
+          "ok": true
+        },
+        {
+          "name": "legend_clearance",
+          "ok": true
+        }
+      ],
+      "composition": {
+        "schemaVersion": 1,
+        "profile": "showcase",
+        "status": "pass",
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "metrics": {
+          "properCrossings": 0,
+          "ambiguousCorridors": 0,
+          "containerBorderRuns": 0,
+          "labelRouteClearanceIssues": 0,
+          "minLabelRouteClearance": null,
+          "desktopReadabilityIssues": 0,
+          "minProjectedNodeTextPx": null,
+          "maxBends": 2,
+          "routesOverSuggestedBends": 0,
+          "maxStretch": 1,
+          "routesOverSuggestedStretch": 0,
+          "minSegmentPx": 40,
           "minInteriorSegmentPx": 96,
           "shortSegmentCount": 0,
           "shortEndpointSegmentCount": 0,

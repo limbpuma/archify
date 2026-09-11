@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "diagram_type": "netzplan",
+  "meta": {
+    "title": "Phone Ordering Rollout Network Plan",
+    "subtitle": "Activity-on-node network plan (DIN 69900) for rolling out the AI phone agent — durations in working days",
+    "output": "examples/netzplan-rollout.html",
+    "unit": "d",
+    "viewBox": [
+      1380,
+      460
+    ],
+    "grid": {
+      "colWidth": 250,
+      "rowHeight": 110,
+      "originX": 120,
+      "originY": 110
+    },
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "design",
+        "label": "Design & setup",
+        "focus": [
+          "requirements",
+          "api",
+          "prompt"
+        ],
+        "note": "Requirements start the network; the API build and the agent prompt then run in parallel."
+      },
+      {
+        "id": "critical",
+        "label": "Critical path",
+        "focus": [
+          "requirements",
+          "api",
+          "telephony",
+          "testing",
+          "golive"
+        ],
+        "note": "Requirements → API v1 → telephony → testing → go-live has zero float: any delay moves the launch."
+      },
+      {
+        "id": "float",
+        "label": "Activities with float",
+        "focus": [
+          "prompt",
+          "training"
+        ],
+        "note": "Prompt design has one day of total float; staff training can slip eight days without moving go-live."
+      }
+    ]
+  },
+  "activities": [
+    {
+      "id": "requirements",
+      "number": "1",
+      "label": "Requirements",
+      "duration": 3,
+      "col": 0,
+      "row": 1
+    },
+    {
+      "id": "api",
+      "number": "2",
+      "label": "API v1",
+      "duration": 5,
+      "col": 1,
+      "row": 0
+    },
+    {
+      "id": "prompt",
+      "number": "3",
+      "label": "Agent prompt",
+      "duration": 4,
+      "col": 1,
+      "row": 2
+    },
+    {
+      "id": "telephony",
+      "number": "4",
+      "label": "Telephony integration",
+      "duration": 6,
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": "training",
+      "number": "5",
+      "label": "Staff training",
+      "duration": 2,
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "testing",
+      "number": "6",
+      "label": "End-to-end testing",
+      "duration": 3,
+      "col": 3,
+      "row": 0
+    },
+    {
+      "id": "golive",
+      "number": "7",
+      "label": "Go-live",
+      "duration": 1,
+      "col": 4,
+      "row": 1
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "requirements",
+      "to": "api"
+    },
+    {
+      "from": "requirements",
+      "to": "prompt"
+    },
+    {
+      "from": "api",
+      "to": "telephony"
+    },
+    {
+      "from": "prompt",
+      "to": "telephony",
+      "fromSide": "top"
+    },
+    {
+      "from": "api",
+      "to": "testing"
+    },
+    {
+      "from": "telephony",
+      "to": "testing"
+    },
+    {
+      "from": "prompt",
+      "to": "training"
+    },
+    {
+      "from": "testing",
+      "to": "golive"
+    },
+    {
+      "from": "training",
+      "to": "golive"
+    }
+  ],
+  "cards": []
+}

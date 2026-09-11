@@ -1,6 +1,6 @@
 ---
 name: archify
-description: Create polished, validated architecture, workflow, sequence, data-flow, lifecycle/state, DIN 66001 program-flowchart, Nassi-Shneiderman (DIN 66261) Struktogramm, UML class (uml-class, Klassendiagramm), ER (erd, Chen / IE crow's-foot), and UML usecase (Anwendungsfalldiagramm) diagrams as explorable standalone HTML with inline SVG, dark/light themes, and PNG/JPEG/WebP/SVG export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, stateDiagram, and classDiagram input. Use when the user asks to visualize system architecture, infrastructure, workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, state machines, algorithms (Programmablaufplan / PAP), structured programs (Nassi-Shneiderman / Struktogramm / IHK-style algorithm descriptions), UML domain models (classes, interfaces, enumerations, inheritance, realization, aggregation, multiplicities), entity-relationship schemas, system requirements (actors, system boundary, include/extend), or to convert/beautify Mermaid.
+description: Create polished, validated architecture, workflow, sequence, data-flow, lifecycle/state, DIN 66001 program-flowchart, Nassi-Shneiderman (DIN 66261) Struktogramm, UML class (uml-class), entity-relationship (erd), UML use case (usecase), and activity-on-node network plan (netzplan, DIN 69900 / CPM) diagrams as explorable standalone HTML with dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, stateDiagram, erDiagram, and gantt input. Use when the user asks to visualize system architecture, infrastructure, technical workflows, API calls, request lifecycles, data pipelines, data lineage, state machines, algorithms and decision logic, structured programs (Nassi-Shneiderman, Struktogramm, nested boxes without arrows, IHK-style algorithm descriptions), UML class structure, entity-relationship models, project schedules and critical paths (Netzplantechnik, FAZ/FEZ/SAZ/SEZ, Pufferzeit), or to convert/beautify Mermaid.
 license: MIT
 metadata:
   version: "2.17"
@@ -16,7 +16,7 @@ Create a self-contained, interactive HTML diagram from a small typed JSON specif
 
 Use this bounded path for ordinary generation. Do not read the optional Viewer Runtime reference unless the user asks about those features.
 
-1. Choose `architecture`, `workflow`, `sequence`, `dataflow`, `lifecycle`, `flowchart`, `struktogramm`, `uml-class`, `erd`, or `usecase` from the question.
+1. Choose `architecture`, `workflow`, `sequence`, `dataflow`, `lifecycle`, `flowchart`, `struktogramm`, `uml-class`, `erd`, or `netzplan` from the question.
 2. Read one matching schema in `schemas/`, `schemas/common.schema.json`, and one matching JSON example in `examples/`. Read only those files. Fresh authorship means new stable IDs, domain wording, and layout; use the example for field shape, not facts. New workflow sources use `schema_version: 2` and its readable layout contract; keep `schema_version: 1` only when preserving an existing workflow's fixed geometry. When real product identity matters, query `node bin/archify.mjs brands "<name>" --json`; read `references/brand-marks.md` only for an unknown brand with a user-provided URL.
 3. Artifact first: the next tool action must write the candidate. Write the candidate before inspecting renderer internals. Do not plan exact coordinates in prose. Start with one clear main path, short side branches, sparse labels, and at most 12 primary nodes. Set `meta.quality_profile` to `"showcase"` unless the user explicitly requests a dense `standard` map. Start with automatic routes and labels. Do not add `via`, `channelX`, `channelY`, or `labelAt` before a diagnostic calls for one; apply at most one diagnosed geometry control per repair.
 4. Validate after every candidate edit and immediately before handoff:
@@ -62,6 +62,8 @@ Erd note: pick `meta.notation` first — `"chen"` (default) for entities as rect
 
 Usecase note: symbols sit on an explicit `col`/`row` grid (`meta.grid`, default 200×96 px) inside a `groups[]` system boundary (solid rectangle, system name in the top-left corner). Stick-figure actors stand outside the boundary (primary on column 0, secondary `secondary: true` on the last column with a dashed figure); use-case ellipses live inside it. Associations are plain solid lines, `include` / `extend` are dashed open arrows whose labels fall back to `«include»` / `«extend»` if the author omits them, and `generalization` is a hollow triangle. Routing vocabulary is the shared one (`route`, `fromSide`/`toSide`, `channelX`/`channelY`, `via`, `cornerRadius`, `labelAt`, `width`); when several relations leave one node, automatic port spread (14px) keeps parallel verticals distinct, so give fan-outs their own `channelX` whenever they share a row. `meta.viewBox` should keep `viewBox[0] ≤ 1380` so 9 px source text projects ≥ 6 px at the 1440 px desktop. Used for IHK Fachinformatiker project documentation, requirements elicitation, and any stakeholder overview that needs the actor-to-capability view without component or timing detail. Contract and task list: [`renderers/usecase/README.md`](renderers/usecase/README.md).
 
+Netzplan note: author `activities[]` on an explicit `col`/`row` grid (`meta.grid`, default 250×110 px at `120, 110`) with a `duration` per activity and finish-to-start `dependencies[]`. Time flows left to right, so every successor must sit in a higher column, the graph must be acyclic, at least one activity must start the network and one must end it, and no activity may be isolated. The renderer owns the arithmetic: it computes FAZ/FEZ/SAZ/SEZ and the total and free float (GP/FP) on every render and marks zero-float activities, plus the dependencies that join them, as the critical path (emphasis colour and stroke); never type FAZ/FEZ by hand. Each activity is a three-row box — top `FAZ | D | FEZ`, middle `number label`, bottom `SAZ | GP | FP | SEZ` — so labels must fit `width − 16`; `meta.unit` is appended to the duration cell (`5 d`), `meta.start` shifts the project start (default 0), and `meta.captions` overrides the cell captions (`faz`, `fez`, `saz`, `sez`, `gp`, `fp`, `d` — e.g. `ES/EF/LS/LF/TF/FF/D`). Keep `viewBox[0] ≤ 1380` so the 1440 px desktop projection leaves the 9 px cell text ≥ 6 px, and when one activity has two outgoing dependencies on the same side, route one from another side (`fromSide: "top"`) so the ports spread instead of forming a 7 px dogleg. Used for project schedules, critical-path and float questions, and IHK Fachinformatiker Netzplantechnik. Contract and task list: [`renderers/netzplan/README.md`](renderers/netzplan/README.md).
+
 ## Type router
 
 | Type | Use for |
@@ -76,6 +78,7 @@ Usecase note: symbols sit on an explicit `col`/`row` grid (`meta.grid`, default 
 | `uml-class` | Domain models, class structure, inheritance/interfaces, Klassendiagramm for IHK/UML documentation |
 | `erd` | Data models, database schemas, ER models in Chen or crow's-foot notation for IHK/relational design |
 | `usecase` | Requirements, actors and system scope, Anwendungsfalldiagramm for IHK project documentation |
+| `netzplan` | Project schedules, critical path, Netzplantechnik for IHK project documentation |
 
 When ambiguous, run `node bin/archify.mjs guide "<scenario>" --json`. Scenario proof examples are structural references, not facts to copy.
 
@@ -90,6 +93,7 @@ Read Mermaid for topology and meaning, then author fresh Archify JSON; do not me
 - `sequenceDiagram` → `sequence`; participants become semantic participants and arrows become messages.
 - `stateDiagram` → `lifecycle`; states and transitions retain meaning, not Mermaid style.
 - `classDiagram` → `uml-class`; classes, attributes, methods, and relationship arrows (association, aggregation, composition, inheritance, realization, dependency) carry over by meaning, not Mermaid styling.
+- `gantt` → `netzplan` when the question is about float and the critical path: sections and tasks become `activities[]` with a `duration`, and `after` dependencies become finish-to-start `dependencies[]`. The renderer then computes FAZ/FEZ/SAZ/SEZ and GP/FP and highlights the critical path. When the user actually needs a dated calendar, keep it a Gantt rather than a network plan.
 
 ## Authoring invariants
 
