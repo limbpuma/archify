@@ -143,7 +143,7 @@ Continue with focused requests such as `add Redis`, `move auth to the left`, or 
 | **Struktogramm** | Structured programs (DIN 66261) | Nested boxes for sequence, if/case, while/until/for, exits |
 | **UML Class** | Domain models (Klassendiagramm) | Classes, interfaces, enumerations, inheritance, realization |
 | **ER** | Entity-relationship schemas | Entities, relationships, Chen or IE crow's-foot |
-| **Use Case** | Requirements (Anwendungsfalldiagramm) | Actors, system boundary, use cases, include / extend |
+| **Use Case** (`usecase`) | Requirements (Anwendungsfalldiagramm) | Actors, system boundary, use cases, include / extend |
 
 Architecture's optional `deployment-ownership` profile fails closed when authored owners, region placement, private database scope, or named crossings are missing; it is never implicit and does not inspect live infrastructure. See the [checked deployment proof](https://tt-a1i.github.io/archify/gallery.html#proof-deployment-ownership).
 
