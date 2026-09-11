@@ -14,7 +14,7 @@
 
 Archify is a Node.js rendering and validation system for Cursor, Claude Code, Codex CLI, and OpenCode. Agents produce typed JSON IR; Archify deterministically compiles it into HTML/SVG.
 
-- **Open it and present** — seven diagram types, four presets, dark/light themes, built-in brand marks, and finite motion
+- **Open it and present** — ten diagram types, four presets, dark/light themes, built-in brand marks, and finite motion
 - **Review architecture changes before merge** — compare two validated snapshots as Before / Delta / After, with exact added, removed, changed, moved, and rerouted facts
 - **Every interaction stays grounded** — search nodes, optionally open revision-verified source, trace upstream/downstream authored reach and exact routes, compare roles, and play guided stories without inventing topology
 - **One file, ready to trust and share** — typed JSON IR and deterministic checks produce self-contained HTML plus PNG, SVG, WebM, and 1200×630 share cards
@@ -141,6 +141,9 @@ Continue with focused requests such as `add Redis`, `move auth to the left`, or 
 | **Lifecycle** | States, retries, waits, terminal outcomes | States, events, retry and cancellation paths |
 | **Flowchart** | Algorithms and decision logic (DIN 66001 / ISO 5807 symbols) | Start/end, process, decision diamonds with labelled answers, I/O, subroutine calls, loops |
 | **Struktogramm** | Structured programs (Nassi-Shneiderman, DIN 66261) | Nested boxes for sequence, if/case, while/until/for loops, and exits — no arrows |
+| **UML Class** | Domain models (Klassendiagramm) | Classes, interfaces, enumerations, multiplicities, inheritance, realization, aggregation, composition |
+| **ER** | Entity-relationship schemas | Entities, relationships, Chen (min, max) or IE crow's-foot cardinalities |
+| **Use Case** | Requirements (Anwendungsfalldiagramm) | Primary and secondary actors, system boundary, verb-object use cases, «include» / «extend», generalization |
 
 Architecture's optional `deployment-ownership` profile fails closed when authored owners, region placement, private database scope, or named crossings are missing; it is never implicit and does not inspect live infrastructure. See the [checked deployment proof](https://tt-a1i.github.io/archify/gallery.html#proof-deployment-ownership).
 
