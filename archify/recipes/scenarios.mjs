@@ -377,6 +377,31 @@ const RAW_RECIPES = [
       prompt: '用 Archify erd 模式并设置 "notation": "crowsfoot" 绘制这张关系型数据模型。把每个实体写成 200px 的方框，attribute[] 列出 name / type / pk / fk / optional；在连线两端放基数符号（"one"、"zero-one"、"one-many"、"zero-many"、"many"）；对非标识关系设置 "identifying": false，让连线显示为虚线。每个实体必须列出至少一个主键，每条连线必须同时给出两端基数，两个方框之间的线段必须 ≥ 56px，保证两端基数符号都清晰可读。viewBox[0] 保持在 ≤ 1380，让 1440px 桌面投影下 9px 的成员文字仍 ≥ 6px。未知列或基数要标明，不要编造。',
     },
   },
+  {
+    id: 'network-plan', type: 'netzplan', proof: 'network-plan',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify netzplan mode to turn this project description into an activity-on-node network plan (DIN 69900 / CPM): [list the activities with their durations and the finish-to-start dependencies, in working days]. Place every activity on an explicit (col, row) grid with time flowing left to right, and let the renderer compute FAZ/FEZ/SAZ/SEZ, the total and free float, and the critical path. Mark unknown durations or dependencies instead of inventing them.' },
+      zh: { descriptionPrompt: '用 Archify Netzplan 模式把下面这段项目描述画成单代号网络图（DIN 69900 / CPM）：[列出各活动及其工期，以及它们之间完成—开始的依赖关系，单位为工作日]。把每个活动放在显式的 (col, row) 网格上，时间从左向右流动，让渲染器计算 FAZ/FEZ/SAZ/SEZ、总时差与自由时差，并标出关键路径。未知工期或依赖要标明，不要编造。' },
+    },
+    signals: [['Netzplan', 16], ['network plan', 16], ['critical path', 14], ['kritischer Pfad', 14], ['FAZ', 12], ['Pufferzeit', 12], ['float', 10], ['CPM', 12], ['project schedule', 12], ['DIN 69900', 12], ['Vorgangsknotennetzplan', 14], ['Netzplantechnik', 14], ['网络计划', 14], ['关键路径', 14], ['时差', 10], ['工期', 10], ['项目进度', 12]],
+    en: {
+      title: 'Project network plan', question: 'Which activities are on the critical path, and where is there float?',
+      summary: 'An activity-on-node network plan (DIN 69900 / CPM): activities with durations on an explicit grid, finish-to-start dependencies, and a computed schedule (FAZ/FEZ/SAZ/SEZ, total and free float) with the critical path highlighted.',
+      useWhen: 'Planning or documenting a project schedule, teaching Netzplantechnik for IHK project documentation, or answering which activities have zero float and where a delay moves the end date.',
+      avoidWhen: 'The audience needs a dated Gantt calendar, resource leveling, start-to-start or lag relations, or a milestone-only view — a network plan shows logic and float, not calendar dates.',
+      include: ['activities with durations', 'finish-to-start dependencies', 'computed FAZ/FEZ/SAZ/SEZ and GP/FP', 'the critical path (GP 0)'],
+      prompt: 'Use Archify netzplan mode to draw this project as an activity-on-node network plan (Vorgangsknotennetzplan, DIN 69900 / CPM). Place every activity on an explicit (col, row) grid with time flowing left to right, give each one a duration, and connect them with finish-to-start dependencies only. Let the renderer compute FAZ/FEZ/SAZ/SEZ and the total and free float, and keep the critical path (GP 0) unobstructed. Keep viewBox[0] ≤ 1380 so the 1440px desktop projection still leaves the 9px cell text ≥ 6px, route a second dependency out of a different side when one activity has two outgoing edges on the same side, and mark unknown durations or dependencies instead of inventing them.',
+    },
+    zh: {
+      title: '项目网络计划', question: '哪些活动位于关键路径上，哪些活动有浮动时间？',
+      summary: '单代号网络计划（DIN 69900 / CPM）：活动带工期并放在显式网格上，使用完成—开始依赖，由渲染器计算进度（FAZ/FEZ/SAZ/SEZ、总时差与自由时差）并高亮关键路径。',
+      useWhen: '适合编制或说明项目进度、IHK 项目文档中的网络计划技术教学，或回答哪些活动没有时差、哪里的延误会推迟结束日期。',
+      avoidWhen: '如果用户需要带日期的甘特日历、资源平衡、开始—开始或搭接关系，或只有里程碑的视图，请改用其他方式——网络计划展示的是逻辑与时差，不是日历日期。',
+      include: ['带工期的活动', '完成—开始依赖', '计算得到的 FAZ/FEZ/SAZ/SEZ 与 GP/FP', '关键路径（GP 0）'],
+      prompt: '用 Archify Netzplan 模式把这段项目画成单代号网络计划（Vorgangsknotennetzplan，DIN 69900 / CPM）。把每个活动放在显式的 (col, row) 网格上，时间从左向右流动，为每个活动标注工期，只用完成—开始依赖连接它们。让渲染器计算 FAZ/FEZ/SAZ/SEZ、总时差与自由时差，并保持关键路径（GP 0）畅通。viewBox[0] 保持在 ≤ 1380，让 1440px 桌面投影下 9px 的单元格文字仍 ≥ 6px；当一个活动在同侧有两条出边时，把其中一条改从另一侧引出；未知工期或依赖要标明，不要编造。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

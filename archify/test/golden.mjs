@@ -84,6 +84,7 @@ const GOLDEN = [
   ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
   ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
+  ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -201,6 +202,17 @@ expectFailure("crows-foot relation without toCardinality", 'erd',
     const rel = d.relations.find((r) => r.to === 'order');
     delete rel.toCardinality;
   }, 'needs toCardinality', 'order-crowsfoot.erd.json');
+expectFailure('netzplan dependency cycle is rejected', 'netzplan',
+  (d) => {
+    d.dependencies.push({ from: 'golive', to: 'requirements' });
+  }, 'cycle through');
+expectFailure('netzplan successor placed left of its predecessor is rejected', 'netzplan',
+  (d) => {
+    const training = d.activities.find((a) => a.id === 'training');
+    const requirements = d.activities.find((a) => a.id === 'requirements');
+    training.col = requirements.col;
+    training.row = requirements.row;
+  }, 'not placed further right');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

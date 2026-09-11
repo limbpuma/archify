@@ -16,6 +16,7 @@ against one of the schemas in this folder before any layout work happens.
 | `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
 | `uml-class.schema.json` | `diagram_type: "uml-class"` | `groups`, `classes`, `relations` |
 | `erd.schema.json` | `diagram_type: "erd"` | `nodes`, `relations` (Chen entities/relationships/attributes or IE crow's-foot entities with attribute lists) |
+| `netzplan.schema.json` | `diagram_type: "netzplan"` | `groups`, `activities`, `dependencies` (activity-on-node network plan, DIN 69900 / CPM) |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -80,6 +81,24 @@ crow's-foot `relations` require both cardinalities as one of `one`,
 `zero-one`, `one-many`, `zero-many`, or `many`, and may set
 `identifying: false` to draw the line dashed.
 
+Netzplan `meta` additionally accepts `unit` (appended to the duration
+cell, e.g. `5 d`), `start` (the project start, default `0`), `captions`
+(overrides for the `faz`, `fez`, `saz`, `sez`, `gp`, `fp`, and `d` cell
+captions), and a `grid` object with the same `colWidth` / `rowHeight` /
+`originX` / `originY` keys as Flowchart (defaults: `250×110` at `120,
+110`). Activities are activity-on-node boxes (170×66 by default, with
+`width` / `height` overrides) laid out as three rows — top `FAZ | D |
+FEZ`, middle `number label`, bottom `SAZ | GP | FP | SEZ`. `col` and
+`row` are bounded to `0..15`. `dependencies[]` are finish-to-start and
+reuse the shared routing vocabulary; the renderer computes
+`FAZ/FEZ/SAZ/SEZ` and the total and free float (`GP`/`FP`) on every
+render and marks a critical dependency with `variant: "emphasis"`
+automatically. The dependency graph must be acyclic, at least one
+activity must have no predecessor and one no successor, every successor
+must sit in a higher column than its predecessor (time flows left to
+right), and `viewBox[0]` must stay ≤ 1380 so the 1440 px desktop
+projection keeps the 9 px cell text ≥ 6 px.
+
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
 and an optional short `note`.
@@ -128,6 +147,7 @@ Supported keys are renderer-owned:
 | Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
 | UML Class | `class`, `abstract`, `interface`, `enum`, `association`, `aggregation`, `composition`, `inheritance`, `realization`, `dependency` |
 | ERD | `entity`, `weak-entity`, `relationship`, `attribute`, `key-attribute`, `derived-attribute`, `multivalued-attribute`, `one`, `zero-one`, `one-many`, `zero-many`, `many` |
+| Netzplan | `activity`, `critical` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
@@ -178,7 +198,7 @@ version; additive, backwards-compatible fields do not.
 
 ## Shared definitions (common.schema.json)
 
-The eight diagram schemas reference `common.schema.json#/$defs/...`:
+The ten diagram schemas reference `common.schema.json#/$defs/...`:
 
 - `id` — element identifiers, pattern `^[a-zA-Z][a-zA-Z0-9_-]*$`
 - `point` — an `[x, y]` pair of numbers (used by `via` and `labelAt`)
@@ -198,7 +218,7 @@ stays in `lifecycle.schema.json`.
 
 ## Runtime validation
 
-At development time, `scripts/generate-validators.mjs` compiles all eight
+At development time, `scripts/generate-validators.mjs` compiles all ten
 schemas with ajv's draft 2020-12 standalone generator using `strict: true` and
 `allErrors: true`. The generated `renderers/shared/generated-validators.mjs`
 is committed and shipped with the skill, so runtime validation has no npm or
@@ -221,7 +241,7 @@ exports carry no repository evidence.
 ## Visual quality and engineering truth
 
 `meta.quality_profile` and `meta.engineering_profile` answer different
-questions. `quality_profile` is available in all eight modes and controls how
+questions. `quality_profile` is available in all ten modes and controls how
 strictly Archify judges composition. `engineering_profile` is an optional
 Architecture-only semantic contract; omitting it preserves the ordinary v1
 behavior.

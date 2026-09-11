@@ -10,6 +10,7 @@ export const DIAGRAM_TYPES = Object.freeze([
   'flowchart',
   'struktogramm',
   'erd',
+  'netzplan',
 ]);
 
 export const DIAGRAM_TYPE_LABELS = Object.freeze({
@@ -25,6 +26,7 @@ export const DIAGRAM_TYPE_LABELS = Object.freeze({
     flowchart: 'Flowchart',
     struktogramm: 'Struktogramm',
     erd: 'ER diagram',
+    netzplan: 'Network plan',
   }),
   zh: Object.freeze({
     architecture: '架构图',
@@ -38,6 +40,7 @@ export const DIAGRAM_TYPE_LABELS = Object.freeze({
     flowchart: '流程图',
     struktogramm: '结构图',
     erd: '实体关系图',
+    netzplan: '网络计划',
   }),
 });
 

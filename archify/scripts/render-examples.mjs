@@ -20,6 +20,7 @@ const TARGETS = [
   ['uml-class', 'order-domain.uml-class.json', 'uml-class-order-domain.html'],
   ['erd', 'order-chen.erd.json', 'erd-order-chen.html'],
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
+  ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
 ];
 
 for (const [mode, input, output] of TARGETS) {

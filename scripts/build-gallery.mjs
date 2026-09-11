@@ -227,6 +227,19 @@ const CASES = [
     descriptionEn: 'An IE crow\'s-foot entity-relationship diagram: Customer, Order, OrderLine, Product and Category boxes list their attributes inline with PK / FK badges; lines carry one / zero-many cardinality glyphs and turn dashed when the relationship is non-identifying.',
     descriptionZh: 'IE Krähenfuß 实体关系图：Customer / Order / OrderLine / Product / Category 用方框列出属性并标注 PK / FK，连线两端带 one / zero-many 基数符号，非标识联系画虚线。',
   },
+  {
+    id: 'network-plan',
+    type: 'netzplan',
+    input: 'rollout.netzplan.json',
+    output: 'netzplan-rollout.html',
+    focus: 'requirements',
+    view: 'critical',
+    accent: '#4f46e5',
+    titleEn: 'Phone Order Rollout Network Plan',
+    titleZh: '电话下单上线网络计划',
+    descriptionEn: 'An activity-on-node network plan (DIN 69900 / CPM) for the AI phone agent rollout: the renderer computes FAZ/FEZ/SAZ/SEZ and the total and free float, then highlights the critical path from requirements through API v1, telephony and testing to go-live.',
+    descriptionZh: 'AI 电话代理上线的单代号网络计划（DIN 69900 / CPM）：渲染器计算 FAZ/FEZ/SAZ/SEZ、总时差与自由时差，并高亮从需求、API v1、电话集成、测试到上线的关键路径。',
+  },
 ];
 
 const SHAPES = {
@@ -239,6 +252,7 @@ const SHAPES = {
   struktogramm: ['blocks', null],
   'uml-class': ['classes', 'relations'],
   erd: ['nodes', 'relations'],
+  netzplan: ['activities', 'dependencies'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -252,6 +266,7 @@ const TYPE_ACCENTS = {
   struktogramm: '#0f766e',
   'uml-class': '#7c3aed',
   erd: '#0ea5e9',
+  netzplan: '#4f46e5',
 };
 
 function digest(buffer) {
