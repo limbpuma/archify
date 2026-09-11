@@ -18,16 +18,23 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(__dirname, '..');
 const renderer = path.join(skillRoot, 'renderers/uml-class/render-uml-class.mjs');
 
-function render(inputPath) {
-  const out = path.join(skillRoot, 'tmp-uml-class-test.html');
-  execFileSync(process.execPath, [renderer, inputPath, out]);
-  return out;
+// Memoize the example render so each test file invokes the renderer at most
+// once. Shared with the marker and end-label tests below.
+const EXAMPLE_HTML_PATH = path.join(skillRoot, 'tmp-uml-class-test.html');
+const EXAMPLE_INPUT = path.join(skillRoot, 'examples/order-domain.uml-class.json');
+let exampleHtml;
+function ensureExampleRendered() {
+  if (exampleHtml === undefined) {
+    execFileSync(process.execPath, [renderer, EXAMPLE_INPUT, EXAMPLE_HTML_PATH]);
+    exampleHtml = fs.readFileSync(EXAMPLE_HTML_PATH, 'utf8');
+  }
+  return exampleHtml;
 }
+process.on('exit', () => {
+  try { fs.rmSync(EXAMPLE_HTML_PATH, { force: true }); } catch {}
+});
 
-const example = JSON.parse(fs.readFileSync(
-  path.join(skillRoot, 'examples/order-domain.uml-class.json'),
-  'utf8',
-));
+const example = JSON.parse(fs.readFileSync(EXAMPLE_INPUT, 'utf8'));
 
 const HEADER_HEIGHT = 26;
 const STEREOTYPE_HEIGHT = 11;
@@ -62,12 +69,9 @@ function measureClass(node) {
 }
 
 test('uml-class example renders without errors', () => {
-  const input = path.join(skillRoot, 'examples/order-domain.uml-class.json');
-  const out = render(input);
-  const html = fs.readFileSync(out, 'utf8');
+  const html = ensureExampleRendered();
   assert.match(html, /<svg /);
   assert.match(html, /data-diagram-type="uml-class"|data-quality-profile="showcase"|diagram-guide/);
-  fs.unlinkSync(out);
 });
 
 test('class ids are unique and every relation references existing classes (rule 1)', () => {
@@ -224,8 +228,7 @@ test('box arithmetic: abstract classes keep the 26 px header (no stereotype line
 });
 
 test('marker per relation kind: solid/dashed + hollow/filled triangle/diamond/open arrow at `to`', () => {
-  const out = render(path.join(skillRoot, 'examples/order-domain.uml-class.json'));
-  const html2 = fs.readFileSync(out, 'utf8');
+  const html2 = ensureExampleRendered();
   // Marker definitions: the four ids the renderer registers
   assert.match(html2, /<marker id="uml-triangle"/);
   assert.match(html2, /<marker id="uml-diamond-hollow"/);
@@ -278,12 +281,10 @@ test('marker per relation kind: solid/dashed + hollow/filled triangle/diamond/op
   // The plain in_category association should also carry no marker
   const inCategory = html2.match(/<path[^>]*data-edge-id="in_category"[^>]*/)[0];
   assert.ok(!inCategory.includes('marker-end="url(#'), 'plain association "in_category" should carry no marker');
-  fs.unlinkSync(out);
 });
 
 test('end-label placement: multiplicity and role sit beside the line near each end', () => {
-  const out = render(path.join(skillRoot, 'examples/order-domain.uml-class.json'));
-  const html = fs.readFileSync(out, 'utf8');
+  const html = ensureExampleRendered();
   function endLabelGroup(id) {
     const matches = [...html.matchAll(new RegExp(`<g data-detail="context"[^>]*data-edge-id="${id}"[^>]*>[\\s\\S]*?</g>`, 'g'))];
     return matches.length > 1 ? matches[matches.length - 1][0] : matches[0]?.[0] || '';
@@ -301,7 +302,6 @@ test('end-label placement: multiplicity and role sit beside the line near each e
   const offersGroup = endLabelGroup('offers');
   assert.match(offersGroup, /x="1033"[^>]*y="322"[^>]*>1\.\.\*</);
   assert.match(offersGroup, /x="1033"[^>]*y="358"[^>]*>1</);
-  fs.unlinkSync(out);
 });
 
 test('shared geometry wiring: every viewBox size respects 1380 px width and 24/40/96 boundaries', () => {
