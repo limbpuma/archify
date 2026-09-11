@@ -246,7 +246,7 @@
     (function () {
       'use strict';
       var recipes = JSON.parse(document.getElementById('guide-data').textContent);
-      var types = ["architecture","workflow","sequence","dataflow","lifecycle","flowchart","struktogramm","uml-class","erd","usecase","activity"];
+      var types = ["architecture","workflow","sequence","dataflow","lifecycle"];
       var colors = { architecture:'#0891b2', workflow:'#047857', sequence:'#6d28d9', dataflow:'#b45309', lifecycle:'#be123c', flowchart:'#0d9488', struktogramm:'#0f766e', activity:'#0e7490' };
       var language = ArchifySiteLanguage.read();
       var activeType = 'all';
@@ -285,7 +285,7 @@
         document.getElementById('samples').innerHTML = t('samples').map(function (sample) { return '<button class="chip" type="button" data-query="'+escapeHtml(sample[1])+'">'+escapeHtml(sample[0])+'</button>'; }).join('');
       }
       function renderFilters() {
-        var labels = {"en":{"architecture":"Architecture","workflow":"Workflow","sequence":"Sequence","dataflow":"Data flow","lifecycle":"Lifecycle","flowchart":"Flowchart","struktogramm":"Struktogramm","uml-class":"UML class","erd":"ER diagram","usecase":"Use case","activity":"Activity"},"zh":{"architecture":"架构图","workflow":"工作流","sequence":"时序图","dataflow":"数据流","lifecycle":"生命周期","flowchart":"程序流程图","struktogramm":"结构图","uml-class":"UML 类图","erd":"实体关系图","usecase":"用例图","activity":"活动图"}};
+        var labels = {"en":{"architecture":"Architecture","workflow":"Workflow","sequence":"Sequence","dataflow":"Data flow","lifecycle":"Lifecycle"},"zh":{"architecture":"架构图","workflow":"工作流","sequence":"时序图","dataflow":"数据流","lifecycle":"生命周期"}};
         document.getElementById('filters').innerHTML = ['all'].concat(types).map(function (type) { return '<button class="filter '+(activeType === type ? 'active':'')+'" type="button" data-filter="'+type+'">'+escapeHtml(type === 'all' ? t('all') : labels[language][type])+'</button>'; }).join('');
       }
       function renderCards() {

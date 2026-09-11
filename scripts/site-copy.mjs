@@ -4,12 +4,6 @@ export const DIAGRAM_TYPES = Object.freeze([
   'sequence',
   'dataflow',
   'lifecycle',
-  'flowchart',
-  'struktogramm',
-  'uml-class',
-  'erd',
-  'usecase',
-  'activity',
 ]);
 
 export const DIAGRAM_TYPE_LABELS = Object.freeze({
@@ -19,12 +13,6 @@ export const DIAGRAM_TYPE_LABELS = Object.freeze({
     sequence: 'Sequence',
     dataflow: 'Data flow',
     lifecycle: 'Lifecycle',
-    flowchart: 'Flowchart',
-    struktogramm: 'Struktogramm',
-    'uml-class': 'UML class',
-    erd: 'ER diagram',
-    usecase: 'Use case',
-    activity: 'Activity',
   }),
   zh: Object.freeze({
     architecture: '架构图',
@@ -32,12 +20,6 @@ export const DIAGRAM_TYPE_LABELS = Object.freeze({
     sequence: '时序图',
     dataflow: '数据流',
     lifecycle: '生命周期',
-    flowchart: '程序流程图',
-    struktogramm: '结构图',
-    'uml-class': 'UML 类图',
-    erd: '实体关系图',
-    usecase: '用例图',
-    activity: '活动图',
   }),
 });
 
