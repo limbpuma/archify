@@ -132,6 +132,8 @@ Continue with focused requests such as `add Redis`, `move auth to the left`, or 
 
 ## Choose the right diagram
 
+This fork adds the German IHK Fachinformatiker set — flowchart, Struktogramm, UML class, ER, use case, activity, Netzplan, EPK — documented with rendered examples in [docs/ihk-diagram-types.md](docs/ihk-diagram-types.md).
+
 | Type | Best for | Include in your prompt |
 |---|---|---|
 | **Architecture** | Components, services, storage, boundaries | Scope, components, primary path |
