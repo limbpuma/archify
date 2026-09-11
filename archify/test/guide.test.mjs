@@ -8,15 +8,15 @@ import {
   recommendScenario,
 } from '../recipes/scenarios.mjs';
 
-test('guide: exposes 18 unique recipes across every diagram type', () => {
-  assert.equal(SCENARIO_RECIPES.length, 18);
-  assert.equal(new Set(SCENARIO_RECIPES.map((recipe) => recipe.id)).size, 18);
+test('guide: exposes 19 unique recipes across every diagram type', () => {
+  assert.equal(SCENARIO_RECIPES.length, 19);
+  assert.equal(new Set(SCENARIO_RECIPES.map((recipe) => recipe.id)).size, 19);
   assert.deepEqual(
-    Object.fromEntries(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'netzplan'].map((type) => [
+    Object.fromEntries(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'netzplan', 'activity'].map((type) => [
       type,
       SCENARIO_RECIPES.filter((recipe) => recipe.type === type).length,
     ])),
-    { architecture: 2, workflow: 3, sequence: 2, dataflow: 2, lifecycle: 2, flowchart: 1, struktogramm: 1, 'uml-class': 1, erd: 2, netzplan: 1 },
+    { architecture: 2, workflow: 3, sequence: 2, dataflow: 2, lifecycle: 2, flowchart: 1, struktogramm: 1, 'uml-class': 1, erd: 2, netzplan: 1, activity: 1 },
   );
 });
 
@@ -71,7 +71,7 @@ test('guide: exact ids win and unknown questions fall back honestly', () => {
 
 test('guide: public data includes both languages and weighted signals', () => {
   const data = publicGuideData();
-  assert.equal(data.length, 18);
+  assert.equal(data.length, 19);
   for (const recipe of data) {
     assert.ok(recipe.en.title);
     assert.ok(recipe.zh.title);

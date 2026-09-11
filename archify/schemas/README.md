@@ -18,6 +18,7 @@ against one of the schemas in this folder before any layout work happens.
 | `erd.schema.json` | `diagram_type: "erd"` | `nodes`, `relations` (Chen entities/relationships/attributes or IE crow's-foot entities with attribute lists) |
 | `usecase.schema.json` | `diagram_type: "usecase"` | `groups` (system boundary), `nodes` (actor, usecase), `relations` (association, include, extend, generalization) |
 | `netzplan.schema.json` | `diagram_type: "netzplan"` | `groups`, `activities`, `dependencies` (activity-on-node network plan, DIN 69900 / CPM) |
+| `activity.schema.json` | `diagram_type: "activity"` | `nodes` (initial, final, action, decision, merge, fork, join, object), `edges`, `lanes` |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -100,6 +101,25 @@ must sit in a higher column than its predecessor (time flows left to
 right), and `viewBox[0]` must stay ≤ 1380 so the 1440 px desktop
 projection keeps the 9 px cell text ≥ 6 px.
 
+Activity `meta` additionally accepts `grid` (default `colWidth: 230`,
+`rowHeight: 72`, `originX: 140`, `originY: 100`) and `lanes[]` with
+`cols: [start, end]` (inclusive column ranges that define vertical
+swimlanes from the column lattice). A node's centre is
+`originX + col * colWidth + dx` and `originY + row * rowHeight + dy`;
+the author owns placement and the renderer never moves a symbol. Each
+node must lie inside exactly one lane and below the lane header
+(`y ≥ 70`). Usable canvas is `x ∈ [24, viewBox[0] − 24]` and
+`y ∈ [40, viewBox[1] − 96]` (legend band). Keep `viewBox[0] ≤ 1380`
+so the 9px member text stays ≥ 6px at the 1440px desktop projection.
+`initial` has no incoming edge and exactly one outgoing edge;
+`final` has incoming edges only; `decision` needs ≥ 2 outgoing edges
+each carrying a guard label (the renderer auto-bracketed);
+`merge` joins ≥ 2 incoming edges into one outgoing edge;
+`fork`/`join` are bars with `orientation: "vertical"` (default
+horizontal); `action` carries `label` and optional `sublabel`.
+Guards on flows leaving a decision are written as `label` and rendered
+as `[label]` (brackets added when missing).
+
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
 and an optional short `note`.
@@ -150,6 +170,7 @@ Supported keys are renderer-owned:
 | ERD | `entity`, `weak-entity`, `relationship`, `attribute`, `key-attribute`, `derived-attribute`, `multivalued-attribute`, `one`, `zero-one`, `one-many`, `zero-many`, `many` |
 | Usecase | `actor`, `usecase`, `system`, `association`, `include`, `extend`, `generalization` |
 | Netzplan | `activity`, `critical` |
+| Activity | `initial`, `final`, `action`, `decision`, `merge`, `fork`, `join`, `object`, `lane` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and

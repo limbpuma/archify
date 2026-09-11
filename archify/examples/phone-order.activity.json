@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "diagram_type": "activity",
+  "meta": {
+    "title": "Phone Order Activity",
+    "subtitle": "UML activity diagram of one phone order with customer, AI agent and kitchen swimlanes",
+    "output": "examples/activity-phone-order.html",
+    "viewBox": [
+      1380,
+      790
+    ],
+    "grid": {
+      "colWidth": 230,
+      "rowHeight": 72,
+      "originX": 140,
+      "originY": 100
+    },
+    "lanes": [
+      {
+        "id": "customer",
+        "label": "CUSTOMER",
+        "cols": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "agent",
+        "label": "AI PHONE AGENT",
+        "cols": [
+          1,
+          3
+        ]
+      },
+      {
+        "id": "kitchen",
+        "label": "KITCHEN",
+        "cols": [
+          4,
+          4
+        ]
+      }
+    ],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "advise",
+        "label": "Greeting and opening check",
+        "focus": [
+          "start",
+          "greet",
+          "is_open",
+          "read_hours",
+          "end_closed"
+        ],
+        "note": "The agent greets, then reads the opening hours and ends the call when the restaurant is closed."
+      },
+      {
+        "id": "quote-loop",
+        "label": "Quote loop",
+        "focus": [
+          "merge_quote",
+          "quote",
+          "has_blockers",
+          "ask"
+        ],
+        "note": "Every answer produces a new quote until the quote has no blockers."
+      },
+      {
+        "id": "fulfil",
+        "label": "Confirmation and kitchen",
+        "focus": [
+          "confirm",
+          "fork_confirm",
+          "send_sms",
+          "prepare",
+          "join_done",
+          "end_done"
+        ],
+        "note": "After the customer confirms, the confirmation SMS and the kitchen work run in parallel."
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "start",
+      "kind": "initial",
+      "col": 0,
+      "row": 0
+    },
+    {
+      "id": "greet",
+      "kind": "action",
+      "label": "Greet and take wish",
+      "col": 2,
+      "row": 0
+    },
+    {
+      "id": "is_open",
+      "kind": "decision",
+      "label": "open?",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": "read_hours",
+      "kind": "action",
+      "label": "Read opening hours",
+      "col": 1,
+      "row": 1
+    },
+    {
+      "id": "end_closed",
+      "kind": "final",
+      "col": 1,
+      "row": 2
+    },
+    {
+      "id": "merge_quote",
+      "kind": "merge",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "quote",
+      "kind": "action",
+      "label": "Create quote",
+      "sublabel": "POST /api/v1/quote",
+      "col": 2,
+      "row": 3
+    },
+    {
+      "id": "has_blockers",
+      "kind": "decision",
+      "label": "blockers?",
+      "col": 2,
+      "row": 4
+    },
+    {
+      "id": "ask",
+      "kind": "action",
+      "label": "Ask for missing info",
+      "col": 3,
+      "row": 4,
+      "width": 160
+    },
+    {
+      "id": "confirm",
+      "kind": "action",
+      "label": "Confirm order",
+      "col": 0,
+      "row": 4
+    },
+    {
+      "id": "fork_confirm",
+      "kind": "fork",
+      "col": 2,
+      "row": 5
+    },
+    {
+      "id": "send_sms",
+      "kind": "action",
+      "label": "Send confirmation",
+      "col": 1,
+      "row": 6
+    },
+    {
+      "id": "prepare",
+      "kind": "action",
+      "label": "Prepare order",
+      "col": 4,
+      "row": 6
+    },
+    {
+      "id": "join_done",
+      "kind": "join",
+      "col": 2,
+      "row": 7
+    },
+    {
+      "id": "end_done",
+      "kind": "final",
+      "col": 2,
+      "row": 8
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "greet"
+    },
+    {
+      "from": "greet",
+      "to": "is_open"
+    },
+    {
+      "from": "is_open",
+      "to": "read_hours",
+      "label": "no"
+    },
+    {
+      "from": "read_hours",
+      "to": "end_closed"
+    },
+    {
+      "from": "is_open",
+      "to": "merge_quote",
+      "label": "yes",
+      "labelDy": 24
+    },
+    {
+      "from": "merge_quote",
+      "to": "quote"
+    },
+    {
+      "from": "quote",
+      "to": "has_blockers"
+    },
+    {
+      "from": "has_blockers",
+      "to": "ask",
+      "label": "yes"
+    },
+    {
+      "from": "ask",
+      "to": "merge_quote",
+      "fromSide": "top",
+      "toSide": "right",
+      "variant": "dashed"
+    },
+    {
+      "from": "has_blockers",
+      "to": "confirm",
+      "label": "no"
+    },
+    {
+      "from": "confirm",
+      "to": "fork_confirm",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "fork_confirm",
+      "to": "send_sms"
+    },
+    {
+      "from": "fork_confirm",
+      "to": "prepare"
+    },
+    {
+      "from": "send_sms",
+      "to": "join_done"
+    },
+    {
+      "from": "prepare",
+      "to": "join_done"
+    },
+    {
+      "from": "join_done",
+      "to": "end_done"
+    }
+  ],
+  "cards": []
+}

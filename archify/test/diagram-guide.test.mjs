@@ -22,6 +22,7 @@ const CASES = {
   erd: 'order-chen.erd.json',
   usecase: 'phone-ordering.usecase.json',
   netzplan: 'rollout.netzplan.json',
+  activity: 'phone-order.activity.json',
 };
 
 function render(mode, example) {

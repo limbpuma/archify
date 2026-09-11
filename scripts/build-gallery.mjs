@@ -253,6 +253,19 @@ const CASES = [
     descriptionEn: 'An activity-on-node network plan (DIN 69900 / CPM) for the AI phone agent rollout: the renderer computes FAZ/FEZ/SAZ/SEZ and the total and free float, then highlights the critical path from requirements through API v1, telephony and testing to go-live.',
     descriptionZh: 'AI 电话代理上线的单代号网络计划（DIN 69900 / CPM）：渲染器计算 FAZ/FEZ/SAZ/SEZ、总时差与自由时差，并高亮从需求、API v1、电话集成、测试到上线的关键路径。',
   },
+  {
+    id: 'phone-order',
+    type: 'activity',
+    input: 'phone-order.activity.json',
+    output: 'phone-order.activity.html',
+    focus: 'is_open',
+    view: 'advise',
+    accent: '#0e7490',
+    titleEn: 'Phone Order Activity',
+    titleZh: '电话下单活动图',
+    descriptionEn: 'A UML activity diagram of one phone order with vertical swimlanes for customer, AI agent and kitchen: opening check, quote loop, parallel confirmation and kitchen work, and two explicit terminal states.',
+    descriptionZh: '一段电话下单的 UML 活动图：用垂直泳道区分顾客、AI 代理和厨房，包含营业检查、报价循环、确认短信与厨房并行工作，以及两个明确的终态。',
+  },
 ];
 
 const SHAPES = {
@@ -267,6 +280,7 @@ const SHAPES = {
   erd: ['nodes', 'relations'],
   usecase: ['nodes', 'relations'],
   netzplan: ['activities', 'dependencies'],
+  activity: ['nodes', 'edges'],
 };
 
 // Print-depth type hues shared with the site palette (guide page uses the same map).
@@ -282,6 +296,7 @@ const TYPE_ACCENTS = {
   erd: '#0ea5e9',
   usecase: '#4f46e5',
   netzplan: '#4f46e5',
+  activity: '#0e7490',
 };
 
 function digest(buffer) {

@@ -427,6 +427,31 @@ const RAW_RECIPES = [
       prompt: '用 Archify Netzplan 模式把这段项目画成单代号网络计划（Vorgangsknotennetzplan，DIN 69900 / CPM）。把每个活动放在显式的 (col, row) 网格上，时间从左向右流动，为每个活动标注工期，只用完成—开始依赖连接它们。让渲染器计算 FAZ/FEZ/SAZ/SEZ、总时差与自由时差，并保持关键路径（GP 0）畅通。viewBox[0] 保持在 ≤ 1380，让 1440px 桌面投影下 9px 的单元格文字仍 ≥ 6px；当一个活动在同侧有两条出边时，把其中一条改从另一侧引出；未知工期或依赖要标明，不要编造。',
     },
   },
+  {
+    id: 'activity-flow', type: 'activity', proof: 'phone-order',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify activity mode to describe this process as a UML activity diagram with responsibilities: [paste the actors, key steps, decisions with their answers, parallel branches, and where the work ends]. Define vertical swimlanes by column range, keep exactly one initial node and at least one final node, place every node on an explicit (col, row) grid, label every outgoing decision edge with a guard like "[yes]" or "[no]", and use fork/join bars for parallel steps. Mark unknown steps or owners rather than inventing them.' },
+      zh: { descriptionPrompt: '用 Archify 活动图模式把这段流程画成带负责人的 UML 活动图：[粘贴参与者、关键步骤、决策及其答案、并行分支以及最终结束位置]。用列范围定义垂直泳道，保留一个初始节点和至少一个最终节点，把每个节点放在显式的 (col, row) 网格上，给每个决策的每条出边标注守卫（例如 "[yes]" 或 "[no]"），并行步骤使用 fork/join 条。未知步骤或负责人要标明，不要编造。' },
+    },
+    signals: [['activity diagram', 16], ['Aktivitätsdiagramm', 16], ['swimlane', 14], ['Schwimmbahn', 14], ['fork', 12], ['join', 12], ['parallel', 10], ['business process', 10], ['UML', 8], ['活动图', 16], ['泳道', 14], ['并行', 10], ['业务流程', 10], ['UML 活动', 14]],
+    en: {
+      title: 'Activity process flow', question: 'Who does each step, which branches run in parallel, and where does it end?',
+      summary: 'A UML activity diagram with vertical swimlanes defined by column ranges, rounded actions with optional sublabels, decision/merge diamonds with bracketed guards on every outgoing flow, and fork/join bars for parallel steps.',
+      useWhen: 'Documenting a business process, IHK Fachinformatiker-style process flow, or any process that needs visible ownership and parallel branches.',
+      avoidWhen: 'The audience needs component ownership, runtime call order, or an algorithm with arrows — use architecture, sequence, or flowchart instead.',
+      include: ['exactly one initial node and at least one final node', 'vertical swimlanes from column ranges', 'guards on every decision outgoing edge', 'fork/join bars for parallel branches'],
+      prompt: 'Use Archify activity mode to draw this process. Define one or more vertical swimlanes by column range so each lane names a clear responsibility (e.g. CUSTOMER, AI AGENT, KITCHEN), place every node on an explicit (col, row) grid, label every outgoing decision edge with a guard like "[yes]" or "[no]" (the renderer brackets them automatically), and use fork/join bars for parallel branches. Keep one obvious main path, ensure exactly one initial node and at least one final node, and keep viewBox[0] ≤ 1380 so the 1440px desktop projection leaves the 10px member text ≥ 6px. If a value is unknown, mark it instead of inventing one.',
+    },
+    zh: {
+      title: '活动流程', question: '每一步由谁负责，哪些分支并行运行，最终在哪里结束？',
+      summary: 'UML 活动图：用列范围定义垂直泳道，圆角动作节点可带子标签，决策/合并菱形的每条出边带括号守卫，并行分支使用 fork/join 条。',
+      useWhen: '适合记录业务流程、IHK Fachinformatiker 风格的流程图，或任何需要展示负责人和并行分支的流程。',
+      avoidWhen: '如果重点是组件归属、运行时调用顺序或带箭头的算法，请改用架构图、时序图或流程图。',
+      include: ['一个初始节点和至少一个最终节点', '由列范围定义的垂直泳道', '每个决策出边的守卫标签', '并行分支的 fork/join 条'],
+      prompt: '用 Archify 活动图模式绘制这段流程。用列范围定义一个或多个垂直泳道，让每个泳道对应一个明确的负责人（例如 CUSTOMER、AI AGENT、KITCHEN），把每个节点放在显式的 (col, row) 网格上，给每个决策的每条出边标注守卫（例如 "[yes]" 或 "[no]"，渲染器会自动加括号），并行分支使用 fork/join 条。保留一条明显的主路径，确保只有一个初始节点和至少一个最终节点，并保持 viewBox[0] ≤ 1380，让 1440px 桌面投影下 10px 的成员文字仍 ≥ 6px。未知值要标明，不要编造。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

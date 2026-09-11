@@ -86,6 +86,7 @@ const GOLDEN = [
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
   ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
   ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
+  ['activity', 'phone-order.activity.json', 'activity-phone-order.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -223,6 +224,16 @@ expectFailure('netzplan successor placed left of its predecessor is rejected', '
     training.col = requirements.col;
     training.row = requirements.row;
   }, 'not placed further right');
+expectFailure('decision branch without a guard label', 'activity',
+  (d) => {
+    const edge = d.edges.find((e) => e.from === 'has_blockers' && e.to === 'ask');
+    delete edge.label;
+  }, 'needs a guard label');
+expectFailure('two initial nodes in one activity', 'activity',
+  (d) => {
+    d.nodes.push({ id: 'start_b', kind: 'initial', col: 0, row: 6 });
+    d.edges.push({ from: 'end_done', to: 'start_b' });
+  }, 'exactly one initial node');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

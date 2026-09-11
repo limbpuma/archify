@@ -14,7 +14,7 @@
 
 Archify is a Node.js rendering and validation system for Cursor, Claude Code, Codex CLI, and OpenCode. Agents produce typed JSON IR; Archify deterministically compiles it into HTML/SVG.
 
-- **Open it and present** — eleven diagram types, four presets, dark/light themes, built-in brand marks, and finite motion
+- **Open it and present** — twelve diagram types, four presets, dark/light themes, built-in brand marks, and finite motion
 - **Review architecture changes before merge** — compare two validated snapshots as Before / Delta / After, with exact added, removed, changed, moved, and rerouted facts
 - **Every interaction stays grounded** — search nodes, optionally open revision-verified source, trace upstream/downstream authored reach and exact routes, compare roles, and play guided stories without inventing topology
 - **One file, ready to trust and share** — typed JSON IR and deterministic checks produce self-contained HTML plus PNG, SVG, WebM, and 1200×630 share cards
@@ -54,7 +54,7 @@ These are generated Archify artifacts, not product mockups. Click a frame to ope
 | [![Agent workflow playing one authored chapter](docs/assets/archify-demo-story.png)](https://tt-a1i.github.io/archify/gallery/artifacts/agent-tool-call.workflow.html?theme=dark&present=1&play=1#view=happy-path) | [![Cache-miss sequence showing the Web App to Postgres route](docs/assets/archify-demo-route.png)](https://tt-a1i.github.io/archify/gallery/artifacts/cache-miss.sequence.html?theme=dark&present=1#route=web~db) | [![Production architecture comparing backend and database roles](docs/assets/archify-demo-lens.png)](https://tt-a1i.github.io/archify/gallery/artifacts/production-deployment.architecture.html?theme=dark&present=1#lens=backend~database) |
 | Play one finite named chapter. | Inspect the shortest authored directed path. | Compare real traffic between semantic roles. |
 
-The [Proof Lab](https://tt-a1i.github.io/archify/gallery.html) contains all 18 checked-in scenarios, their JSON sources, named views, and validation receipts.
+The [Proof Lab](https://tt-a1i.github.io/archify/gallery.html) contains all 19 checked-in scenarios, their JSON sources, named views, and validation receipts.
 
 ### A real repository, mapped from source
 
@@ -147,6 +147,7 @@ This fork adds the German IHK Fachinformatiker set — flowchart, Struktogramm, 
 | **ER** `erd` | Data models, Chen or crow's foot | Entities, cardinalities |
 | **Use case** `usecase` | Requirements (Anwendungsfalldiagramm) | Actors, boundary, include/extend |
 | **Network plan** `netzplan` | Schedules, critical path (DIN 69900) | Activities, durations, dependencies |
+| **Activity** `activity` | Processes with swimlanes, fork/join (Aktivitätsdiagramm) | Actions, guards, lanes |
 
 Architecture's optional `deployment-ownership` profile fails closed when authored owners, region placement, private database scope, or named crossings are missing; it is never implicit and does not inspect live infrastructure. See the [checked deployment proof](https://tt-a1i.github.io/archify/gallery.html#proof-deployment-ownership).
 

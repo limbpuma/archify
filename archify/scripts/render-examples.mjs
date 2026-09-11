@@ -22,6 +22,7 @@ const TARGETS = [
   ['erd', 'order-crowsfoot.erd.json', 'erd-order-crowsfoot.html'],
   ['usecase', 'phone-ordering.usecase.json', 'usecase-phone-ordering.html'],
   ['netzplan', 'rollout.netzplan.json', 'netzplan-rollout.html'],
+  ['activity', 'phone-order.activity.json', 'activity-phone-order.html'],
 ];
 
 for (const [mode, input, output] of TARGETS) {
