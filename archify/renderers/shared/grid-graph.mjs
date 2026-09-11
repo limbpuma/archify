@@ -252,13 +252,17 @@ export function createGridGraph({
     return problems;
   }
 
-  function renderEdgePath(edge, index, { markerFor = null, classFor = null, strokeWidthFor = null } = {}) {
+  // markerFor may return null (a plain UML association has no arrowhead); extraAttrsFor adds
+  // per-relation presentation attributes such as a dash pattern.
+  function renderEdgePath(edge, index, { markerFor = null, classFor = null, strokeWidthFor = null, extraAttrsFor = null } = {}) {
     const [cls, marker] = arrowClassMap[edge.variant || 'default'] || arrowClassMap.default;
     const routed = pathFor(edge);
     const strokeWidth = edge.width || (strokeWidthFor ? strokeWidthFor(edge) : (edge.variant === 'emphasis' ? 2 : 1.2));
     const markerId = markerFor ? markerFor(edge, marker) : marker;
     const className = classFor ? classFor(edge, cls) : cls;
-    return `        <path ${focusEdgeAttrs(edge.from, edge.to, edge.label, index, edge.id)} data-composition-points="${routePointsValue(routed.points)}" d="${routed.d}" class="${className}" fill="none" stroke-width="${strokeWidth}" marker-end="url(#${markerId})"${animateAttr(diagram.meta, 'edge', index)}/>`;
+    const markerAttr = markerId ? ` marker-end="url(#${markerId})"` : '';
+    const extraAttrs = extraAttrsFor ? extraAttrsFor(edge) : '';
+    return `        <path ${focusEdgeAttrs(edge.from, edge.to, edge.label, index, edge.id)} data-composition-points="${routePointsValue(routed.points)}" d="${routed.d}" class="${className}" fill="none" stroke-width="${strokeWidth}"${markerAttr}${extraAttrs}${animateAttr(diagram.meta, 'edge', index)}/>`;
   }
 
   function renderEdgeLabel(edge, index) {

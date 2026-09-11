@@ -10,7 +10,13 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(__dirname, '..');
 
-const TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm']);
+const TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class']);
+
+// Mirrors renderers/shared/validator-names.mjs. The CLI must run from a bare
+// bin/ copy (doctor's incomplete-installation probe), so it cannot import it.
+function validatorExportName(diagramType) {
+  return String(diagramType).replace(/-([a-z0-9])/g, (_, character) => character.toUpperCase());
+}
 
 function usage() {
   return `Usage:
@@ -31,7 +37,7 @@ function usage() {
   archify demo [output-directory]
 
 Types:
-  architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm
+  architecture, workflow, sequence, dataflow, lifecycle, flowchart, struktogramm, uml-class
 `;
 }
 
@@ -1370,7 +1376,7 @@ async function commandDoctor() {
   if (validatorsExist) {
     try {
       const module = await import(`${pathToFileURL(validators).href}?doctor=${Date.now()}`);
-      validatorsValid = [...TYPES].every((type) => typeof module[type] === 'function');
+      validatorsValid = [...TYPES].every((type) => typeof module[validatorExportName(type)] === 'function');
     } catch {
       validatorsValid = false;
     }
@@ -1391,6 +1397,7 @@ async function commandDoctor() {
     lifecycle: 'agent-run.lifecycle.json',
     flowchart: 'order-call.flowchart.json',
     struktogramm: 'order-call.struktogramm.json',
+    'uml-class': 'order-domain.uml-class.json',
   };
 
   for (const type of TYPES) {
