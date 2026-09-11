@@ -80,6 +80,7 @@ const GOLDEN = [
   ['lifecycle', 'agent-run.lifecycle.json', 'lifecycle-agent-run.html'],
   ['architecture', 'web-app.architecture.json', 'web-app-rendered.html'],
   ['flowchart', 'order-call.flowchart.json', 'flowchart-order-call.html'],
+  ['struktogramm', 'order-call.struktogramm.json', 'struktogramm-order-call.html'],
 ];
 
 for (const [mode, input, golden] of GOLDEN) {
@@ -149,6 +150,17 @@ expectFailure('terminator with both incoming and outgoing edges', 'flowchart',
   (d) => {
     d.edges.push({ from: 'end_ok', 'to': 'start', label: 'loop' });
   }, 'incoming and outgoing');
+expectFailure('if block without else branch', 'struktogramm',
+  (d) => {
+    const target = d.blocks.find((b) => b.kind === 'if');
+    if (target) delete target.else;
+  }, 'needs both then and else');
+expectFailure('struktogramm text wider than its column', 'struktogramm',
+  (d) => {
+    const inner = d.blocks[0].then[0].else[0];
+    inner.kind = 'statement';
+    inner.text = 'X'.repeat(96);
+  }, 'does not fit');
 
 // ---------------------------------------------------------------------------
 console.log('template freshness (architecture example must carry the current template)');

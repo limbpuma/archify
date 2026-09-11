@@ -275,6 +275,31 @@ const RAW_RECIPES = [
       prompt: '用 Archify 流程图模式绘制这段算法。把每个符号放在显式的 (col, row) 网格上，使用 Grenzstelle、Verarbeitung、Verzweigung、Ein-/Ausgabe、Unterprogramm、Übergangsstelle 等符号。每个决策的每条出边都要标注答案（例如 "Yes"、"No"、"409 conflict"）。把循环回退到上一步，并显式画出异常退出。未知值要标明，不要编造。',
     },
   },
+  {
+    id: 'structured-program', type: 'struktogramm', proof: 'order-call',
+    presentation: { preset: 'classic', motion: 'trace', views: 'recommended' },
+    start: {
+      en: { descriptionPrompt: 'Use Archify struktogramm mode to describe this algorithm as a Nassi-Shneiderman diagram: [paste the steps, decisions, cases, while/until/for loops, subroutine calls, and exits]. Author a block tree with statement, io, call, if, case, while, until, for, and exit kinds, set split and weight for branches that need unequal widths, and never invent unknown values.' },
+      zh: { descriptionPrompt: '用 Archify 结构图模式把下面这段算法画成 Nassi-Shneiderman 图：[粘贴步骤、决策、分支、while/until/for 循环、子程序调用和退出]。使用 statement、io、call、if、case、while、until、for、exit 等块类型搭建块树，为需要不同宽度的分支设置 split 与 weight，未知值要标明不要编造。' },
+    },
+    signals: [['struktogramm', 16], ['nassi-shneiderman', 16], ['structured program', 14], ['nested blocks', 10], ['din 66261', 12], ['pseudocode', 9], ['结构图', 16], ['结构化程序图', 16], ['嵌套块', 10], ['DIN 66261', 12], ['伪代码', 9], ['nassi shneiderman', 14], ['box diagram', 8], ['IHK', 8], ['fachinformatiker', 10]],
+    en: {
+      title: 'Structured program (Struktogramm)', question: 'How does the algorithm nest, branch, and loop without arrows?',
+      summary: 'A Nassi-Shneiderman diagram (DIN 66261) made of nested boxes: sequence top to bottom, branching as a split box, loops as an L-shaped frame around their body. No edges, so no routing; the author owns the block tree and its proportions, the renderer owns box arithmetic.',
+      useWhen: 'Teaching structured programming, documenting an IHK Fachinformatiker-style algorithm, or handing an algorithm to engineering without the noise of arrows.',
+      avoidWhen: 'The audience needs explicit decision diamonds with labelled answers, real-time call order, or a state model — use flowchart, sequence, or lifecycle instead.',
+      include: ['statement / io / call rows', 'if and case branches with split / weight', 'while, until, and for loops with indented body', 'explicit exit blocks'],
+      prompt: 'Use Archify struktogramm mode to draw this algorithm as a Nassi-Shneiderman diagram. Author the nested block tree with statement, io, call, if, case, while, until, for, and exit kinds, set split and weight for branches that need unequal widths, and let the renderer own the box arithmetic. Keep one obvious main path, give every loop a clear exit condition, and shorten or widen texts so they fit their column at the 10px source size. If a value is unknown, mark it instead of inventing one.',
+    },
+    zh: {
+      title: '结构化程序图（Struktogramm）', question: '算法如何在没有箭头的情况下嵌套、分支和循环？',
+      summary: 'Nassi-Shneiderman 结构图（DIN 66261），由嵌套方框组成：顺序自上而下，分支用分叉框，循环用 L 形框包裹主体。没有连线，因此没有路由；作者拥有块树和比例，渲染器负责盒子计算。',
+      useWhen: '适合结构化编程教学、IHK Fachinformatiker 风格的算法说明，或在没有箭头噪音的前提下把算法交给工程团队。',
+      avoidWhen: '如果重点是带答案标签的决策菱形、实时调用顺序或对象状态，请改用流程图、时序图或生命周期图。',
+      include: ['statement / io / call 行', '带 split 与 weight 的 if 与 case 分支', '主体缩进的 while、until、for 循环', '明确的 exit 块'],
+      prompt: '用 Archify 结构图模式把这段算法画成 Nassi-Shneiderman 图。使用 statement、io、call、if、case、while、until、for、exit 搭建嵌套块树，为需要不同宽度的分支设置 split 与 weight，让渲染器负责盒子计算。保留一条明显的主路径，给每个循环清晰的退出条件，并在 10px 字号下保证文本能放下。未知值要标明，不要编造。',
+    },
+  },
 ];
 
 export const SCENARIO_RECIPES = Object.freeze(RAW_RECIPES.map((recipe) => Object.freeze({

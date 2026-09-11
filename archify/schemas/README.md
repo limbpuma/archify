@@ -13,6 +13,7 @@ against one of the schemas in this folder before any layout work happens.
 | `lifecycle.schema.json` | `diagram_type: "lifecycle"` | `lanes`, `states`, `transitions` |
 | `architecture.schema.json` | `diagram_type: "architecture"` | `components`, `boundaries`, `connections` |
 | `flowchart.schema.json` | `diagram_type: "flowchart"` | `groups`, `nodes`, `edges` |
+| `struktogramm.schema.json` | `diagram_type: "struktogramm"` | `blocks` (statement, io, call, if, case, while, until, for, exit) |
 | `common.schema.json` | shared `$defs` only (no top-level document) | — |
 
 Every diagram schema requires `schema_version`, `diagram_type`, `meta` (with
@@ -47,6 +48,16 @@ uses the same `colWidth` for symbol width checks and the same `rowHeight` for
 label-fit factors per symbol. `col` is bounded to `0..15` and `row` to
 `0..31`. Flowchart `nodes` accept the same `width`/`height` overrides as
 the other renderers so labels longer than the default footprint still fit.
+
+Struktogramm `meta` additionally accepts `layout` with `rowHeight`
+(default `34`, range `24..64`), `indent` (default `26`, range `12..60`),
+and `margin` (default `40`, range `16..120`). The author owns the block
+tree and its `split`/`weight` proportions; the renderer owns the box
+arithmetic. There are no edges and no routing vocabulary. Nested `blocks`
+` expose ids at every depth, so `meta.views` can focus any descendant
+id. Nesting depth is bounded to `6` and total rows to `40`. Text must
+fit its column at the 10px source size; shrink-to-fit is allowed down to
+8px only for `note`.
 
 It may also include up to five guided `views`. Each view has a unique `id`, a
 reader-facing `label`, a non-empty `focus` list of existing semantic node IDs,
@@ -93,6 +104,7 @@ Supported keys are renderer-owned:
 | Dataflow | `emphasis`, `security`, `dashed`, `database`, `default` |
 | Lifecycle | `start`, `active`, `waiting`, `decision`, `success`, `failure`, `neutral`, `external` |
 | Flowchart | `terminator`, `process`, `decision`, `io`, `subroutine`, `connector` |
+| Struktogramm | `statement`, `io`, `call`, `branch`, `loop`, `exit` |
 
 Labels are presentation only: they do not rename the stable kind, change
 nodes/relationships, or create Semantic Lens edge facts. Sequence message and
@@ -143,7 +155,7 @@ version; additive, backwards-compatible fields do not.
 
 ## Shared definitions (common.schema.json)
 
-The five diagram schemas reference `common.schema.json#/$defs/...`:
+The seven diagram schemas reference `common.schema.json#/$defs/...`:
 
 - `id` — element identifiers, pattern `^[a-zA-Z][a-zA-Z0-9_-]*$`
 - `point` — an `[x, y]` pair of numbers (used by `via` and `labelAt`)
@@ -163,7 +175,7 @@ stays in `lifecycle.schema.json`.
 
 ## Runtime validation
 
-At development time, `scripts/generate-validators.mjs` compiles all five
+At development time, `scripts/generate-validators.mjs` compiles all seven
 schemas with ajv's draft 2020-12 standalone generator using `strict: true` and
 `allErrors: true`. The generated `renderers/shared/generated-validators.mjs`
 is committed and shipped with the skill, so runtime validation has no npm or
@@ -186,7 +198,7 @@ exports carry no repository evidence.
 ## Visual quality and engineering truth
 
 `meta.quality_profile` and `meta.engineering_profile` answer different
-questions. `quality_profile` is available in all five modes and controls how
+questions. `quality_profile` is available in all seven modes and controls how
 strictly Archify judges composition. `engineering_profile` is an optional
 Architecture-only semantic contract; omitting it preserves the ordinary v1
 behavior.
