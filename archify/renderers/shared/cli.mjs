@@ -47,7 +47,7 @@ export async function loadDiagramWithBrandMarks(options) {
   return loaded;
 }
 
-const START_TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase']);
+const START_TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase', 'activity']);
 
 // Common CLI tail: fill the template and write the standalone HTML file.
 export function writeDiagram({ outPath, template, diagramType, meta, svg, cards, sourceEvidence = null }) {
@@ -80,6 +80,7 @@ const SEMANTIC_COLLECTIONS = {
   'uml-class': 'classes',
   erd: 'nodes',
   usecase: 'nodes',
+  activity: 'nodes',
 };
 
 const RELATIONSHIP_COLLECTIONS = {
@@ -92,6 +93,7 @@ const RELATIONSHIP_COLLECTIONS = {
   'uml-class': 'relations',
   erd: 'relations',
   usecase: 'relations',
+  activity: 'edges',
 };
 
 // Relationship IDs are optional for backwards compatibility, but once an

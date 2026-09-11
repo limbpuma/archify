@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const schemasDir = path.join(root, 'schemas');
 const output = path.join(root, 'renderers/shared/generated-validators.mjs');
-const diagramTypes = ['workflow', 'sequence', 'dataflow', 'lifecycle', 'architecture', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase'];
+const diagramTypes = ['workflow', 'sequence', 'dataflow', 'lifecycle', 'architecture', 'flowchart', 'struktogramm', 'uml-class', 'erd', 'usecase', 'activity'];
 
 const ajv = new Ajv2020({
   allErrors: true,
